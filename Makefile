@@ -21,6 +21,9 @@ clean:
 fclean: clean libftclean
 	rm $(NAME) -f
 re: fclean all
+libftclone:
+	rm -rf ./libft
+	git clone https://github.com/HADMARINE/libft.git
 libftcompile:
 	$(MAKE) -C libft
 libftclean:
