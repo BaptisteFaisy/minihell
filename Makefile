@@ -7,24 +7,25 @@ SRCS_RAW = main.c
 SRCS = $(addprefix $(DIR)/,$(SRCS_RAW)) \
 
 OBJS = $(SRCS:c=o)
-INCLUDES = -I./includes -I./libft
+INCLUDES = -I./includes -I./libft 
 
 DEBUG = 
 
-LIBFT = Libft/libft.a
+LIBFT = libft/libft.a
 
 all: $(NAME)
 $(NAME): ${LIBFT} $(OBJS)
-	$(CC) $(OBJS) $(DEBUG) -Llibft -l:libft.a -o $(NAME)
+	$(CC) $(OBJS) $(DEBUG) $(INCLUDES) -o $(NAME) -l:libft.a -Llibft 
 clean:
 	rm $(OBJS) $(OBJB) -f
 fclean: clean libftclean
 	rm $(NAME) -f
 re: fclean all
-libftcompile:
-	$(MAKE) -C libft
 libftclean:
 	$(MAKE) fclean -C libft
 
-%.o: %.c def.h
+${LIBFT}:
+	$(MAKE) -C libft
+
+%.o: %.c
 	$(CC) -c $< -o $@ $(DEBUG) $(CFLAGS) $(INCLUDES)
