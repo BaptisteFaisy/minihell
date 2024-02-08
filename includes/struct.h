@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
 /*   Updated: 2024/02/08 17:25:17 by bfaisy           ###   ########.fr       */
@@ -23,7 +23,7 @@
  * @param cmd - command
  * @param args - list of arguments
  * @param opts - list of options without hyphen (-), sorted by input order
- * 
+ * @param red_in - input redirection file
  * 
  */
 typedef struct s_cmd_args
