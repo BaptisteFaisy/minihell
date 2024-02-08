@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/08 16:27:07 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/08 16:42:37 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_cmd_args
 	char		*red_in_delim;
 	char		*red_out_append;
 	char		**envp;
-	t_cmd_args	*next;
+	struct s_cmd_args	*next;
 }	t_cmd_args;
 
 #endif
