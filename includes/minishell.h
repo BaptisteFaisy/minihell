@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/07 14:45:12 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/08 09:33:49 by lhojoon          ###   ########.fr       */
+/*   Created: 2024/02/08 09:50:28 by lhojoon           #+#    #+#             */
+/*   Updated: 2024/02/08 09:52:16 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/def.h"
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-int	main(int argc, char **argv, char **envp)
-{
-	while (!SIGQUIT && cmd != NULL)
-	{
-		
-	}
-	return (0);
-}
+# include "def.h"
+# include "struct.h"
+# include "libft.h"
+
+#endif

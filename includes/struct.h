@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/07 14:45:12 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/08 09:33:49 by lhojoon          ###   ########.fr       */
+/*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
+/*   Updated: 2024/02/08 09:50:17 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/def.h"
+#ifndef STRUCT_H
+# define STRUCT_H
 
-int	main(int argc, char **argv, char **envp)
+# include "libft.h"
+
+typedef struct jsp
 {
-	while (!SIGQUIT && cmd != NULL)
-	{
-		
-	}
-	return (0);
-}
+	char	*command;
+
+}	t_jsp;
+#endif
