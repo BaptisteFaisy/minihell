@@ -1,8 +1,6 @@
-NAME = Minishell
+NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3
-# -Imlx_linux -I/usr/include
-# -I/usr/include -Imlx-linux/lib -lmlx-linux/libmlx_Linux.a
 
 DIR = srcs
 SRCS_RAW = main.c
@@ -10,6 +8,8 @@ SRCS = $(addprefix $(DIR)/,$(SRCS_RAW)) \
 
 OBJS = $(SRCS:c=o)
 INCLUDES = -I./includes -I./libft
+
+DEBUG = 
 
 LIBFT = Libft/libft.a
 
@@ -30,4 +30,4 @@ libftclean:
 	$(MAKE) fclean -C libft
 
 %.o: %.c def.h
-	$(CC) -c $< -o $@ $(DEBUG) $(MINILIBX_FLAGS) $(CFLAGS) $(INCLUDES)
+	$(CC) -c $< -o $@ $(DEBUG) $(CFLAGS) $(INCLUDES)
