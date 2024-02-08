@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/08 09:50:17 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/08 16:27:07 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,28 @@
 
 # include "libft.h"
 
-typedef struct jsp
+/**
+ * @brief Structure for command args
+ * Fill up this structure from parsing part
+ * Use this structure from execution part
+ * 
+ * @param cmd - command
+ * @param args - list of arguments
+ * @param opts - list of options without hyphen (-), sorted by input order
+ * 
+ * 
+ */
+typedef struct s_cmd_args
 {
-	char	*command;
+	char		*cmd;
+	t_list		*args;
+	t_list		*opts;
+	char		*red_in;
+	char		*red_out;
+	char		*red_in_delim;
+	char		*red_out_append;
+	char		**envp;
+	t_cmd_args	*next;
+}	t_cmd_args;
 
-}	t_jsp;
 #endif
