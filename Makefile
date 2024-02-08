@@ -1,6 +1,6 @@
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror
 
 DIR = srcs
 SRCS_RAW = main.c
@@ -21,9 +21,6 @@ clean:
 fclean: clean libftclean
 	rm $(NAME) -f
 re: fclean all
-libftclone:
-	rm -rf ./libft
-	git clone https://github.com/HADMARINE/libft.git
 libftcompile:
 	$(MAKE) -C libft
 libftclean:
