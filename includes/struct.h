@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/08 16:42:37 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/08 17:25:17 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ typedef struct s_cmd_args
 	char		*cmd;
 	t_list		*args;
 	t_list		*opts;
-	char		*red_in;
-	char		*red_out;
-	char		*red_in_delim;
-	char		*red_out_append;
+	t_list		*red_in; // mettre le fichier dedans
+	t_list		*red_out; // mettre le fichier dedans
+	t_list		*red_in_delim; // mettre la chose apres les << sinon NULL
+	t_list		*red_out_append; // mettre le fichier dedans sinon NULL
 	char		**envp;
 	struct s_cmd_args	*next;
 }	t_cmd_args;
