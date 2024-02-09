@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 14:45:12 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/08 17:40:09 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/08 20:54:19 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,16 @@
 int	main(int ac, char **av, char **ev)
 {
 	char	*str;
-	(void)ac ;(void)av; (void)ev;
+
+	(void)av;
+	if (ac != 1)
+		return (1);
 	while (1)
 	{
 		write(1, "$> ", 3);
 		str = get_next_line(0);
-		parsing(str);
+		if (parsing(str, ev) == 0)
+			continue ;
 		if (ft_strncmp(str, "exit", 4) == 0)
 		{
 			free(str);
