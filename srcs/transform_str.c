@@ -1,49 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   transform_str.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 17:22:18 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/09 20:39:44 by bfaisy           ###   ########.fr       */
+/*   Created: 2024/02/09 19:21:19 by bfaisy            #+#    #+#             */
+/*   Updated: 2024/02/09 20:55:47 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "def.h"
 
-int	parsing(char *str, char **ev)
+char	*transform_str(char *str)
 {
-	int			i;
-	t_cmd_args	*head;
-	int			return_value;
+	char	*new_str;
+	int		i;
+	int		cond;
+	int		j;
 
 	i = 0;
-	head = NULL;
-	str = transform_str(str);
-	head = create_node_cmd(head, ev);
+	cond = FALSE;
+	j = 0;
+	new_str = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	if (!new_str)
+		exit (1);
 	while (str[i])
 	{
-		while (str[i] == ' ')
-			i++;
-		if (str[i] == '<' || str[i] == '>')
+		if (str[i] == ' ' && cond == FALSE)
 		{
-			return_value = redirect(str, i, head->redirect);
-			if (return_value == -1)
-			{
-				perror("help");
-				return (0);
-			}
-			if (return_value == 0)
-				break ;
-			i += return_value;
+			cond = TRUE;
+			new_str[j] = str[i];
+			j++;
 		}
-		else
+		else if (str[i] != ' ')
 		{
-			i++;
+			cond = FALSE;
+			new_str[j] = str[i];
+			j++;
 		}
+		i++;
 	}
-	free(head);
-	free(str);
-	return (1);
+	while (j != (int)ft_strlen(str) + 1)
+	{
+		new_str[j] = '\0';
+		j++;
+	}
+	return (new_str);
 }
