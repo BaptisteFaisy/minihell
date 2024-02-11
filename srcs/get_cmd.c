@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution_main.c                                   :+:      :+:    :+:   */
+/*   get_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 17:37:49 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/10 20:06:27 by lhojoon          ###   ########.fr       */
+/*   Created: 2024/02/10 20:38:23 by lhojoon           #+#    #+#             */
+/*   Updated: 2024/02/10 21:08:05 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	execution(t_cmd_args *cargs)
+char	*get_cmd(t_cmd_args *cargs)
 {
-	t_exec_info	exec_info;
+	char	*tmp;
+	char	*c;
 
-	if (!init_redirect_files(cargs, &exec_info))
-		return (EXEC_FAILURE);
-	return (EXEC_SUCCESS);
+	while (*paths)
+	{
+		tmp = ft_strjoin(*paths, "/");
+		c = ft_strjoin(tmp, cmd);
+		free(tmp);
+		if (access(c, 0) == 0)
+			return (c);
+		free(c);
+		paths++;
+	}
+	return (NULL);
 }

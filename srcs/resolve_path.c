@@ -1,22 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution_main.c                                   :+:      :+:    :+:   */
+/*   resolve_path.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 17:37:49 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/10 20:06:27 by lhojoon          ###   ########.fr       */
+/*   Created: 2024/02/10 20:30:01 by lhojoon           #+#    #+#             */
+/*   Updated: 2024/02/10 20:38:11 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	execution(t_cmd_args *cargs)
+static char	*get_path_str(char *envp[])
 {
-	t_exec_info	exec_info;
+	while (*envp && ft_strncmp("PATH", *envp, 4))
+		envp++;
+	if (!*envp)
+		return (NULL);
+	return (*envp + 5);
+}
 
-	if (!init_redirect_files(cargs, &exec_info))
-		return (EXEC_FAILURE);
-	return (EXEC_SUCCESS);
+char	**resolve_path(char *envp[])
+{
+	char	*path_str;
+	char	**paths;
+
+	path_str = get_path_str(envp);
+	if (!path_str)
+		return (NULL);
+	paths = ft_split(path_str, ':');
+	return (paths);
 }

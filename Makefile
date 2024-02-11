@@ -3,7 +3,17 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 DIR = srcs
-SRCS_RAW = main.c data_after.c node.c parsing.c redirect.c
+SRCS_RAW =	main.c \
+			data_after.c \
+			node.c \
+			parsing.c \
+			redirect.c \
+			execution_main.c \
+			utils.c \
+			redirect_open.c \
+			init_redirect_files.c \
+			resolve_path.c \
+			get_cmd.c
 SRCS = $(addprefix $(DIR)/,$(SRCS_RAW)) \
 
 OBJS = $(SRCS:c=o)
