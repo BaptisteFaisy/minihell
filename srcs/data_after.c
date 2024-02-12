@@ -6,46 +6,39 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:38:41 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/08 21:08:32 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/09 17:55:45 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "def.h"
 
+char	*concatenation(char *str, char c);
+
 char	*data_after(char *str, int i)
 {
 	char	*data;
 	int		cond;
-	char	*ptr;
 
 	cond = FALSE;
-	ptr = NULL;
-	while (str[i] == ' ')
+	data = NULL;
+	while (str[i] == ' ' || str[i] == '<' || str[i] == '>')
 			i++;
 	while (str[i])
 	{
 		if (str[i] == '|')
-		{
-			if (str[i + 1] == '|')
-			{
-				if (cond == TRUE)
-					return (data);
-				else
-					return (((void *)0));
-			}
-			else
-			{
-				return ((void *)-1);
-			}
-		}
+			return (data);
 		else
 		{
-			cond = TRUE;
-			*ptr = str[i];
-			data = ft_strjoin(data, ptr);
-			if (!data)
-				exit(1);
+			if (str[i] == ' ')
+				cond = TRUE;
+			else if (cond == FALSE)
+			{
+				data = concatenation(data, str[i]);
+				if (!data)
+					exit(1);
+			}
 		}
+		i++;
 	}
 	return (data);
 }
@@ -62,5 +55,34 @@ int	find_next_pipe(char *str, int i)
 		j++;
 		i++;
 	}
-	return (-1);
+	return (0);
+}
+
+char	*concatenation(char *str, char c)
+{
+	char	*new_str;
+	int		i;
+
+	i = 0;
+	if (str)
+	{
+		new_str = malloc(sizeof(char) * (ft_strlen(str) + 2));
+		if (!new_str)
+			exit (1);
+		ft_strlcpy(new_str, str, ft_strlen(str) + 2);
+		while (str[i])
+			i++;
+		new_str[i] = c;
+		new_str[i + 1] = '\0';
+		free(str);
+	}
+	else
+	{
+		new_str = malloc(sizeof(char) * 2);
+		if (!new_str)
+			exit(1);
+		new_str[0] = c;
+		new_str[1] = '\0';
+	}
+	return (new_str);
 }
