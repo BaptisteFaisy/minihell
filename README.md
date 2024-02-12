@@ -10,3 +10,12 @@ https://github.com/appinha/42cursus-03-minishell
 
 
 TODO : Make ft_strjoin_many
+
+~~EXEC~~
+
+pipe
+
+if args->next exist, do pipe
+
+pipefd[0] : le bout de lecture
+pipefd[1] : le bout d’écriture

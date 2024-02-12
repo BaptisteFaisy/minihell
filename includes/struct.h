@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/12 10:50:45 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/12 12:32:37 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_exec_info
 	t_red			redirect;
 	char			**paths;
 	char			*cmd;
+	int				tube[2];
 }	t_exec_info;
 
 #endif

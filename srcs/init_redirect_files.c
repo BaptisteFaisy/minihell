@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:06:04 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/12 12:11:06 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/12 12:26:47 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static bool	iter_redirect_file(t_list *files,
 	int	fd;
 	int	*pfd;
 
+	*infos = NULL;
 	while (files)
 	{
 		fd = redirect_open((char *)files->content, aflag, oflag);

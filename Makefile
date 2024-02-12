@@ -15,7 +15,8 @@ SRCS_RAW =	main.c \
 			resolve_path.c \
 			get_cmd.c \
 			init_t_exec_info.c \
-			transform_str.c
+			transform_str.c \
+			iter_exec.c
 SRCS = $(addprefix $(DIR)/,$(SRCS_RAW)) \
 
 OBJS = $(SRCS:c=o)
