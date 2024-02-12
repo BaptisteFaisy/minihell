@@ -13,7 +13,8 @@ SRCS_RAW =	main.c \
 			redirect_open.c \
 			init_redirect_files.c \
 			resolve_path.c \
-			get_cmd.c
+			get_cmd.c \
+			init_t_exec_info.c
 SRCS = $(addprefix $(DIR)/,$(SRCS_RAW)) \
 
 OBJS = $(SRCS:c=o)

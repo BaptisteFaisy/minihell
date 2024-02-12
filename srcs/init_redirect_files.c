@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:06:04 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/10 20:29:08 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/12 12:11:06 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 
 static void	print_error(char *err)
 {
-	perror(ft_strjoin(SHELL_NAME, ft_strjoin(": ", err)));
+	char	*s;
+
+	s = ft_strjoin_many(3, SHELL_NAME, ": ", err);
+	perror(s);
+	free(s);
 }
 
 static bool	iter_redirect_file(t_list *files,

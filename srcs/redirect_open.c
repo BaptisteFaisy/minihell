@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:27:50 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/10 19:59:06 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/12 12:09:26 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 static void	print_error(char *path, char *err)
 {
-	perror(ft_strjoin(SHELL_NAME, ft_strjoin(": ", ft_strjoin(path,
-					ft_strjoin(": ", err)))));
+	char	*s;
+
+	s = ft_strjoin_many(5, SHELL_NAME, ": ", path, ": ", err);
+	perror(s);
+	free(s);
 }
 
 // TODO : Verify all existing errors

@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/10 20:06:58 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/12 10:46:39 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,7 @@ int			find_next_pipe(char *str, int i);
 // Execution part
 int			execution(t_cmd_args *cmd_args);
 bool		init_redirect_files(t_cmd_args *cargs, t_exec_info *info);
+void		init_t_exec_info(t_exec_info *var);
+char		**resolve_path(char *envp[]);
 
 #endif
