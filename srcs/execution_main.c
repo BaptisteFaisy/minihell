@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:37:49 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/12 16:26:55 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/12 19:22:36 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,7 @@ int	execution(t_cmd_args *cargs)
 		return (EXEC_FAILURE);
 	if (!init_redirect_files(cargs, &exec_info))
 		return (EXEC_FAILURE); // TODO : free exec_info
+	exec_info.cmd = get_cmd(cargs, &exec_info);
+	// cargs->redirect = init_redirect_files
 	return (EXEC_SUCCESS);
 }

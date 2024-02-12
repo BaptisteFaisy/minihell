@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:27:50 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/12 12:09:26 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/12 19:23:28 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static bool	access_file(char *path, int type)
 	access_result = access(path, type);
 	if (access_result == 0)
 		return (true);
-	if (access_result == EACCES)
+	if (errno == EACCES)
 		print_error(path, ERR_ACCESS);
-	else if (access_result == ENOENT)
+	else if (errno == ENOENT)
 		print_error(path, ERR_NOENT);
 	else
 		print_error(path, ERR_UNKNOWN);
@@ -40,10 +40,10 @@ static bool	access_file(char *path, int type)
 
 /**
  * @brief Open file for redirection
- * @param path - path to file
- * @param access_flag - access flag, refer : https://shorturl.at/bflq8
- * @param open_flag - open flag, refer : https://shorturl.at/fwPWY
- * @return int
+ * @param path path to file
+ * @param access_flag access flag, refer : https://shorturl.at/bflq8
+ * @param open_flag open flag, refer : https://shorturl.at/fwPWY
+ * @return int File descriptor, -1 when error
  * -1 When Error
 */
 int	redirect_open(char *path, int access_flag, int open_flag)
@@ -52,7 +52,7 @@ int	redirect_open(char *path, int access_flag, int open_flag)
 
 	if (!access_file(path, access_flag))
 		return (-1);
-	fd = open(path, open_flag);
+	fd = open(path, open_flag, S_IRWXU);
 	if (fd < 0)
 		return (print_error(path, ERR_OPEN), -1);
 	return (fd);

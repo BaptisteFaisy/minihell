@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:06:04 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/12 12:26:47 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/12 17:13:46 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,17 @@ bool	init_redirect_files(t_cmd_args *cargs, t_exec_info *info)
 		return (false);
 	if (iter_redirect_file(cargs->redirect.red_out, &info->redirect.red_out,
 			F_OK, O_WRONLY | O_CREAT | O_TRUNC) == false)
-		return (ft_lstclear(info->redirect.red_in, free), false);
+		return (ft_lstclear(&info->redirect.red_in, free), false);
 	if (iter_redirect_file(cargs->redirect.red_in_delim,
 			&info->redirect.red_in_delim, F_OK, O_WRONLY | O_CREAT | O_APPEND)
 		== false)
-		return (ft_lstclear(info->redirect.red_in, free),
-			ft_lstclear(info->redirect.red_out, free), false);
+		return (ft_lstclear(&info->redirect.red_in, free),
+			ft_lstclear(&info->redirect.red_out, free), false);
 	if (iter_redirect_file(cargs->redirect.red_out_append,
 			&info->redirect.red_out_append, F_OK, O_WRONLY | O_CREAT | O_APPEND)
 		== false)
-		return (ft_lstclear(info->redirect.red_in, free),
-			ft_lstclear(info->redirect.red_out, free),
-			ft_lstclear(info->redirect.red_in_delim, free), false);
+		return (ft_lstclear(&info->redirect.red_in, free),
+			ft_lstclear(&info->redirect.red_out, free),
+			ft_lstclear(&info->redirect.red_in_delim, free), false);
 	return (true);
 }

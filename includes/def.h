@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/12 10:46:39 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/12 19:19:03 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 # include <term.h>
 # include <stdbool.h>
 # include "struct.h"
+# include <errno.h>
 
 // Prototypes
 
@@ -60,5 +61,8 @@ int			execution(t_cmd_args *cmd_args);
 bool		init_redirect_files(t_cmd_args *cargs, t_exec_info *info);
 void		init_t_exec_info(t_exec_info *var);
 char		**resolve_path(char *envp[]);
+int			redirect_open(char *path, int access_flag, int open_flag);
+bool		is_builtin(char *cmd);
+char		*get_cmd(t_cmd_args *cargs, t_exec_info *info);
 
 #endif
