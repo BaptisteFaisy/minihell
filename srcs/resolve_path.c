@@ -1,36 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   resolve_path.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/07 14:45:12 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/08 20:54:19 by bfaisy           ###   ########.fr       */
+/*   Created: 2024/02/10 20:30:01 by lhojoon           #+#    #+#             */
+/*   Updated: 2024/02/10 20:38:11 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av, char **ev)
+static char	*get_path_str(char *envp[])
 {
-	char	*str;
+	while (*envp && ft_strncmp("PATH", *envp, 4))
+		envp++;
+	if (!*envp)
+		return (NULL);
+	return (*envp + 5);
+}
 
-	(void)av;
-	if (ac != 1)
-		return (1);
-	while (1)
-	{
-		write(1, "$> ", 3);
-		str = get_next_line(0);
-		if (parsing(str, ev) == 0)
-			continue ;
-		if (ft_strncmp(str, "exit", 4) == 0)
-		{
-			free(str);
-			return (0);
-		}
-		free(str);
-	}
-	return (0);
+char	**resolve_path(char *envp[])
+{
+	char	*path_str;
+	char	**paths;
+
+	path_str = get_path_str(envp);
+	if (!path_str)
+		return (NULL);
+	paths = ft_split(path_str, ':');
+	return (paths);
 }

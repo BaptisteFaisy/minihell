@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init_t_exec_info.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/07 14:45:12 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/08 20:54:19 by bfaisy           ###   ########.fr       */
+/*   Created: 2024/02/12 10:42:21 by lhojoon           #+#    #+#             */
+/*   Updated: 2024/02/12 10:43:59 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av, char **ev)
+void	init_t_exec_info(t_exec_info *var)
 {
-	char	*str;
-
-	(void)av;
-	if (ac != 1)
-		return (1);
-	while (1)
-	{
-		write(1, "$> ", 3);
-		str = get_next_line(0);
-		if (parsing(str, ev) == 0)
-			continue ;
-		if (ft_strncmp(str, "exit", 4) == 0)
-		{
-			free(str);
-			return (0);
-		}
-		free(str);
-	}
-	return (0);
+	var->redirect.red_in = NULL;
+	var->redirect.red_in_delim = NULL;
+	var->redirect.red_out = NULL;
+	var->redirect.red_out_append = NULL;
+	var->paths = NULL;
 }

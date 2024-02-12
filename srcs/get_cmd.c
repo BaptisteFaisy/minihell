@@ -1,36 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/07 14:45:12 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/08 20:54:19 by bfaisy           ###   ########.fr       */
+/*   Created: 2024/02/10 20:38:23 by lhojoon           #+#    #+#             */
+/*   Updated: 2024/02/12 10:53:12 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av, char **ev)
+// TODO : Verify if I have to verify cmd itself (ex. if /usr/bin/echo is received as command...)
+char	*get_cmd(t_cmd_args *cargs, t_exec_info *info)
 {
-	char	*str;
+	char	*tmp;
+	char	*c;
+	char	**paths;
 
-	(void)av;
-	if (ac != 1)
-		return (1);
-	while (1)
+	paths = info->paths;
+	while (*paths)
 	{
-		write(1, "$> ", 3);
-		str = get_next_line(0);
-		if (parsing(str, ev) == 0)
-			continue ;
-		if (ft_strncmp(str, "exit", 4) == 0)
-		{
-			free(str);
-			return (0);
-		}
-		free(str);
+		tmp = ft_strjoin(*paths, "/");
+		c = ft_strjoin(tmp, cargs->cmd);
+		free(tmp);
+		if (access(c, 0) == 0)
+			return (c);
+		free(c);
+		paths++;
 	}
-	return (0);
+	return (NULL);
 }
