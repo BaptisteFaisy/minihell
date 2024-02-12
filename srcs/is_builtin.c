@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   iter_exec.c                                        :+:      :+:    :+:   */
+/*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/12 12:30:42 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/12 14:16:40 by lhojoon          ###   ########.fr       */
+/*   Created: 2024/02/12 14:13:01 by lhojoon           #+#    #+#             */
+/*   Updated: 2024/02/12 14:16:35 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	iter_exec(t_cmd_args *cargs, t_exec_info info)
+bool	is_builtin(char *cmd)
 {
-	if (cargs->next)
-		pipe(info.tube);
 	// TODO
 }
