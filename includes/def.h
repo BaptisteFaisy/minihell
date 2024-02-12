@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/12 10:46:39 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/12 16:36:40 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,19 @@
 # include <term.h>
 # include <stdbool.h>
 # include "struct.h"
+# include <stdbool.h>
 
-// Prototypes
-
-// Parsing part
-int			redirect(char *str, int i, t_red redirect);
-void		create_firstnode_and_put(t_list **head, char *data);
-int			create_node_and_put(t_list **head, char *data);
-int			parsing(char *str, char **ev);
-t_cmd_args	*create_node_cmd(t_cmd_args *head, char **ev);
-char		*data_after(char *str, int i);
-int			find_next_pipe(char *str, int i);
-char		*transform_str(char *str);
+int				redirect(char *str, int i, t_red *redirect);
+void			create_firstnode_and_put(t_list **head, char *data);
+int				create_node_and_put(t_list **head, char *data);
+int				parsing(char *str, char **ev);
+t_cmd_args		*create_node_cmd(t_cmd_args *head, char **ev);
+t_string_and_i	data_after(char *str, int i);
+int				find_next_pipe(char *str, int i);
+char			*transform_str(char *str);
+void			freered(t_red redirect);
+void			freelist(t_list *head);
+void			freeheadcmd(t_cmd_args *head);
 
 // Execution part
 int			execution(t_cmd_args *cmd_args);

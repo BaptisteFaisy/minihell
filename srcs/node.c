@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:43:01 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/09 20:57:00 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/12 16:23:32 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,22 @@ t_cmd_args	*create_node_cmd(t_cmd_args *head, char **ev)
 	head->cmd = NULL;
 	head->envp = ev;
 	head->next = NULL;
-	head->opts = NULL;
 	return (head);
+}
+
+void	freeheadcmd(t_cmd_args *head)
+{
+	t_cmd_args	*tmp;
+
+	while (head)
+	{
+		tmp = head;
+		head = head->next;
+		freered(tmp->redirect);
+		free(tmp->cmd);
+		freelist(tmp->args);
+		free(tmp);
+	}
 }
 
 void	create_firstnode_and_put(t_list **head, char *data)
@@ -44,11 +58,14 @@ void	create_firstnode_and_put(t_list **head, char *data)
 
 int	create_node_and_put(t_list **head, char *data)
 {
-	(*head) = get_last(*head);
-	(*head)->next = malloc(sizeof(t_list));
-	if (!(*head)->next)
+	t_list	*tmp;
+
+	tmp = *head;
+	tmp = get_last(tmp);
+	(tmp)->next = malloc(sizeof(t_list));
+	if (!(tmp)->next)
 		return (-1);
-	(*head)->next->content = data;
+	(tmp)->next->content = data;
 	return (0);
 }
 

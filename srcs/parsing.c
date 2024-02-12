@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:22:18 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/09 20:39:44 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/12 15:52:55 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int	parsing(char *str, char **ev)
 {
-	int			i;
-	t_cmd_args	*head;
-	int			return_value;
+	int				i;
+	t_cmd_args		*head;
+	int				return_value;
+	t_string_and_i	storage;
 
 	i = 0;
 	head = NULL;
@@ -28,7 +29,7 @@ int	parsing(char *str, char **ev)
 			i++;
 		if (str[i] == '<' || str[i] == '>')
 		{
-			return_value = redirect(str, i, head->redirect);
+			return_value = redirect(str, i, &head->redirect);
 			if (return_value == -1)
 			{
 				perror("help");
@@ -38,12 +39,20 @@ int	parsing(char *str, char **ev)
 				break ;
 			i += return_value;
 		}
-		else
-		{
-			i++;
-		}
+		storage = data_after(str, i);
+		head->cmd = storage.str;
+		i = storage.i;
+		storage = data_after(str, i);
+		head->args = storage.str;
+		i = storage.i;
+		
 	}
-	free(head);
+	// while (head->redirect.red_in)
+	// {
+	// 	printf("%s\n", (char *) head->redirect.red_in->content);
+	// 	head->redirect.red_in = head->redirect.red_in->next;
+	// }
 	free(str);
+	freeheadcmd(head);
 	return (1);
 }
