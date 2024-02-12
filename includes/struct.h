@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/12 16:36:44 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/12 17:19:57 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@
  * @param red_in_delim input redirection delimiter (<<), NULLABLE
  * @param red_out_append output redirection file, append mode (>>), NULLABLE
 */
+
 typedef struct s_red
 {
 	t_list				*red_in;
-	t_list				*red_out;
-	t_list				*red_in_delim;
-	t_list				*red_out_append;
+	t_list				*red_out; // mettre le fichier dedans
+	t_list				*red_in_delim; // mettre la chose apres les << sinon NULL
+	t_list				*red_out_append; // mettre le fichier dedans sinon NULL
 }	t_red;
 
 /**
@@ -44,15 +45,6 @@ typedef struct s_red
  * @param envp environment variables (from main)
  * @param next next command pack, NULLABLE (BY REQUEST OF BFAISY ^^)
  */
-
-typedef struct s_red
-{
-	t_list				*red_in; // mettre le fichier dedans // fait
-	t_list				*red_out; // mettre le fichier dedans
-	t_list				*red_in_delim; // mettre la chose apres les << sinon NULL
-	t_list				*red_out_append; // mettre le fichier dedans sinon NULL
-}	t_red;
-
 typedef struct s_cmd_args
 {
 	char				*cmd;
@@ -68,12 +60,6 @@ typedef struct s_string_and_i
 	int		i;
 }	t_string_and_i;
 
-typedef struct s_arg
-{
-	char			*str;
-	bool			opt;
-	struct s_arg	*next;
-}	t_arg;
 
 /**
  * @brief Data storage for execution
