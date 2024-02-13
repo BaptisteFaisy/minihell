@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:22:18 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/09 20:39:44 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/12 19:20:56 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int	parsing(char *str, char **ev)
 {
-	int			i;
-	t_cmd_args	*head;
-	int			return_value;
+	int				i;
+	t_cmd_args		*head;
+	int				return_value;
+	t_string_and_i	storage;
 
 	i = 0;
 	head = NULL;
@@ -26,24 +27,65 @@ int	parsing(char *str, char **ev)
 	{
 		while (str[i] == ' ')
 			i++;
+		printf("%c\n", str[i]);
 		if (str[i] == '<' || str[i] == '>')
 		{
-			return_value = redirect(str, i, head->redirect);
+			return_value = redirect(str, i, &head->redirect);
 			if (return_value == -1)
 			{
 				perror("help");
 				return (0);
 			}
 			if (return_value == 0)
+			{
 				break ;
+			}
 			i += return_value;
 		}
-		else
+		else if (head->cmd == NULL && str[i])
 		{
-			i++;
+			storage = data_after(str, i);
+			head->cmd = storage.str;
+			i = storage.i;
 		}
+		else if (str[i])
+		{
+			storage = data_after(str, i);
+			if (!head->args)
+				create_firstnode_and_put(&head->args, storage.str);
+			else
+				create_node_and_put(&head->args, storage.str);
+			i = storage.i;
+		}
+		
 	}
-	free(head);
+	printf("cmd : %s\n", head->cmd);
+	while (head->args)
+	{
+		printf("args : %s\n", (char *) head->args->content);
+		head->args = head->args->next;
+	}
+	while (head->redirect.red_in)
+	{
+		printf("redirect.red_in : %s\n", (char*)head->redirect.red_in->content);
+		head->redirect.red_in = head->redirect.red_in->next;
+	}
+	while (head->redirect.red_in_delim)
+	{
+		printf("redirect.red_in_delim : %s\n", (char *)head->redirect.red_in_delim->content);
+		head->redirect.red_in_delim = head->redirect.red_in_delim->next;
+	}
+	while (head->redirect.red_out)
+	{
+		printf("redirect.red_out : %s\n", (char *)head->redirect.red_out->content);
+		head->redirect.red_out = head->redirect.red_out->next;
+	}
+	while (head->redirect.red_out)
+	{
+		printf("redirect.red_out_append : %s\n", (char *)head->redirect.red_out_append->content);
+		head->redirect.red_out_append = head->redirect.red_out_append->next;
+	}
 	free(str);
+	freeheadcmd(head);
 	return (1);
 }

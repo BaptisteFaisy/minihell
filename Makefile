@@ -16,6 +16,7 @@ SRCS_RAW =	main.c \
 			get_cmd.c \
 			init_t_exec_info.c \
 			transform_str.c \
+            free.c
 			iter_exec.c \
 			is_builtin.c
 SRCS = $(addprefix $(DIR)/,$(SRCS_RAW)) \
@@ -23,13 +24,13 @@ SRCS = $(addprefix $(DIR)/,$(SRCS_RAW)) \
 OBJS = $(SRCS:c=o)
 INCLUDES = -I./includes -I./libft 
 
-DEBUG = 
+DEBUG = -g3
 
 LIBFT = libft/libft.a
 
 all: $(NAME)
 $(NAME): ${LIBFT} $(OBJS)
-	$(CC) $(OBJS) $(DEBUG) $(INCLUDES) -o $(NAME) -l:libft.a -Llibft 
+	$(CC) $(OBJS) $(DEBUG) $(INCLUDES) -o $(NAME) $(CFLAGS) -l:libft.a -Llibft 
 clean:
 	rm $(OBJS) $(OBJB) -f
 fclean: clean libftclean

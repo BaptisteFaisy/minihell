@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/12 12:32:37 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/12 17:19:57 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
 
+# include "def.h"
 # include "libft.h"
 
 /**
@@ -23,12 +24,13 @@
  * @param red_in_delim input redirection delimiter (<<), NULLABLE
  * @param red_out_append output redirection file, append mode (>>), NULLABLE
 */
+
 typedef struct s_red
 {
 	t_list				*red_in;
-	t_list				*red_out;
-	t_list				*red_in_delim;
-	t_list				*red_out_append;
+	t_list				*red_out; // mettre le fichier dedans
+	t_list				*red_in_delim; // mettre la chose apres les << sinon NULL
+	t_list				*red_out_append; // mettre le fichier dedans sinon NULL
 }	t_red;
 
 /**
@@ -47,11 +49,17 @@ typedef struct s_cmd_args
 {
 	char				*cmd;
 	t_list				*args;
-	t_list				*opts;
 	t_red				redirect;
 	char				**envp;
 	struct s_cmd_args	*next;
 }	t_cmd_args;
+
+typedef struct s_string_and_i
+{
+	char	*str;
+	int		i;
+}	t_string_and_i;
+
 
 /**
  * @brief Data storage for execution

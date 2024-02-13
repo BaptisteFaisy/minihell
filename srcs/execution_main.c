@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   execution_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:37:49 by lhojoon           #+#    #+#             */
 /*   Updated: 2024/02/12 19:22:36 by lhojoon          ###   ########.fr       */
@@ -14,7 +14,7 @@
 
 int	execution(t_cmd_args *cargs)
 {
-	t_exec_info	exec_info;
+ 	t_exec_info	exec_info;
 
 	init_t_exec_info(&exec_info);
 	exec_info.paths = resolve_path(cargs->envp);

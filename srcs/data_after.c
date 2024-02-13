@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_after.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:38:41 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/09 17:55:45 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/13 08:57:53 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,32 @@
 
 char	*concatenation(char *str, char c);
 
-char	*data_after(char *str, int i)
+t_string_and_i	data_after(char *str, int i)
 {
-	char	*data;
-	int		cond;
+	t_string_and_i	data;
+	int				cond;
 
 	cond = FALSE;
-	data = NULL;
-	while (str[i] == ' ' || str[i] == '<' || str[i] == '>')
-			i++;
-	while (str[i])
+	data.str = NULL;
+	data.i = i;
+	while (str[data.i] == ' ' || str[data.i] == '<' || str[data.i] == '>')
+		data.i++;
+	while (str[data.i])
 	{
-		if (str[i] == '|')
+		if (str[data.i] == '|')
 			return (data);
 		else
 		{
-			if (str[i] == ' ')
-				cond = TRUE;
+			if (str[data.i] == ' ')
+				break ;
 			else if (cond == FALSE)
 			{
-				data = concatenation(data, str[i]);
-				if (!data)
+				data.str = concatenation(data.str, str[data.i]);
+				if (!data.str)
 					exit(1);
 			}
 		}
-		i++;
+		data.i++;
 	}
 	return (data);
 }
@@ -51,7 +52,7 @@ int	find_next_pipe(char *str, int i)
 	while (str[i])
 	{
 		if (str[i] == '|')
-			return (j + 2);
+			return (j + 1);
 		j++;
 		i++;
 	}
