@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:30:42 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/13 15:00:56 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/13 21:13:56 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,8 @@ int	iter_exec(t_cmd_args *cargs, t_exec_info *info)
 	while (cargs)
 	{
 		if (curfd[1] != -1)
-		{
 			if (pipe(tfd) == -1)
 				return (EXEC_FAILURE); // TODO : Error message
-		}
 		curfd[0] = tfd[0];
 		nextfd = tfd[1];
 		p = fork();

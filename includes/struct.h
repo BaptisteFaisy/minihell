@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/13 14:58:23 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/13 19:51:18 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
  * @param red_in_delim input redirection delimiter (<<), NULLABLE
  * @param red_out_append output redirection file, append mode (>>), NULLABLE
 */
-
 typedef struct s_red
 {
 	t_list				*red_in;
