@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/12 17:19:57 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/13 14:58:23 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ typedef struct s_string_and_i
 	char	*str;
 	int		i;
 }	t_string_and_i;
-
 
 /**
  * @brief Data storage for execution

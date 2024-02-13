@@ -8,8 +8,6 @@ http://i.paysdu42.fr/?page=minishell.c
 
 https://github.com/appinha/42cursus-03-minishell
 
-TODO : Make ft_strjoin_many
-
 ~~EXEC~~
 
 pipe

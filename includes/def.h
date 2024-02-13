@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/12 19:19:03 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/13 14:51:29 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define EXEC_SUCCESS 0
 # define EXEC_FAILURE 1
 # define SHELL_NAME "bash"
+# define F_SKIP_NUL 64
 
 // Defs : errors
 # define ERR_MALLOC "Malloc error"
@@ -57,12 +58,14 @@ void			freelist(t_list *head);
 void			freeheadcmd(t_cmd_args *head);
 
 // Execution part
-int			execution(t_cmd_args *cmd_args);
-bool		init_redirect_files(t_cmd_args *cargs, t_exec_info *info);
-void		init_t_exec_info(t_exec_info *var);
-char		**resolve_path(char *envp[]);
-int			redirect_open(char *path, int access_flag, int open_flag);
-bool		is_builtin(char *cmd);
-char		*get_cmd(t_cmd_args *cargs, t_exec_info *info);
+int				execution(t_cmd_args *cmd_args);
+bool			init_redirect_files(t_cmd_args *cargs, t_exec_info *info);
+void			init_t_exec_info(t_exec_info *var);
+char			**resolve_path(char *envp[]);
+int				redirect_open(char *path, int access_flag, int open_flag);
+bool			is_builtin(char *cmd);
+char			*get_cmd(t_cmd_args *cargs, t_exec_info *info);
+int				get_file_by_prompt_delim(char *delim);
+int				iter_exec(t_cmd_args *cargs, t_exec_info *info);
 
 #endif
