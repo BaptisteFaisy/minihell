@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:27:50 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/13 11:41:59 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/14 13:53:24 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,15 @@ static void	print_error(char *path, char *err)
 {
 	char	*s;
 
-	s = ft_strjoin_many(5, SHELL_NAME, ": ", path, ": ", err);
+	if (path == NULL)
+		s = ft_strjoin_many(3, SHELL_NAME, ": ", err);
+	else
+		s = ft_strjoin_many(5, SHELL_NAME, ": ", path, ": ", err);
+	if (!s)
+	{
+		perror(ERR_UNKNOWN);
+		return ;
+	}
 	perror(s);
 	free(s);
 }
@@ -81,7 +89,7 @@ int	get_file_by_prompt_delim(char *delim)
 	{
 		close(fd[1]);
 		close(fd[0]);
-		return (free(delim_modif), perror(ERR_MALLOC), -1);
+		return (free(delim_modif), print_error(NULL, ERR_MALLOC), -1);
 	}
 	while (buf && ft_strncmp(buf, delim_modif, ft_strlen(delim_modif)))
 	{
@@ -91,7 +99,7 @@ int	get_file_by_prompt_delim(char *delim)
 		buf = get_next_line(0);
 	}
 	if (!buf)
-		perror(ERR_UNKNOWN);
+		print_error(NULL, ERR_UNKNOWN);
 	close(fd[1]);
 	return (free(buf), fd[0]);
 }

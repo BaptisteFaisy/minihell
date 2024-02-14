@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/13 14:51:29 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/14 12:51:52 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ bool			is_builtin(char *cmd);
 char			*get_cmd(t_cmd_args *cargs, t_exec_info *info);
 int				get_file_by_prompt_delim(char *delim);
 int				iter_exec(t_cmd_args *cargs, t_exec_info *info);
+char			*get_env_var(char *envp[], char *varname);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:06:04 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/13 11:46:53 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/14 13:51:39 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,15 @@ static bool	iter_redirect_file(t_list *files,
 	return (true);
 }
 
+// TODO : Error message
 static bool	iter_redirect_delim(t_list *delims, t_list **infos)
 {
-	int	readfd;
+	int	*readfd;
 
 	*infos = NULL;
+	*readfd = (int *)malloc(sizeof(int));
+	if (!readfd)
+		return (print_error(ERR_MALLOC), false);
 	while (delims)
 	{
 		readfd = get_file_by_prompt_delim((char *)delims->content);
@@ -70,16 +74,16 @@ bool	init_redirect_files(t_cmd_args *cargs, t_exec_info *info)
 	if (iter_redirect_file(cargs->redirect.red_out, &info->redirect.red_out,
 			W_OK | F_SKIP_NUL, O_WRONLY | O_CREAT | O_TRUNC) == false)
 		return (ft_lstclear(&info->redirect.red_in, free), false);
-	if (iter_redirect_file(cargs->redirect.red_out_append,
-			&info->redirect.red_out_append, W_OK | F_SKIP_NUL,
-			O_WRONLY | O_CREAT | O_APPEND)
-		== false)
-		return (ft_lstclear(&info->redirect.red_in, free),
-			ft_lstclear(&info->redirect.red_out, free), false);
-	if (iter_redirect_delim(cargs->redirect.red_in_delim,
-			&info->redirect.red_in_delim) == false)
-		return (ft_lstclear(&info->redirect.red_in, free),
-			ft_lstclear(&info->redirect.red_out, free),
-			ft_lstclear(&info->redirect.red_out_append, free), false);
+	// if (iter_redirect_file(cargs->redirect.red_out_append,
+	// 		&info->redirect.red_out_append, W_OK | F_SKIP_NUL,
+	// 		O_WRONLY | O_CREAT | O_APPEND)
+	// 	== false)
+	// 	return (ft_lstclear(&info->redirect.red_in, free),
+	// 		ft_lstclear(&info->redirect.red_out, free), false);
+	// if (iter_redirect_delim(cargs->redirect.red_in_delim,
+	// 		&info->redirect.red_in_delim) == false)
+	// 	return (ft_lstclear(&info->redirect.red_in, free),
+	// 		ft_lstclear(&info->redirect.red_out, free),
+	// 		ft_lstclear(&info->redirect.red_out_append, free), false);
 	return (true);
 }
