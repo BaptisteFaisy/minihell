@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:22:18 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/12 19:20:56 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/14 16:26:03 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ int	parsing(char *str, char **ev)
 	{
 		while (str[i] == ' ')
 			i++;
-		printf("%c\n", str[i]);
+		// printf("%c\n", str[i]);
 		if (str[i] == '<' || str[i] == '>')
 		{
 			return_value = redirect(str, i, &head->redirect);
+			// printf("%d\n", return_value);
 			if (return_value == -1)
 			{
 				perror("help");
@@ -40,7 +41,7 @@ int	parsing(char *str, char **ev)
 			{
 				break ;
 			}
-			i += return_value;
+			i = return_value;
 		}
 		else if (head->cmd == NULL && str[i])
 		{
@@ -57,7 +58,6 @@ int	parsing(char *str, char **ev)
 				create_node_and_put(&head->args, storage.str);
 			i = storage.i;
 		}
-		
 	}
 	printf("cmd : %s\n", head->cmd);
 	while (head->args)
@@ -70,20 +70,10 @@ int	parsing(char *str, char **ev)
 		printf("redirect.red_in : %s\n", (char*)head->redirect.red_in->content);
 		head->redirect.red_in = head->redirect.red_in->next;
 	}
-	while (head->redirect.red_in_delim)
-	{
-		printf("redirect.red_in_delim : %s\n", (char *)head->redirect.red_in_delim->content);
-		head->redirect.red_in_delim = head->redirect.red_in_delim->next;
-	}
 	while (head->redirect.red_out)
 	{
 		printf("redirect.red_out : %s\n", (char *)head->redirect.red_out->content);
 		head->redirect.red_out = head->redirect.red_out->next;
-	}
-	while (head->redirect.red_out)
-	{
-		printf("redirect.red_out_append : %s\n", (char *)head->redirect.red_out_append->content);
-		head->redirect.red_out_append = head->redirect.red_out_append->next;
 	}
 	free(str);
 	freeheadcmd(head);

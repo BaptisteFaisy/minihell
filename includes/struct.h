@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/12 17:19:57 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/14 17:13:58 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ typedef struct s_red
 {
 	t_list				*red_in;
 	t_list				*red_out; // mettre le fichier dedans
-	t_list				*red_in_delim; // mettre la chose apres les << sinon NULL
-	t_list				*red_out_append; // mettre le fichier dedans sinon NULL
 }	t_red;
 
 /**
@@ -60,7 +58,6 @@ typedef struct s_string_and_i
 	int		i;
 }	t_string_and_i;
 
-
 /**
  * @brief Data storage for execution
  * 
@@ -75,4 +72,16 @@ typedef struct s_exec_info
 	char			*cmd;
 }	t_exec_info;
 
+
+# define RED_IN 0
 #endif
+
+
+struct s_red
+{
+	char * red_in;
+	char* red_in_delim;
+	char * red_out;
+	char * red_out_delim;
+	t_red *next;
+} t_red;

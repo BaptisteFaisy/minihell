@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:43:01 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/12 16:23:32 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/14 16:12:57 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ t_cmd_args	*create_node_cmd(t_cmd_args *head, char **ev)
 		exit (1);
 	}
 	head->redirect.red_in = NULL;
-	head->redirect.red_in_delim = NULL;
 	head->redirect.red_out = NULL;
-	head->redirect.red_out_append = NULL;
 	head->args = NULL;
 	head->cmd = NULL;
 	head->envp = ev;
@@ -66,6 +64,7 @@ int	create_node_and_put(t_list **head, char *data)
 	if (!(tmp)->next)
 		return (-1);
 	(tmp)->next->content = data;
+	// printf("%sa\n", data);
 	return (0);
 }
 
