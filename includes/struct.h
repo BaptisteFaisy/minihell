@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/14 17:16:08 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/15 09:21:59 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,20 @@ typedef struct s_red_details
 	int		type;
 }	t_red_details;
 
+typedef struct s_red_info
+{
+	t_list	*red_in;
+	t_list	*red_out;
+}	t_red_info;
+
 /**
  * @brief Structure for redirections 
  * 
  * @param red_in input redirection file or delimiter (<, <<), NULLABLE
  * @param red_out output redirection file (> , >>), NULLABLE
  * @param red_in_delim input redirection delimiter (<<), NULLABLE
- * @param red_out_append output redirection file, append mode (>>), NULLABLE
+ * @param red_out_delim output redirection file, append mode (>>), NULLABLE
+ * @param next next element, NULLABLE
 */
 typedef struct s_red
 {
@@ -80,7 +87,4 @@ typedef struct s_exec_info
 	char			*cmd;
 }	t_exec_info;
 
-
-
-# define RED_IN 0
 #endif

@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:30:42 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/14 15:30:11 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/15 10:28:23 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,24 +94,23 @@ static void	set_fd(int fdcontainer[2], int first, int next)
 
 int	iter_exec(t_cmd_args *cargs, t_exec_info *info)
 {
-	int	p;
-	int	prevfd[2];
-	int	curfd[2];
-	int	tfd[2];
+	int				p;
+	int				prevfd[2];
+	int				curfd[2];
+	t_red_info		*red_info;
 
 	set_fd(prevfd, -1, -1);
-	set_fd(curfd, -1, -1);
 	while (cargs)
 	{
-		if (prevfd[0] != -1)
-			if (pipe(tfd) == -1)
-				return (EXEC_FAILURE); // TODO : Error message, free all fds
-		set_fd(curfd, tfd[0], tfd[1]);
+		red_info = init_redirect_files(cargs, info);
+		if (!red_info)
+			return (EXEC_FAILURE); // TODO : free exec_info
+		if (pipe(curfd) == -1)
+			return (EXEC_FAILURE); // TODO : Error message, free all fds
 		p = fork();
-		if (p == 0)
-			execution_child(cargs, info, prevfd, curfd);
-		else
+		if (p != 0)
 			break ; // TODO : Verify this
+		execution_child(cargs, info, prevfd, curfd);
 		set_fd(prevfd, curfd[0], curfd[1]);
 		cargs = cargs->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/14 12:51:52 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/15 09:48:03 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@
 # define ERR_NOENT "No such file or directory"
 # define ERR_OPEN "Cannot open file"
 # define ERR_UNKNOWN "Unknown error"
+
+// Defs : redirect type
+# define RED_IN 0
+# define RED_OUT 1
+# define RED_IN_DELIM 2
+# define RED_OUT_APPEND 3
 
 // Includes
 # include <stdio.h>
@@ -68,5 +74,6 @@ char			*get_cmd(t_cmd_args *cargs, t_exec_info *info);
 int				get_file_by_prompt_delim(char *delim);
 int				iter_exec(t_cmd_args *cargs, t_exec_info *info);
 char			*get_env_var(char *envp[], char *varname);
+t_red_info		convert_red_info(t_red *raw);
 
 #endif
