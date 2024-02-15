@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:37:49 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/15 09:53:54 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/15 12:22:08 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 int	execution(t_cmd_args *cargs)
 {
-	t_exec_info	exec_info;
+	char	**paths;
 
-	init_t_exec_info(&exec_info);
-	exec_info.paths = resolve_path(cargs->envp);
-	if (exec_info.paths == NULL)
+	paths = resolve_path(cargs->envp);
+	if (paths == NULL)
 		return (EXEC_FAILURE);
-	return (iter_exec(cargs, &exec_info));
+	return (iter_exec(cargs, paths));
 }

@@ -6,21 +6,11 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:30:42 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/15 10:28:23 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/15 13:55:46 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	free_redirect(void *content)
-{
-	int	fd;
-
-	fd = *(int *)content;
-	if (fd != -1)
-		close(*(int *)content);
-	free(content);
-}
 
 /**
  * @details Priority (for example cat)
@@ -76,7 +66,7 @@ static int
 	if (is_builtin(cargs->cmd))
 	{
 		ft_strlcpy(info->cmd, cargs->cmd, ft_strlen(cargs->cmd));
-		exec_builtin();
+		exec_builtin(); // TODO : Do this
 	}
 	else
 	{
@@ -86,35 +76,31 @@ static int
 	return (EXEC_SUCCESS); // TODO : free exec_info
 }
 
-static void	set_fd(int fdcontainer[2], int first, int next)
+int	iter_exec(t_cmd_args *cargs, char **paths)
 {
-	fdcontainer[0] = first;
-	fdcontainer[1] = next;
-}
-
-int	iter_exec(t_cmd_args *cargs, t_exec_info *info)
-{
-	int				p;
+	t_list			*pids;
 	int				prevfd[2];
 	int				curfd[2];
-	t_red_info		*red_info;
+	t_exec_info		*exec_info;
+	pid_t			tpid;
 
 	set_fd(prevfd, -1, -1);
 	while (cargs)
 	{
-		red_info = init_redirect_files(cargs, info);
-		if (!red_info)
-			return (EXEC_FAILURE); // TODO : free exec_info
+		if (set_exec_info(&exec_info, NULL, cargs, paths) == false)
+			return (EXEC_FAILURE);
 		if (pipe(curfd) == -1)
 			return (EXEC_FAILURE); // TODO : Error message, free all fds
-		p = fork();
-		if (p != 0)
-			break ; // TODO : Verify this
-		execution_child(cargs, info, prevfd, curfd);
+		tpid = fork();
+		if (add_pid(&pids, tpid) == false)
+			return (EXEC_FAILURE); // TODO : Error message, free all fds
+		if (tpid == 0)
+			execution_child(cargs, exec_info, prevfd, curfd);
 		set_fd(prevfd, curfd[0], curfd[1]);
 		cargs = cargs->next;
 	}
-	dup2(prevfd[1], 1);
-	close(prevfd[0]);
+	wait_pid(&pids);
+	close(prevfd[1]);
+	print_final_output(prevfd[0]);
 	return (0);
 }

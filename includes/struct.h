@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/15 09:21:59 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/15 10:53:27 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct s_string_and_i
 */
 typedef struct s_exec_info
 {
-	t_red			redirect;
+	t_red_info		redirect;
 	char			**paths;
 	char			*cmd;
 }	t_exec_info;

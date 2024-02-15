@@ -16,5 +16,5 @@ if args->next exist, do pipe
 
 pipefd[0] : le bout de lecture
 pipefd[1] : le bout d’écriture
-
+https://tldp.org/LDP/lpg/node11.html
 faut ouvrir tous les redirects et peter tous les contenues, et prendre que le dernier

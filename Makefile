@@ -21,7 +21,8 @@ SRCS_RAW =	main.c \
 			is_builtin.c \
 			get_env_var.c \
 			exec_builtin.c \
-			convert_red_info.c
+			convert_red_info.c \
+			iter_exec_2.c
 SRCS = $(addprefix $(DIR)/,$(SRCS_RAW)) \
 
 OBJS = $(SRCS:c=o)
