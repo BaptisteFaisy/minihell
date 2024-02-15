@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:13:37 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/15 13:30:36 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/15 15:21:23 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,17 @@ int	wait_pid(t_list **pids)
 	int		status;
 	int		status_final;
 	pid_t	pid;
+	t_list	*tp;
 
 	status_final = 0;
-	while (*pids)
+	while (tp)
 	{
-		pid = *(pid_t *)(*pids)->content;
+		pid = *(pid_t *)(tp)->content;
 		waitpid(pid, &status, 0);
-		*pids = (*pids)->next;
+		if (status != 0)
+			status_final = status;
+		tp = tp->next;
 	}
+	ft_lstclear(pids, free);
 	return (status_final);
 }
