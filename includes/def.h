@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/15 13:25:18 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/16 16:58:43 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@
 
 // Defs : errors
 # define ERR_MALLOC "Malloc error"
-# define ERR_ACCESS "Permission denied"
-# define ERR_NOENT "No such file or directory"
 # define ERR_OPEN "Cannot open file"
 # define ERR_UNKNOWN "Unknown error"
+# define ERR_GETCWD "Cannot get current working directory"
+# define ERR_FORK "Fork error"
+# define ERR_CD_TOO_MANY_ARGS "too many arguments"
 
 // Defs : redirect type
 # define RED_IN 0
@@ -43,13 +44,14 @@
 # include <sys/wait.h>
 # include <signal.h>
 # include <sys/stat.h>
+# include <sys/types.h>
 # include <dirent.h>
 # include <string.h>
 # include <errno.h>
 # include <term.h>
 # include <stdbool.h>
-# include "struct.h"
 # include <errno.h>
+# include "struct.h"
 
 int				redirect(char *str, int i, t_red *redirect);
 void			create_firstnode_and_put(t_list **head, char *data);

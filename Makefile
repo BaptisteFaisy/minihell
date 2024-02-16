@@ -16,13 +16,14 @@ SRCS_RAW =	main.c \
 			get_cmd.c \
 			init_t_exec_info.c \
 			transform_str.c \
-            free.c
+            free.c \
 			iter_exec.c \
 			is_builtin.c \
 			get_env_var.c \
 			exec_builtin.c \
 			convert_red_info.c \
-			iter_exec_2.c
+			iter_exec_2.c \
+			builtin_pwd.c
 SRCS = $(addprefix $(DIR)/,$(SRCS_RAW)) \
 
 OBJS = $(SRCS:c=o)

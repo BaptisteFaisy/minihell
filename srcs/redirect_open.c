@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:27:50 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/14 13:53:24 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/16 17:08:00 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,9 @@ static bool	access_file(char *path, int type)
 	access_result = access(path, type & (F_OK | R_OK | W_OK | X_OK));
 	if (access_result == 0)
 		return (true);
-	if (errno == EACCES)
-		print_error(path, ERR_ACCESS);
-	else if (errno == ENOENT)
-	{
-		if (type & F_SKIP_NUL == 0)
-			print_error(path, ERR_NOENT);
-		else
-			return (true);
-	}
-	else
-		print_error(path, ERR_UNKNOWN);
+	if (errno == ENOENT && type & F_SKIP_NUL == 0)
+		return (true);
+	print_error(path, strerror(errno));
 	return (false);
 }
 

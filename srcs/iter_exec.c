@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:30:42 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/15 13:55:46 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/16 17:05:43 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,13 @@ int	iter_exec(t_cmd_args *cargs, char **paths)
 			return (EXEC_FAILURE); // TODO : Error message, free all fds
 		tpid = fork();
 		if (add_pid(&pids, tpid) == false)
-			return (EXEC_FAILURE); // TODO : Error message, free all fds
+			return (EXEC_FAILURE); // TODO : free all fds
 		if (tpid == 0)
 			execution_child(cargs, exec_info, prevfd, curfd);
 		set_fd(prevfd, curfd[0], curfd[1]);
 		cargs = cargs->next;
 	}
-	wait_pid(&pids);
+	curfd[0] = wait_pid(&pids);
 	close(prevfd[1]);
-	print_final_output(prevfd[0]);
-	return (0);
+	return (print_final_output(prevfd[0]), curfd[0]);
 }

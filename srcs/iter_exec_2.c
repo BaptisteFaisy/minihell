@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:13:37 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/15 15:21:23 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/16 17:06:08 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,17 @@ bool	add_pid(t_list **pids, pid_t pid)
 	t_list	*new;
 	pid_t	*ppid;
 
+	if (pid == -1)
+		return (perror(ERR_FORK), false);
+	if (pid == 0)
+		return (true);
 	ppid = (pid_t *)malloc(sizeof(pid_t));
 	if (!ppid)
 		return (perror(ERR_MALLOC), false);
 	*ppid = pid;
 	new = ft_lstnew(ppid);
 	if (!new)
-		return (perror(ERR_MALLOC), false);
+		return (free(ppid), perror(ERR_MALLOC), false);
 	ft_lstadd_back(pids, new);
 }
 
@@ -70,6 +74,7 @@ int	wait_pid(t_list **pids)
 		waitpid(pid, &status, 0);
 		if (status != 0)
 			status_final = status;
+		kill(pid, SIGTERM);
 		tp = tp->next;
 	}
 	ft_lstclear(pids, free);
