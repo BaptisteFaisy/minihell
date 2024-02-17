@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:38:41 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/12 15:41:06 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/14 16:26:23 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,26 @@ char	*concatenation(char *str, char c);
 t_string_and_i	data_after(char *str, int i)
 {
 	t_string_and_i	data;
-	int				cond;
 
-	cond = FALSE;
 	data.str = NULL;
 	data.i = i;
+	// printf("int avant data_after : %d\n", data.i);
+	// printf("str[i] in data after : %d\n", i);
 	while (str[data.i] == ' ' || str[data.i] == '<' || str[data.i] == '>')
 			data.i++;
-	while (str[data.i])
+	while (str[data.i] || str[data.i] == '|')
 	{
-		if (str[data.i] == '|')
-			return (data);
+		if (str[data.i] == ' ')
+			break ;
 		else
 		{
-			if (str[data.i] == ' ')
-				break ;
-			else if (cond == FALSE)
-			{
-				data.str = concatenation(data.str, str[data.i]);
-				if (!data.str)
-					exit(1);
-			}
+			data.str = concatenation(data.str, str[data.i]);
+			if (!data.str)
+				exit(1);
 		}
 		data.i++;
 	}
+	// printf("int after data_after : %d\n", data.i);
 	return (data);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   def.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/12 16:36:40 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/17 02:07:18 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,12 @@ char			*transform_str(char *str);
 void			freered(t_red redirect);
 void			freelist(t_list *head);
 void			freeheadcmd(t_cmd_args *head);
+void 			create_redirect_node_head(t_red *head);
+void			create_redirect_node(t_red *head);
+t_red			*get_last_redirect_node(t_red *head);
+
+
+
 
 // Execution part
 int			execution(t_cmd_args *cmd_args);

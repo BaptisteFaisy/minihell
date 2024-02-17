@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:22:18 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/12 15:52:55 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/17 02:09:12 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	parsing(char *str, char **ev)
 	t_cmd_args		*head;
 	int				return_value;
 	t_string_and_i	storage;
+	t_red			*tmp;
 
 	i = 0;
 	head = NULL;
@@ -27,30 +28,63 @@ int	parsing(char *str, char **ev)
 	{
 		while (str[i] == ' ')
 			i++;
+		// printf("%c\n", str[i]);
 		if (str[i] == '<' || str[i] == '>')
 		{
-			return_value = redirect(str, i, &head->redirect);
+			if (head->redirect == NULL)
+			{
+				create_redirect_node_head(head->redirect);
+				tmp = head->redirect;
+			}
+			else
+			{
+				tmp = get_last_redirect_node(head->redirect);
+				create_redirect_node(tmp);
+			}
+			return_value = redirect(str, i, tmp);
+			// printf("%d\n", return_value);
 			if (return_value == -1)
 			{
 				perror("help");
 				return (0);
 			}
 			if (return_value == 0)
+			{
 				break ;
-			i += return_value;
+			}
+			i = return_value;
 		}
-		storage = data_after(str, i);
-		head->cmd = storage.str;
-		i = storage.i;
-		storage = data_after(str, i);
-		head->args = storage.str;
-		i = storage.i;
-		
+		else if (head->cmd == NULL && str[i])
+		{
+			storage = data_after(str, i);
+			head->cmd = storage.str;
+			i = storage.i;
+		}
+		else if (str[i])
+		{
+			storage = data_after(str, i);
+			if (!head->args)
+				create_firstnode_and_put(&head->args, storage.str);
+			else
+				create_node_and_put(&head->args, storage.str);
+			i = storage.i;
+		}
 	}
+	// printf("cmd : %s\n", head->cmd);
+	// while (head->args)
+	// {
+	// 	printf("args : %s\n", (char *) head->args->content);
+	// 	head->args = head->args->next;
+	// }
 	// while (head->redirect.red_in)
 	// {
-	// 	printf("%s\n", (char *) head->redirect.red_in->content);
+	// 	printf("redirect.red_in : %s\n", (char*)head->redirect.red_in->content);
 	// 	head->redirect.red_in = head->redirect.red_in->next;
+	// }
+	// while (head->redirect.red_out)
+	// {
+	// 	printf("redirect.red_out : %s\n", (char *)head->redirect.red_out->content);
+	// 	head->redirect.red_out = head->redirect.red_out->next;
 	// }
 	free(str);
 	freeheadcmd(head);

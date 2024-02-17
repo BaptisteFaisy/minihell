@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/12 16:36:44 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/17 01:57:22 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@
 */
 typedef struct s_red
 {
-	t_list				*red_in;
-	t_list				*red_out;
-	t_list				*red_in_delim;
-	t_list				*red_out_append;
+	char			*red_in;
+	char			*red_in_delim;
+	char			*red_out;
+	char			*red_out_delim;
+	struct s_red	*next;
 }	t_red;
 
 /**
@@ -44,20 +45,11 @@ typedef struct s_red
  * @param envp environment variables (from main)
  * @param next next command pack, NULLABLE (BY REQUEST OF BFAISY ^^)
  */
-
-typedef struct s_red
-{
-	t_list				*red_in; // mettre le fichier dedans // fait
-	t_list				*red_out; // mettre le fichier dedans
-	t_list				*red_in_delim; // mettre la chose apres les << sinon NULL
-	t_list				*red_out_append; // mettre le fichier dedans sinon NULL
-}	t_red;
-
 typedef struct s_cmd_args
 {
 	char				*cmd;
 	t_list				*args;
-	t_red				redirect;
+	t_red				*redirect;
 	char				**envp;
 	struct s_cmd_args	*next;
 }	t_cmd_args;
@@ -67,13 +59,6 @@ typedef struct s_string_and_i
 	char	*str;
 	int		i;
 }	t_string_and_i;
-
-typedef struct s_arg
-{
-	char			*str;
-	bool			opt;
-	struct s_arg	*next;
-}	t_arg;
 
 /**
  * @brief Data storage for execution
@@ -89,4 +74,7 @@ typedef struct s_exec_info
 	char			*cmd;
 }	t_exec_info;
 
+
+
+# define RED_IN 0
 #endif
