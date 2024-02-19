@@ -5,10 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 17:22:18 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/17 02:09:12 by bfaisy           ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/02/19 02:27:25 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+
 
 #include "def.h"
 
@@ -28,6 +31,7 @@ int	parsing(char *str, char **ev)
 	{
 		while (str[i] == ' ')
 			i++;
+		// printf("%c\n", str[i]);
 		// printf("%c\n", str[i]);
 		if (str[i] == '<' || str[i] == '>')
 		{
@@ -50,9 +54,27 @@ int	parsing(char *str, char **ev)
 			}
 			if (return_value == 0)
 			{
+			{
 				break ;
 			}
 			i = return_value;
+			}
+			i = return_value;
+		}
+		else if (head->cmd == NULL && str[i])
+		{
+			storage = data_after(str, i);
+			head->cmd = storage.str;
+			i = storage.i;
+		}
+		else if (str[i])
+		{
+			storage = data_after(str, i);
+			if (!head->args)
+				create_firstnode_and_put(&head->args, storage.str);
+			else
+				create_node_and_put(&head->args, storage.str);
+			i = storage.i;
 		}
 		else if (head->cmd == NULL && str[i])
 		{

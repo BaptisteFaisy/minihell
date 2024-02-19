@@ -6,11 +6,14 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:37:30 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/17 02:24:58 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/19 02:27:45 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "def.h"
+
+static	int	redirect_droite(char *str, int i, t_red *redirect);
+static	int	test_error_newline(char *str, int i, int cas);
 
 static	int	redirect_droite(char *str, int i, t_red *redirect);
 static	int	test_error_newline(char *str, int i, int cas);
@@ -23,6 +26,7 @@ int	redirect(char *str, int i, t_red *redirect)
 	{
 		// if (str[i + 1] == '<')
 		// 	return (double_gauche(str, i, redirect));
+		if (test_error_newline(str, i, 0) == 1)
 		if (test_error_newline(str, i, 0) == 1)
 		{
 			return (-1);
@@ -39,6 +43,8 @@ int	redirect(char *str, int i, t_red *redirect)
 			return (i);
 		}
 	}
+	else
+		return (redirect_droite(str, i, redirect));
 	else
 		return (redirect_droite(str, i, redirect));
 	return (0);

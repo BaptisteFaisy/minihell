@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:43:01 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/17 02:12:09 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/19 02:25:57 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ t_cmd_args	*create_node_cmd(t_cmd_args *head, char **ev)
 		perror("Malloc fail");
 		exit (1);
 	}
-	head->redirect = NULL;
+	head->redirect.red_in = NULL;
+	head->redirect.red_in_delim = NULL;
+	head->redirect.red_out = NULL;
+	head->redirect.red_out_append = NULL;
 	head->args = NULL;
 	head->cmd = NULL;
 	head->envp = ev;
