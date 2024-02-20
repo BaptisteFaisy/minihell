@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   resolve_path.c                                     :+:      :+:    :+:   */
+/*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/10 20:30:01 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/19 19:08:42 by marvin           ###   ########.fr       */
+/*   Created: 2024/02/20 01:08:56 by marvin            #+#    #+#             */
+/*   Updated: 2024/02/20 01:14:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*get_path_str(t_list *envp)
+static bool	check_grammar(t_list *args)
 {
-	while (envp && ft_strncmp("PATH", (char *)envp->content, 4))
-		envp++;
-	if (!envp)
-		return (NULL);
-	return ((char *)envp->content + 5);
+	while (args)
+	{
+		args = args->next;
+	}
 }
 
-char	**resolve_path(t_list *envp)
+void	builtin_export(t_cmd_args *cargs, t_exec_info *info)
 {
-	char	*path_str;
-	char	**paths;
+	t_list	*args;
 
-	path_str = get_path_str(envp);
-	if (!path_str)
-		return (NULL);
-	paths = ft_split(path_str, ':');
-	return (paths);
+	exit(EXIT_SUCCESS);
 }

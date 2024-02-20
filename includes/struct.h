@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/15 10:53:27 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/20 00:04:49 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct s_cmd_args
 	char				*cmd;
 	t_list				*args;
 	t_red				redirect;
-	char				**envp;
+	t_list				*envp;
 	struct s_cmd_args	*next;
 }	t_cmd_args;
 

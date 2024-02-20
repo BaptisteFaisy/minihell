@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   iter_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:30:42 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/16 17:05:43 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/19 19:14:17 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ static int
 	execution_child(t_cmd_args *cargs, t_exec_info *info,
 					int prevfd[2], int curfd[2])
 {
+	char	**envp_tmp;
+
 	if (!init_redirect_files(cargs, info))
 		return (EXEC_FAILURE); // TODO : free exec_info
 	input_redirect(info, prevfd);
@@ -71,7 +73,9 @@ static int
 	else
 	{
 		info->cmd = get_cmd(cargs, info);
-		execve(info->cmd, cargs->args, cargs->envp);
+		envp_tmp = transform_envp(cargs->envp);
+		execve(info->cmd, cargs->args, envp_tmp);
+		free(envp_tmp);
 	}
 	return (EXEC_SUCCESS); // TODO : free exec_info
 }

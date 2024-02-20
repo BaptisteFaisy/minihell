@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   def.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/16 16:58:43 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/19 23:58:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,13 @@ void			freeheadcmd(t_cmd_args *head);
 int				execution(t_cmd_args *cmd_args);
 bool			init_redirect_files(t_cmd_args *cargs, t_exec_info *info);
 t_exec_info		*init_t_exec_info(void);
-char			**resolve_path(char *envp[]);
+char			**resolve_path(t_list *envp);
 int				redirect_open(char *path, int access_flag, int open_flag);
 bool			is_builtin(char *cmd);
 char			*get_cmd(t_cmd_args *cargs, t_exec_info *info);
 int				get_file_by_prompt_delim(char *delim);
 int				iter_exec(t_cmd_args *cargs, char **paths);
-char			*get_env_var(char *envp[], char *varname);
+char			*get_env_var(t_list *envp, char *varname);
 t_red_info		convert_red_info(t_red *raw);
 bool			set_exec_info(
 					t_exec_info **info, char *cmd,
@@ -85,5 +85,8 @@ void			set_fd(int fdcontainer[2], int first, int next);
 void			free_redirect(void *content);
 bool			add_pid(t_list **pids, pid_t pid);
 int				wait_pid(t_list **pids);
+t_list			*search_env_var(t_list *envp, char *var);
+char			**transform_envp(t_list *envp);
+t_list			*get_list_envp(char **envp);
 
 #endif

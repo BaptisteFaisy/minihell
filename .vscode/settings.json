@@ -8,5 +8,6 @@
 		"string_view": "c",
 		"minishell.h": "c",
 		"features.h": "c"
-	}
+	},
+	"C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools"
 }
