@@ -19,11 +19,11 @@ pipefd[1] : le bout d’écriture
 https://tldp.org/LDP/lpg/node11.html
 faut ouvrir tous les redirects et peter tous les contenues, et prendre que le dernier
 
-Builtin list:
+Builtin list: (tous non testé)
 echo *
 cd *
 pwd *
-export
-unset
-env
+export *
+unset *
+env *
 exit *?
