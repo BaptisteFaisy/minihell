@@ -27,3 +27,9 @@ export *
 unset *
 env *
 exit *?
+
+Signals
+
+SIGQUIT (Ctrl + \)
+SIGQUIT (Ctrl + D)
+SIGINT (Ctrl + C)

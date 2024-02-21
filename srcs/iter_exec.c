@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:30:42 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/19 19:14:17 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/21 19:56:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int
 	if (is_builtin(cargs->cmd))
 	{
 		ft_strlcpy(info->cmd, cargs->cmd, ft_strlen(cargs->cmd));
-		exec_builtin(); // TODO : Do this
+		exec_builtin(cargs, info);
 	}
 	else
 	{

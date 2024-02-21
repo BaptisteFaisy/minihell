@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/19 23:58:00 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/21 22:04:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@
 # include <errno.h>
 # include "struct.h"
 
+int	g_status = 0;
+
 int				redirect(char *str, int i, t_red *redirect);
 void			create_firstnode_and_put(t_list **head, char *data);
 int				create_node_and_put(t_list **head, char *data);
@@ -88,5 +90,12 @@ int				wait_pid(t_list **pids);
 t_list			*search_env_var(t_list *envp, char *var);
 char			**transform_envp(t_list *envp);
 t_list			*get_list_envp(char **envp);
+void			builtin_echo(t_cmd_args *cargs, t_exec_info *info);
+void			builtin_cd(t_cmd_args *cargs, t_exec_info *info);
+void			builtin_pwd(t_cmd_args *cargs, t_exec_info *info);
+void			builtin_export(t_cmd_args *cargs, t_exec_info *info);
+void			builtin_unset(t_cmd_args *cargs, t_exec_info *info);
+void			builtin_env(t_cmd_args *cargs, t_exec_info *info);
+void			exec_builtin(t_cmd_args *cargs, t_exec_info *info);
 
 #endif

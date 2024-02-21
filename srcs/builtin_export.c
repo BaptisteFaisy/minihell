@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 01:08:56 by marvin            #+#    #+#             */
-/*   Updated: 2024/02/21 19:46:31 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/21 19:53:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static void	replace_existing_envp(t_list *args, t_list *envp, bool *exist)
 	envp->content = ft_strdup(args->content);
 }
 
-// TODO : do key value
 void	builtin_export(t_cmd_args *cargs, t_exec_info *info)
 {
 	t_list	*args;
