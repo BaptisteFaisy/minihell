@@ -7,3 +7,6 @@ https://segfault42.github.io/posts/minishell/
 http://i.paysdu42.fr/?page=minishell.c
 
 https://github.com/appinha/42cursus-03-minishell
+
+
+TODO : Make ft_strjoin_many

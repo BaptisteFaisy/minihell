@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   execution_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/07 14:45:12 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/22 12:46:25 by bfaisy           ###   ########.fr       */
+/*   Created: 2024/02/08 17:37:49 by lhojoon           #+#    #+#             */
+/*   Updated: 2024/02/12 18:50:46 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av, char **ev)
-{
-	char	*str;
+// int	execution(t_cmd_args *cargs)
+// {
+// 	t_exec_info	exec_info;
 
-	(void)av;
-	if (ac != 1)
-		return (1);
-	while (1)
-	{
-		write(1, "$> ", 3);
-		str = get_next_line(0);
-		if (!str)
-			exit (1);
-		if (parsing(str, ev) == 0)
-			continue ;
-		if (ft_strncmp(str, "exit", 4) == 0)
-		{
-			free(str);
-			return (0);
-		}
-		free(str);
-	}
-	return (0);
-}
+// 	init_t_exec_info(&exec_info);
+// 	exec_info.paths = resolve_path(cargs->envp);
+// 	if (exec_info.paths == NULL)
+// 		return (EXEC_FAILURE);
+// 	if (!init_redirect_files(cargs, &exec_info))
+// 		return (EXEC_FAILURE); // TODO : free exec_info
+// 	return (EXEC_SUCCESS);
+// }
