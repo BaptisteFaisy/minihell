@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:38:41 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/14 16:26:23 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/22 10:48:32 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*concatenation(char *str, char c);
 
-t_string_and_i	data_after(char *str, int i)
+t_string_and_i	data_after(char *str, int i, t_cmd_args *head)
 {
 	t_string_and_i	data;
 
@@ -24,10 +24,16 @@ t_string_and_i	data_after(char *str, int i)
 	// printf("str[i] in data after : %d\n", i);
 	while (str[data.i] == ' ' || str[data.i] == '<' || str[data.i] == '>')
 			data.i++;
-	while (str[data.i] || str[data.i] == '|')
+	while (str[data.i])
 	{
 		if (str[data.i] == ' ')
 			break ;
+		else if (str[data.i] == '|')
+		{
+			data.i++;
+			head->is_pipe = 1;
+			break;
+		}
 		else
 		{
 			data.str = concatenation(data.str, str[data.i]);
@@ -36,7 +42,7 @@ t_string_and_i	data_after(char *str, int i)
 		}
 		data.i++;
 	}
-	// printf("int after data_after : %d\n", data.i);
+	// printf("%c", str[data.i]);
 	return (data);
 }
 

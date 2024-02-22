@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/17 01:57:22 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/22 10:06:19 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ typedef struct s_cmd_args
 	t_red				*redirect;
 	char				**envp;
 	struct s_cmd_args	*next;
+	int					is_first;
+	int					is_pipe;
 }	t_cmd_args;
 
 typedef struct s_string_and_i

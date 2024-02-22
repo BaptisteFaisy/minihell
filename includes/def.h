@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/17 02:07:18 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/22 10:33:35 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,21 @@
 # include "struct.h"
 # include <stdbool.h>
 
-int				redirect(char *str, int i, t_red *redirect);
+int				redirect(char *str, int i, t_red *redirect, t_cmd_args *head);
 void			create_firstnode_and_put(t_list **head, char *data);
 int				create_node_and_put(t_list **head, char *data);
 int				parsing(char *str, char **ev);
-t_cmd_args		*create_node_cmd(t_cmd_args *head, char **ev);
-t_string_and_i	data_after(char *str, int i);
+t_cmd_args		*create_node_cmd(t_cmd_args **head, char **ev);
+t_string_and_i	data_after(char *str, int i, t_cmd_args *head);
 int				find_next_pipe(char *str, int i);
 char			*transform_str(char *str);
 void			freered(t_red redirect);
 void			freelist(t_list *head);
 void			freeheadcmd(t_cmd_args *head);
-void 			create_redirect_node_head(t_red *head);
+void 			create_redirect_node_main(t_cmd_args *head);
 void			create_redirect_node(t_red *head);
 t_red			*get_last_redirect_node(t_red *head);
-
+t_cmd_args		*create_next_node_head(t_cmd_args *head, char **ev);
 
 
 

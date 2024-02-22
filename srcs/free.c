@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 13:29:44 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/12 13:39:49 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/19 05:13:08 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	freelist(t_list *head)
 	{
 		tmp = head;
 		head = head->next;
-		free(tmp->content);
+		if (tmp->content)
+			free(tmp->content);
 		free(tmp);
 	}
 }

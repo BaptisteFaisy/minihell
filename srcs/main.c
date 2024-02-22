@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 14:45:12 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/12 17:49:58 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/22 12:46:25 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	main(int ac, char **av, char **ev)
 	{
 		write(1, "$> ", 3);
 		str = get_next_line(0);
+		if (!str)
+			exit (1);
 		if (parsing(str, ev) == 0)
 			continue ;
 		if (ft_strncmp(str, "exit", 4) == 0)

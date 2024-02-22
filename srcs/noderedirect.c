@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:56:42 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/17 02:21:34 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/19 04:57:03 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,29 @@
 
 void	create_redirect_node(t_red *head)
 {
-	t_red	*next;
+	t_red	*next1;
 
-	next = malloc(sizeof(t_red));
-	if (!next)
+	next1 = malloc(sizeof(t_red));
+	if (!next1)
 		exit (1);
-	head->next = next;
-	next->red_in = NULL;
-	next->red_in_delim = NULL;
-	next->red_out = NULL;
-	next->red_out_delim = NULL;
-	next->next = NULL;
+	head->next = next1;
+	next1->red_in = NULL;
+	next1->red_in_delim = NULL;
+	next1->red_out = NULL;
+	next1->red_out_delim = NULL;
+	next1->next = NULL;
 }
 
-void create_redirect_node_head(t_red *head)
+void create_redirect_node_main(t_cmd_args *head)
 {
-	head = malloc(sizeof(t_red));
-	if (!head)
-		exit (1);
-	// printf("a\n");
-	head->next = NULL;
+	if (head->is_first == TRUE)
+		head->is_first = FALSE;
+	else
+		create_redirect_node(head->redirect);
 }
 
 t_red	*get_last_redirect_node(t_red *head)
 {
-	if (!head)
-		return (head);
 	while (head->next)
 		head = head->next;
 	return (head);
