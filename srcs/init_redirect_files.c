@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:06:04 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/15 10:56:35 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/22 14:05:36 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static bool	iter_redirect_output(t_list *details, t_list **infos)
 	return (true);
 }
 
-static void	free_redirect(void *content)
+void	free_redirect(void *content)
 {
 	if (*(int *)content != -1)
 		close((*(int *)content));

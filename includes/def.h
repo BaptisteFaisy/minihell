@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   def.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/22 10:33:35 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/22 14:07:46 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int	g_status = 0;
 int				redirect(char *str, int i, t_red *redirect, t_cmd_args *head);
 void			create_firstnode_and_put(t_list **head, char *data);
 int				create_node_and_put(t_list **head, char *data);
-int				parsing(char *str, char **ev);
-t_cmd_args		*create_node_cmd(t_cmd_args **head, char **ev);
+int				parsing(char *str, t_list *ev);
+t_cmd_args		*create_node_cmd(t_cmd_args **head, t_list *ev);
 t_string_and_i	data_after(char *str, int i, t_cmd_args *head);
 int				find_next_pipe(char *str, int i);
 char			*transform_str(char *str);
@@ -68,9 +68,7 @@ void			freeheadcmd(t_cmd_args *head);
 void 			create_redirect_node_main(t_cmd_args *head);
 void			create_redirect_node(t_red *head);
 t_red			*get_last_redirect_node(t_red *head);
-t_cmd_args		*create_next_node_head(t_cmd_args *head, char **ev);
-
-
+t_cmd_args		*create_next_node_head(t_cmd_args *head, t_list *ev);
 
 // Execution part
 int				execution(t_cmd_args *cmd_args);

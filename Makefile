@@ -17,7 +17,7 @@ SRCS_RAW =	main.c \
 			init_t_exec_info.c \
 			transform_str.c \
             free.c \
-			noderedirect.c
+			noderedirect.c \
 			iter_exec.c \
 			is_builtin.c \
 			get_env_var.c \

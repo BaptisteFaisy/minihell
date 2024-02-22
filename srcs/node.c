@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:43:01 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/22 10:31:37 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/22 14:00:12 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_list	*get_last(t_list *head);
 
-t_cmd_args	*create_node_cmd(t_cmd_args **head, char **ev)
+t_cmd_args	*create_node_cmd(t_cmd_args **head, t_list *ev)
 {
 	(*head) = malloc(sizeof(t_cmd_args));
 	if (!(*head))
@@ -23,7 +23,7 @@ t_cmd_args	*create_node_cmd(t_cmd_args **head, char **ev)
 		exit (1);
 	}
 	(*head)->redirect = malloc(sizeof(t_red));
-	if (!(*head)->redirect) //
+	if (!(*head)->redirect)
 		exit(1);
 	(*head)->redirect->red_out = NULL;
 	(*head)->redirect->red_in = NULL;
@@ -96,7 +96,7 @@ t_list	*get_last(t_list *head)
 	return (head);
 }
 
-t_cmd_args	*create_next_node_head(t_cmd_args *head, char **ev)
+t_cmd_args	*create_next_node_head(t_cmd_args *head, t_list *ev)
 {
 	t_cmd_args	*tmp;
 
@@ -108,7 +108,7 @@ t_cmd_args	*create_next_node_head(t_cmd_args *head, char **ev)
 	}
 	head->next = tmp;
 	tmp->redirect = malloc(sizeof(t_red));
-	if (!tmp->redirect) //
+	if (!tmp->redirect)
 		exit(1);
 	tmp->redirect->red_out = NULL;
 	tmp->redirect->red_in = NULL;
