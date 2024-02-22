@@ -19,6 +19,10 @@
 		"*.tcc": "c",
 		"cinttypes": "c",
 		"cstdint": "c",
-		"typeinfo": "c"
-	}
+		"typeinfo": "c",
+		"string_view": "c",
+		"minishell.h": "c",
+		"features.h": "c"
+	},
+	"C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools"
 }

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   data_after.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:38:41 by bfaisy            #+#    #+#             */
 /*   Updated: 2024/02/22 10:48:32 by bfaisy           ###   ########.fr       */
@@ -23,7 +23,7 @@ t_string_and_i	data_after(char *str, int i, t_cmd_args *head)
 	// printf("int avant data_after : %d\n", data.i);
 	// printf("str[i] in data after : %d\n", i);
 	while (str[data.i] == ' ' || str[data.i] == '<' || str[data.i] == '>')
-			data.i++;
+		data.i++;
 	while (str[data.i])
 	{
 		if (str[data.i] == ' ')
