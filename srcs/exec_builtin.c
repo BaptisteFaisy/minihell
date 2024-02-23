@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 15:21:11 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/21 19:55:25 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/23 12:51:39 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,4 @@ void	exec_builtin(t_cmd_args *cargs, t_exec_info *info)
 		builtin_env(cargs, info);
 	else
 		exit(EXEC_FAILURE);
-	return (0);
 }

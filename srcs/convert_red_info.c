@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_red_info.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 09:18:31 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/19 16:35:57 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/23 16:34:16 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,17 @@ t_red_info	convert_red_info(t_red *raw)
 	while (raw)
 	{
 		if (raw->red_in)
-			ft_lstadd_back(&info.red_in, new_red_details(raw->red_in, RED_IN));
+			ft_lstadd_back(&info.red_in,
+				ft_lstnew(new_red_details(raw->red_in, RED_IN)));
 		else if (raw->red_out)
 			ft_lstadd_back(&info.red_out,
-				new_red_details(raw->red_out, RED_OUT));
+				ft_lstnew(new_red_details(raw->red_out, RED_OUT)));
 		else if (raw->red_in_delim)
 			ft_lstadd_back(&info.red_in,
-				new_red_details(raw->red_in_delim, RED_IN_DELIM));
+				ft_lstnew(new_red_details(raw->red_in_delim, RED_IN_DELIM)));
 		else if (raw->red_out_delim)
 			ft_lstadd_back(&info.red_out,
-				new_red_details(raw->red_out_delim, RED_OUT_APPEND));
+				ft_lstnew(new_red_details(raw->red_out_delim, RED_OUT_APPEND)));
 		raw = raw->next;
 	}
 	return (info);

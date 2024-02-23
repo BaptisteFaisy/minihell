@@ -6,13 +6,13 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 16:42:44 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/16 17:07:34 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/23 17:54:28 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_error(char *err, char *name)
+static void	print_error(char *err, char *name)
 {
 	char	*s;
 
@@ -28,6 +28,8 @@ void	builtin_cd(t_cmd_args *cargs, t_exec_info *info)
 {
 	char	*path;
 
+	(void)info;
+	printf("%d\n", ft_lstsize(cargs->args));
 	if (ft_lstsize(cargs->args) > 2)
 	{
 		print_error(ERR_CD_TOO_MANY_ARGS, NULL);

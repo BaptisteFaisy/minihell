@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transform_str.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 19:21:19 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/22 13:33:59 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/23 17:04:37 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ char	*transform_str(char *str)
 		}
 		i++;
 	}
+	new_str[j - 1] = '\0';
 	while (j != (int)ft_strlen(str) + 1)
 	{
 		new_str[j] = '\0';

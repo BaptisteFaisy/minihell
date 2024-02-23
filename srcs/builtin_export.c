@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 01:08:56 by marvin            #+#    #+#             */
-/*   Updated: 2024/02/21 19:53:57 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/23 16:54:36 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,21 @@ static char	*get_string_value(char *str)
 	return (retstr);
 }
 
-static void	replace_existing_envp(t_list *args, t_list *envp, bool *exist)
+static int	get_key_len(char *str)
 {
-	exist = true;
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	return (i);
+}
+
+static void	replace_existing_envp(t_list *args, t_exec_info *info,
+	t_list *envp, bool *exist)
+{
+	(void)info;
+	*exist = true;
 	free(envp->content);
 	envp->content = ft_strdup(args->content);
 }
@@ -44,9 +56,9 @@ void	builtin_export(t_cmd_args *cargs, t_exec_info *info)
 		while (envp)
 		{
 			if (ft_strncmp((char *)args->content, (char *)envp->content,
-					ft_strlen((char *)args->content)) == 0)
+					get_key_len((char *)args->content)) == 0)
 			{
-				replace_existing_envp(args, envp, &exist);
+				replace_existing_envp(args, info, envp, &exist);
 				break ;
 			}
 			envp = envp->next;

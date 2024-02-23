@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/22 14:08:05 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/23 12:33:05 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,4 @@ typedef struct s_exec_info
 	char			*cmd;
 }	t_exec_info;
 
-# define RED_IN 0
 #endif

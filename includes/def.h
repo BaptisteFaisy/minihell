@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/22 14:07:46 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/23 16:08:15 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@
 # include <errno.h>
 # include "struct.h"
 
-int	g_status = 0;
+extern int	g_status;
+
 int				redirect(char *str, int i, t_red *redirect, t_cmd_args *head);
 void			create_firstnode_and_put(t_list **head, char *data);
 int				create_node_and_put(t_list **head, char *data);
@@ -65,7 +66,7 @@ char			*transform_str(char *str);
 void			freered(t_red redirect);
 void			freelist(t_list *head);
 void			freeheadcmd(t_cmd_args *head);
-void 			create_redirect_node_main(t_cmd_args *head);
+void			create_redirect_node_main(t_cmd_args *head);
 void			create_redirect_node(t_red *head);
 t_red			*get_last_redirect_node(t_red *head);
 t_cmd_args		*create_next_node_head(t_cmd_args *head, t_list *ev);
@@ -87,10 +88,10 @@ bool			set_exec_info(
 					t_cmd_args *cargs, char **paths);
 void			print_final_output(int ifd);
 void			set_fd(int fdcontainer[2], int first, int next);
-void			free_redirect(void *content);
+void			free_redirect_fd(void *content);
 bool			add_pid(t_list **pids, pid_t pid);
 int				wait_pid(t_list **pids);
-t_list			*search_env_var(t_list *envp, char *var);
+char			*search_env_var(t_list *envp, char *var);
 char			**transform_envp(t_list *envp);
 t_list			*get_list_envp(char **envp);
 void			builtin_echo(t_cmd_args *cargs, t_exec_info *info);
@@ -100,5 +101,6 @@ void			builtin_export(t_cmd_args *cargs, t_exec_info *info);
 void			builtin_unset(t_cmd_args *cargs, t_exec_info *info);
 void			builtin_env(t_cmd_args *cargs, t_exec_info *info);
 void			exec_builtin(t_cmd_args *cargs, t_exec_info *info);
+char			**list_to_args(char *cmd, t_list *args);
 
 #endif

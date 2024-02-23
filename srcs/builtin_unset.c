@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:33:04 by marvin            #+#    #+#             */
-/*   Updated: 2024/02/20 00:48:42 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/23 13:16:24 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ static bool	remove_one_element_from_envp(t_list **envp, char *var)
 	{
 		if (ft_strncmp((char *)(*envp)->content, var, ft_strlen(var)) == 0)
 		{
-			if (prev == envp)
+			if (prev == *envp)
 			{
+				prev = (*envp)->next;
 				free((*envp)->content);
 				free(envp);
+				*envp = prev;
 			}
 			else
 			{
@@ -42,8 +44,8 @@ static bool	remove_one_element_from_envp(t_list **envp, char *var)
 void	builtin_unset(t_cmd_args *cargs, t_exec_info *info)
 {
 	t_list	*args;
-	char	*envvar;
 
+	(void)info;
 	args = cargs->args;
 	while (args)
 	{

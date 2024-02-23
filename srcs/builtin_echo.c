@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:23:37 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/16 15:49:13 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/23 17:59:01 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,22 @@ void	builtin_echo(t_cmd_args *cargs, t_exec_info *info)
 	t_list	*args;
 	bool	n_flag;
 
+	(void)info;
 	args = cargs->args;
 	n_flag = false;
-	if (ft_strncmp((const char *)args->content, "-n", 2) == 0)
+	if (args && ft_strncmp((char *)args->content, "-n", 2) == 0)
 	{
 		n_flag = true;
 		args = args->next;
 	}
 	while (args)
 	{
-		ft_putstr_fd((const char *)args->content, 1);
+		ft_putstr_fd((char *)args->content, 1);
+		if (args->next)
+			ft_putchar_fd(' ', 1);
 		args = args->next;
 	}
-	if (n_flag == true)
+	if (n_flag == false)
 		ft_putchar_fd('\n', 1);
 	exit(EXEC_SUCCESS);
 }

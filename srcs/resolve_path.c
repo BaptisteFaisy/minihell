@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resolve_path.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:30:01 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/19 19:08:42 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/23 16:23:56 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static char	*get_path_str(t_list *envp)
 {
 	while (envp && ft_strncmp("PATH", (char *)envp->content, 4))
-		envp++;
+		envp = envp->next;
 	if (!envp)
 		return (NULL);
 	return ((char *)envp->content + 5);

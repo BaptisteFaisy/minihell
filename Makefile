@@ -27,7 +27,13 @@ SRCS_RAW =	main.c \
 			builtin_pwd.c \
 			builtin_env.c \
 			builtin_export.c \
-			signal_handler.c
+			builtin_unset.c \
+			builtin_cd.c \
+			builtin_echo.c \
+			signal_handler.c \
+			list_to_args.c \
+			transform_envp.c \
+			search_env_var.c
 SRCS = $(addprefix $(DIR)/,$(SRCS_RAW)) \
 
 OBJS = $(SRCS:c=o)

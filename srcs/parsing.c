@@ -5,13 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/02/22 14:00:52 by lhojoon          ###   ########.fr       */
+/*   Created: 2024/02/23 16:17:00 by lhojoon           #+#    #+#             */
+/*   Updated: 2024/02/23 17:05:56 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
 
 #include "def.h"
 
@@ -22,7 +19,7 @@ int	parsing(char *str, t_list *ev)
 	int				return_value;
 	t_string_and_i	storage;
 	t_red			*tmp;
-	t_cmd_args		*tmpargs;		
+	t_cmd_args		*tmpargs;
 
 	i = 0;
 	head = NULL;
@@ -68,6 +65,7 @@ int	parsing(char *str, t_list *ev)
 			i = storage.i;
 		}
 	}
+	execution(head);
 	// while (head)
 	// {
 	// 	while (head->redirect)

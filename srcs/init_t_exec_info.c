@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_t_exec_info.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 10:42:21 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/15 10:57:59 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/23 12:46:23 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ t_exec_info	*init_t_exec_info(void)
 	var->redirect.red_in = NULL;
 	var->redirect.red_out = NULL;
 	var->paths = NULL;
+	return (var);
 }
 
 bool	set_exec_info(
 		t_exec_info **info, char *cmd, t_cmd_args *cargs, char **paths)
 {
-	info = init_t_exec_info();
+	*info = init_t_exec_info();
 	if (!info)
 		return (false);
 	(*info)->cmd = cmd;

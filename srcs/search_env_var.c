@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   search_env_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:23:35 by marvin            #+#    #+#             */
-/*   Updated: 2024/02/19 23:57:47 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/23 16:08:12 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list	*search_env_var(t_list *envp, char *var)
+char	*search_env_var(t_list *envp, char *var)
 {
 	while (envp)
 	{
