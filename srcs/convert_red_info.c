@@ -3,36 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   convert_red_info.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 09:18:31 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/23 16:34:16 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/27 16:58:32 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "minishell.h"
+#include "minishell.h"
 
-// static void	init_red_info(t_red_info *info)
-// {
-// 	info->red_in = NULL;
-// 	info->red_out = NULL;
-// }
+static void	init_red_info(t_red_info *info)
+{
+	info->red_in = NULL;
+	info->red_out = NULL;
+}
 
-// static t_red_details	*new_red_details(char *file, int type)
-// {
-// 	t_red_details	*details;
+static t_red_details	*new_red_details(char *file, int type)
+{
+	t_red_details	*details;
 
-// 	details = (t_red_details *)malloc(sizeof(t_red_details));
-// 	if (!details)
-// 		return (NULL);
-// 	details->file = file;
-// 	details->type = type;
-// 	return (details);
-// }
+	details = (t_red_details *)malloc(sizeof(t_red_details));
+	if (!details)
+		return (NULL);
+	details->file = file;
+	details->type = type;
+	return (details);
+}
 
-// t_red_info	convert_red_info(t_red *raw)
-// {
-// 	t_red_info	info;
+t_red_info	convert_red_info(t_red *raw)
+{
+	t_red_info	info;
 
 	init_red_info(&info);
 	while (raw)

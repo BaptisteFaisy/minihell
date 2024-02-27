@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:43:01 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/27 16:11:52 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/27 16:57:10 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_list	*get_last(t_list *head);
 
-t_cmd_args	*create_node_cmd(t_cmd_args **head, char **ev)
+t_cmd_args	*create_node_cmd(t_cmd_args **head, t_list *ev)
 {
 	(*head) = malloc(sizeof(t_cmd_args));
 	if (!(*head))

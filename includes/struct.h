@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/27 13:17:34 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/27 16:57:39 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_cmd_args
 {
 	char				*cmd;
 	t_list				*args;
-	char				**ep;
+	t_list				*envp;
 	t_red				*redirect;
 	struct s_cmd_args	*next;
 	int					is_first;

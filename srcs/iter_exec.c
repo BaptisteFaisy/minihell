@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   iter_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:30:42 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/27 14:56:49 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/27 16:58:20 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "minishell.h"
+#include "minishell.h"
 
 /**
  * @details Priority (for example cat)

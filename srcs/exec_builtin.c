@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 15:21:11 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/27 14:11:43 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/27 16:58:26 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "minishell.h"
+#include "minishell.h"
 
 int	exec_builtin(t_cmd_args *cargs, t_exec_info *info)
 {

@@ -33,7 +33,7 @@ SRCS_RAW =	main.c \
 			signal_handler.c \
 			list_to_args.c \
 			transform_envp.c \
-			search_env_var.c
+			search_env_var.c \
 			checktest.c
 SRCS = $(addprefix $(DIR)/,$(SRCS_RAW)) \
 

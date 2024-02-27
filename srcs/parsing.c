@@ -6,14 +6,13 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:53:57 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/27 16:54:01 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/27 16:56:13 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "def.h"
 
-int	parsing(char *str, char **ev)
+int	parsing(char *str, t_list *ev)
 {
 	int				i;
 	t_cmd_args		*head;
@@ -59,12 +58,12 @@ int	parsing(char *str, char **ev)
 			i = storage.i;
 		}
 	}
+	execution(head);
 	free(str);
 	freeheadcmd(head);
 	return (1);
 }
 
-	execution(head);
 	// while (head)
 	// {
 	// 	while (head->redirect)
@@ -102,7 +101,7 @@ int	parsing(char *str, char **ev)
 	// 	head->redirect = head->redirect->next;
 	// }
 
-t_cmd_args	*create_next_node_head(t_cmd_args *head, char **ev)
+t_cmd_args	*create_next_node_head(t_cmd_args *head, t_list *ev)
 {
 	t_cmd_args	*tmp;
 

@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   init_t_exec_info.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 10:42:21 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/23 12:46:23 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/27 16:58:12 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "minishell.h"
+#include "minishell.h"
 
-// t_exec_info	*init_t_exec_info(void)
-// {
-// 	t_exec_info	*var;
+t_exec_info	*init_t_exec_info(void)
+{
+	t_exec_info	*var;
 
 	var = (t_exec_info *)malloc(sizeof(t_exec_info));
 	if (!var)

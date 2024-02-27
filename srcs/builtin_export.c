@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 01:08:56 by marvin            #+#    #+#             */
-/*   Updated: 2024/02/27 14:02:50 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/27 16:59:00 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "minishell.h"
+#include "minishell.h"
 
-// static char	*get_string_value(char *str)
-// {
-// 	char	*retstr;
+static char	*get_string_value(char *str)
+{
+	char	*retstr;
 
-// 	if (ft_strchr(str, '=') == 0)
-// 		retstr = ft_strjoin(str, "=");
-// 	else
-// 		retstr = ft_strdup(str);
-// 	return (retstr);
-// }
+	if (ft_strchr(str, '=') == 0)
+		retstr = ft_strjoin(str, "=");
+	else
+		retstr = ft_strdup(str);
+	return (retstr);
+}
 
 static int	get_key_len(char *str)
 {

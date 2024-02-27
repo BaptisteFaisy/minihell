@@ -6,15 +6,15 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:37:49 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/27 13:59:31 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/27 16:57:29 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// int	execution(t_cmd_args *cargs)
-// {
-// 	char	**paths;
+int	execution(t_cmd_args *cargs)
+{
+	char	**paths;
 
 	if (cargs->envp == NULL)
 		printf("envp is NULL\n");
