@@ -1,34 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   resolve_path.c                                     :+:      :+:    :+:   */
+/*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/10 20:30:01 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/19 19:08:42 by marvin           ###   ########.fr       */
+/*   Created: 2024/02/16 15:53:47 by lhojoon           #+#    #+#             */
+/*   Updated: 2024/02/19 16:34:41 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*get_path_str(t_list *envp)
+void	print_error(char *error)
 {
-	while (envp && ft_strncmp("PATH", (char *)envp->content, 4))
-		envp++;
-	if (!envp)
-		return (NULL);
-	return ((char *)envp->content + 5);
+	char	*s;
+
+	s = ft_strjoin_many(3, SHELL_NAME, ": ", error);
+	perror(s);
+	free(s);
 }
 
-char	**resolve_path(t_list *envp)
+void	builtin_pwd(t_cmd_args *cargs, t_exec_info *info)
 {
-	char	*path_str;
-	char	**paths;
+	char	*pwd;
 
-	path_str = get_path_str(envp);
-	if (!path_str)
-		return (NULL);
-	paths = ft_split(path_str, ':');
-	return (paths);
+	(void)cargs;
+	(void)info;
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
+	{
+		print_error(ERR_GETCWD);
+		exit(EXEC_FAILURE);
+	}
+	ft_putstr_fd(pwd, 1);
+	ft_putchar_fd('\n', 1);
+	free(pwd);
+	exit(EXEC_SUCCESS);
 }

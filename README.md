@@ -8,5 +8,28 @@ http://i.paysdu42.fr/?page=minishell.c
 
 https://github.com/appinha/42cursus-03-minishell
 
+~~EXEC~~
 
-TODO : Make ft_strjoin_many
+pipe
+
+if args->next exist, do pipe
+
+pipefd[0] : le bout de lecture
+pipefd[1] : le bout d’écriture
+https://tldp.org/LDP/lpg/node11.html
+faut ouvrir tous les redirects et peter tous les contenues, et prendre que le dernier
+
+Builtin list: (tous non testé)
+echo *
+cd *
+pwd *
+export *
+unset *
+env *
+exit *?
+
+Signals
+
+SIGQUIT (Ctrl + \)
+SIGQUIT (Ctrl + D)
+SIGINT (Ctrl + C)

@@ -1,6 +1,6 @@
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror
 
 DIR = srcs
 SRCS_RAW =	main.c \
@@ -17,13 +17,23 @@ SRCS_RAW =	main.c \
 			init_t_exec_info.c \
 			transform_str.c \
             free.c \
-			noderedirect.c
+			noderedirect.c \
+			iter_exec.c \
+			is_builtin.c \
+			get_env_var.c \
+			exec_builtin.c \
+			convert_red_info.c \
+			iter_exec_2.c \
+			builtin_pwd.c \
+			builtin_env.c \
+			builtin_export.c \
+			signal_handler.c
 SRCS = $(addprefix $(DIR)/,$(SRCS_RAW)) \
 
 OBJS = $(SRCS:c=o)
 INCLUDES = -I./includes -I./libft 
 
-DEBUG = 
+DEBUG = -g3
 
 LIBFT = libft/libft.a
 

@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution_main.c                                   :+:      :+:    :+:   */
+/*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 17:37:49 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/15 12:22:08 by lhojoon          ###   ########.fr       */
+/*   Created: 2024/02/12 14:13:01 by lhojoon           #+#    #+#             */
+/*   Updated: 2024/02/12 17:48:28 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	execution(t_cmd_args *cargs)
+bool	is_builtin(char *cmd)
 {
-	char	**paths;
+	char	**builtins;
 
-	paths = resolve_path(cargs->envp);
-	if (paths == NULL)
-		return (EXEC_FAILURE);
-	return (iter_exec(cargs, paths));
+	builtins = ft_split("echo cd pwd export unset env exit", ' ');
+	if (!builtins)
+		return (false);
+	while (*builtins)
+	{
+		if (ft_strncmp(cmd, *builtins, ft_strlen(*builtins)))
+		{
+			ft_freesplit(builtins);
+			return (true);
+		}
+		builtins++;
+	}
+	ft_freesplit(builtins);
+	return (false);
 }

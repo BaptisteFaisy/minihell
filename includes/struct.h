@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/22 10:06:19 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/22 14:08:05 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,26 @@
 # include "def.h"
 # include "libft.h"
 
+typedef struct s_red_details
+{
+	char	*file;
+	int		type;
+}	t_red_details;
+
+typedef struct s_red_info
+{
+	t_list	*red_in;
+	t_list	*red_out;
+}	t_red_info;
+
 /**
  * @brief Structure for redirections 
  * 
- * @param red_in input redirection file (<), NULLABLE
- * @param red_out output redirection file (>), NULLABLE
+ * @param red_in input redirection file or delimiter (<, <<), NULLABLE
+ * @param red_out output redirection file (> , >>), NULLABLE
  * @param red_in_delim input redirection delimiter (<<), NULLABLE
- * @param red_out_append output redirection file, append mode (>>), NULLABLE
+ * @param red_out_delim output redirection file, append mode (>>), NULLABLE
+ * @param next next element, NULLABLE
 */
 typedef struct s_red
 {
@@ -49,8 +62,8 @@ typedef struct s_cmd_args
 {
 	char				*cmd;
 	t_list				*args;
+	t_list				*envp;
 	t_red				*redirect;
-	char				**envp;
 	struct s_cmd_args	*next;
 	int					is_first;
 	int					is_pipe;
@@ -71,12 +84,10 @@ typedef struct s_string_and_i
 */
 typedef struct s_exec_info
 {
-	t_red			redirect;
+	t_red_info		redirect;
 	char			**paths;
 	char			*cmd;
 }	t_exec_info;
-
-
 
 # define RED_IN 0
 #endif
