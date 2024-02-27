@@ -6,13 +6,13 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:23:37 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/23 17:59:01 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/27 14:14:19 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	builtin_echo(t_cmd_args *cargs, t_exec_info *info)
+int	builtin_echo(t_cmd_args *cargs, t_exec_info *info)
 {
 	t_list	*args;
 	bool	n_flag;
@@ -34,5 +34,5 @@ void	builtin_echo(t_cmd_args *cargs, t_exec_info *info)
 	}
 	if (n_flag == false)
 		ft_putchar_fd('\n', 1);
-	exit(EXEC_SUCCESS);
+	return (EXEC_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/23 16:08:15 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/27 14:15:13 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,18 +89,16 @@ bool			set_exec_info(
 void			print_final_output(int ifd);
 void			set_fd(int fdcontainer[2], int first, int next);
 void			free_redirect_fd(void *content);
-bool			add_pid(t_list **pids, pid_t pid);
-int				wait_pid(t_list **pids);
 char			*search_env_var(t_list *envp, char *var);
 char			**transform_envp(t_list *envp);
 t_list			*get_list_envp(char **envp);
-void			builtin_echo(t_cmd_args *cargs, t_exec_info *info);
-void			builtin_cd(t_cmd_args *cargs, t_exec_info *info);
-void			builtin_pwd(t_cmd_args *cargs, t_exec_info *info);
-void			builtin_export(t_cmd_args *cargs, t_exec_info *info);
-void			builtin_unset(t_cmd_args *cargs, t_exec_info *info);
-void			builtin_env(t_cmd_args *cargs, t_exec_info *info);
-void			exec_builtin(t_cmd_args *cargs, t_exec_info *info);
+int				builtin_echo(t_cmd_args *cargs, t_exec_info *info);
+int				builtin_cd(t_cmd_args *cargs, t_exec_info *info);
+int				builtin_pwd(t_cmd_args *cargs, t_exec_info *info);
+int				builtin_export(t_cmd_args *cargs, t_exec_info *info);
+int				builtin_unset(t_cmd_args *cargs, t_exec_info *info);
+int				builtin_env(t_cmd_args *cargs, t_exec_info *info);
+int				exec_builtin(t_cmd_args *cargs, t_exec_info *info);
 char			**list_to_args(char *cmd, t_list *args);
 
 #endif

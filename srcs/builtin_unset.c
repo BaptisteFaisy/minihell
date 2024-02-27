@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:33:04 by marvin            #+#    #+#             */
-/*   Updated: 2024/02/23 13:16:24 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/27 14:13:37 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static bool	remove_one_element_from_envp(t_list **envp, char *var)
 	return (true);
 }
 
-void	builtin_unset(t_cmd_args *cargs, t_exec_info *info)
+int	builtin_unset(t_cmd_args *cargs, t_exec_info *info)
 {
 	t_list	*args;
 
@@ -52,5 +52,5 @@ void	builtin_unset(t_cmd_args *cargs, t_exec_info *info)
 		remove_one_element_from_envp(&cargs->envp, (char *)args->content);
 		args = args->next;
 	}
-	exit(EXEC_SUCCESS);
+	return (EXEC_SUCCESS);
 }

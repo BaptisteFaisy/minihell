@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 01:08:56 by marvin            #+#    #+#             */
-/*   Updated: 2024/02/23 16:54:36 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/27 14:02:50 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	replace_existing_envp(t_list *args, t_exec_info *info,
 	envp->content = ft_strdup(args->content);
 }
 
-void	builtin_export(t_cmd_args *cargs, t_exec_info *info)
+int	builtin_export(t_cmd_args *cargs, t_exec_info *info)
 {
 	t_list	*args;
 	t_list	*envp;
@@ -68,5 +68,5 @@ void	builtin_export(t_cmd_args *cargs, t_exec_info *info)
 				ft_lstnew(get_string_value((char *)args->content)));
 		args = args->next;
 	}
-	exit(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }

@@ -6,26 +6,26 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 15:21:11 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/23 12:51:39 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/27 14:11:43 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exec_builtin(t_cmd_args *cargs, t_exec_info *info)
+int	exec_builtin(t_cmd_args *cargs, t_exec_info *info)
 {
 	if (ft_strncmp(info->cmd, "echo", 4) == 0)
-		builtin_echo(cargs, info);
+		return (builtin_echo(cargs, info));
 	else if (ft_strncmp(info->cmd, "cd", 2) == 0)
-		builtin_cd(cargs, info);
+		return (builtin_cd(cargs, info));
 	else if (ft_strncmp(info->cmd, "pwd", 3) == 0)
-		builtin_pwd(cargs, info);
+		return (builtin_pwd(cargs, info));
 	else if (ft_strncmp(info->cmd, "export", 6) == 0)
-		builtin_export(cargs, info);
+		return (builtin_export(cargs, info));
 	else if (ft_strncmp(info->cmd, "unset", 5) == 0)
-		builtin_unset(cargs, info);
+		return (builtin_unset(cargs, info));
 	else if (ft_strncmp(info->cmd, "env", 3) == 0)
-		builtin_env(cargs, info);
+		return (builtin_env(cargs, info));
 	else
-		exit(EXEC_FAILURE);
+		return (EXEC_FAILURE);
 }

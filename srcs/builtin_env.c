@@ -6,13 +6,13 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:33:54 by marvin            #+#    #+#             */
-/*   Updated: 2024/02/23 16:43:22 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/27 14:13:26 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	builtin_env(t_cmd_args *cargs, t_exec_info *info)
+int	builtin_env(t_cmd_args *cargs, t_exec_info *info)
 {
 	t_list	*lst;
 
@@ -23,5 +23,5 @@ void	builtin_env(t_cmd_args *cargs, t_exec_info *info)
 		ft_putendl_fd((char *)lst->content, STDOUT_FILENO);
 		lst = lst->next;
 	}
-	exit(EXEC_SUCCESS);
+	return (EXEC_SUCCESS);
 }

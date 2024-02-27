@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:30:42 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/23 16:31:12 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/27 14:56:49 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,25 @@ static bool	output_redirect(t_exec_info *info, int curfd[2])
 	return (true);
 }
 
+static int	handle_execve(t_exec_info *info, char **envp_tmp, char **args_tmp)
+{
+	pid_t	pid;
+	int		status;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		status = execve(info->cmd, args_tmp, envp_tmp);
+		exit(status);
+	}
+	else
+	{
+		if (waitpid(0, &status, 0) == -1)
+			return (EXEC_FAILURE);
+	}
+	return (status);
+}
+
 /**
  * must close all file descriptors
 */
@@ -61,53 +80,48 @@ static int
 {
 	char	**envp_tmp;
 	char	**args_tmp;
+	int		exit_code;
 
 	if (!init_redirect_files(cargs, info))
 		return (EXEC_FAILURE); // TODO : free exec_info
-	input_redirect(info, prevfd);
-	output_redirect(info, curfd);
 	if (is_builtin(cargs->cmd))
 	{
 		info->cmd = ft_strdup(cargs->cmd);
-		exec_builtin(cargs, info);
+		exit_code = exec_builtin(cargs, info);
 	}
 	else
 	{
+		input_redirect(info, prevfd);
+		output_redirect(info, curfd);
 		info->cmd = get_cmd(cargs, info);
 		envp_tmp = transform_envp(cargs->envp);
 		args_tmp = list_to_args(cargs->cmd, cargs->args);
-		execve(info->cmd, args_tmp, envp_tmp);
+		exit_code = handle_execve(info, envp_tmp, args_tmp);
 		free(envp_tmp);
 		free(args_tmp);
 	}
-	return (EXEC_SUCCESS); // TODO : free exec_info
+	return (exit_code); // TODO : free exec_info
 }
 
 int	iter_exec(t_cmd_args *cargs, char **paths)
 {
-	t_list			*pids;
 	int				prevfd[2];
 	int				curfd[2];
 	t_exec_info		*exec_info;
-	pid_t			tpid;
+	int				exit_code;
 
 	set_fd(prevfd, -1, -1);
-	pids = NULL;
+	exit_code = EXIT_SUCCESS;
 	while (cargs)
 	{
 		if (set_exec_info(&exec_info, NULL, cargs, paths) == false)
 			return (EXEC_FAILURE);
 		if (pipe(curfd) == -1)
 			return (EXEC_FAILURE); // TODO : Error message, free all fds
-		tpid = fork();
-		if (add_pid(&pids, tpid) == false)
-			return (EXEC_FAILURE); // TODO : free all fds
-		if (tpid == 0)
-			execution_child(cargs, exec_info, prevfd, curfd);
+		exit_code = execution_child(cargs, exec_info, prevfd, curfd);
 		set_fd(prevfd, curfd[0], curfd[1]);
 		cargs = cargs->next;
 	}
-	curfd[0] = wait_pid(&pids);
 	close(prevfd[1]);
-	return (print_final_output(prevfd[0]), curfd[0]);
+	return (print_final_output(prevfd[0]), exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/23 12:33:05 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/27 13:17:34 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_red
  * @param opts list of options without hyphen (-), sorted by input order
  * @param redirect redirections
  * @param envp environment variables (from main)
- * @param next next command pack, NULLABLE (BY REQUEST OF BFAISY ^^)
+ * @param next next command pack, NULLABLE
  */
 typedef struct s_cmd_args
 {
