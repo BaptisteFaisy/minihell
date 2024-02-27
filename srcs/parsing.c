@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/02/27 16:12:02 by bfaisy           ###   ########.fr       */
+/*   Created: 2024/02/27 16:53:57 by bfaisy            #+#    #+#             */
+/*   Updated: 2024/02/27 16:54:01 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "def.h"
 
@@ -63,6 +64,7 @@ int	parsing(char *str, char **ev)
 	return (1);
 }
 
+	execution(head);
 	// while (head)
 	// {
 	// 	while (head->redirect)

@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:37:49 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/22 15:07:17 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/27 13:59:31 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 // {
 // 	char	**paths;
 
-// 	paths = resolve_path(cargs->envp);
-// 	if (paths == NULL)
-// 		return (EXEC_FAILURE);
-// 	return (iter_exec(cargs, paths));
-// }
+	if (cargs->envp == NULL)
+		printf("envp is NULL\n");
+	paths = resolve_path(cargs->envp);
+	if (paths == NULL)
+		return (EXEC_FAILURE);
+	return (iter_exec(cargs, paths));
+}

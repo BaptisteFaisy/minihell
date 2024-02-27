@@ -1,26 +1,27 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   builtin_env.c                                      :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2024/02/19 16:33:54 by marvin            #+#    #+#             */
-// /*   Updated: 2024/02/19 23:54:06 by marvin           ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/19 16:33:54 by marvin            #+#    #+#             */
+/*   Updated: 2024/02/27 14:13:26 by lhojoon          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 // #include "minishell.h"
 
-// void	builtin_env(t_cmd_args *cargs, t_exec_info *info)
-// {
-// 	t_list	*lst;
+int	builtin_env(t_cmd_args *cargs, t_exec_info *info)
+{
+	t_list	*lst;
 
-// 	lst = cargs->envp;
-// 	while (lst)
-// 	{
-// 		ft_putstr_fd((char *)lst->content, STDOUT_FILENO);
-// 		lst = lst->next;
-// 	}
-// 	exit(EXEC_SUCCESS);
-// }
+	(void)info;
+	lst = cargs->envp;
+	while (lst)
+	{
+		ft_putendl_fd((char *)lst->content, STDOUT_FILENO);
+		lst = lst->next;
+	}
+	return (EXEC_SUCCESS);
+}

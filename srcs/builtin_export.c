@@ -1,14 +1,14 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   builtin_export.c                                   :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2024/02/20 01:08:56 by marvin            #+#    #+#             */
-// /*   Updated: 2024/02/21 19:53:57 by marvin           ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_export.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/20 01:08:56 by marvin            #+#    #+#             */
+/*   Updated: 2024/02/27 14:02:50 by lhojoon          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 // #include "minishell.h"
 
@@ -23,38 +23,50 @@
 // 	return (retstr);
 // }
 
-// static void	replace_existing_envp(t_list *args, t_list *envp, bool *exist)
-// {
-// 	exist = true;
-// 	free(envp->content);
-// 	envp->content = ft_strdup(args->content);
-// }
+static int	get_key_len(char *str)
+{
+	int	i;
 
-// void	builtin_export(t_cmd_args *cargs, t_exec_info *info)
-// {
-// 	t_list	*args;
-// 	t_list	*envp;
-// 	bool	exist;
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	return (i);
+}
 
-// 	args = cargs->args;
-// 	while (args)
-// 	{
-// 		exist = false;
-// 		envp = cargs->envp;
-// 		while (envp)
-// 		{
-// 			if (ft_strncmp((char *)args->content, (char *)envp->content,
-// 					ft_strlen((char *)args->content)) == 0)
-// 			{
-// 				replace_existing_envp(args, envp, &exist);
-// 				break ;
-// 			}
-// 			envp = envp->next;
-// 		}
-// 		if (!exist)
-// 			ft_lstadd_back(&cargs->envp,
-// 				ft_lstnew(get_string_value((char *)args->content)));
-// 		args = args->next;
-// 	}
-// 	exit(EXIT_SUCCESS);
-// }
+static void	replace_existing_envp(t_list *args, t_exec_info *info,
+	t_list *envp, bool *exist)
+{
+	(void)info;
+	*exist = true;
+	free(envp->content);
+	envp->content = ft_strdup(args->content);
+}
+
+int	builtin_export(t_cmd_args *cargs, t_exec_info *info)
+{
+	t_list	*args;
+	t_list	*envp;
+	bool	exist;
+
+	args = cargs->args;
+	while (args)
+	{
+		exist = false;
+		envp = cargs->envp;
+		while (envp)
+		{
+			if (ft_strncmp((char *)args->content, (char *)envp->content,
+					get_key_len((char *)args->content)) == 0)
+			{
+				replace_existing_envp(args, info, envp, &exist);
+				break ;
+			}
+			envp = envp->next;
+		}
+		if (!exist)
+			ft_lstadd_back(&cargs->envp,
+				ft_lstnew(get_string_value((char *)args->content)));
+		args = args->next;
+	}
+	return (EXIT_SUCCESS);
+}

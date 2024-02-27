@@ -1,14 +1,14 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   convert_red_info.c                                 :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2024/02/15 09:18:31 by lhojoon           #+#    #+#             */
-// /*   Updated: 2024/02/22 16:12:03 by bfaisy           ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   convert_red_info.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/15 09:18:31 by lhojoon           #+#    #+#             */
+/*   Updated: 2024/02/23 16:34:16 by lhojoon          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 // #include "minishell.h"
 
@@ -34,21 +34,22 @@
 // {
 // 	t_red_info	info;
 
-// 	init_red_info(&info);
-// 	while (raw)
-// 	{
-// 		if (raw->red_in)
-// 			ft_lstadd_back(&info.red_in, new_red_details(raw->red_in, RED_IN));
-// 		else if (raw->red_out)
-// 			ft_lstadd_back(&info.red_out,
-// 				new_red_details(raw->red_out, RED_OUT));
-// 		else if (raw->red_in_delim)
-// 			ft_lstadd_back(&info.red_in,
-// 				new_red_details(raw->red_in_delim, RED_IN_DELIM));
-// 		else if (raw->red_out_delim)
-// 			ft_lstadd_back(&info.red_out,
-// 				new_red_details(raw->red_out_delim, RED_OUT_APPEND));
-// 		raw = raw->next;
-// 	}
-// 	return (info);
-// }
+	init_red_info(&info);
+	while (raw)
+	{
+		if (raw->red_in)
+			ft_lstadd_back(&info.red_in,
+				ft_lstnew(new_red_details(raw->red_in, RED_IN)));
+		else if (raw->red_out)
+			ft_lstadd_back(&info.red_out,
+				ft_lstnew(new_red_details(raw->red_out, RED_OUT)));
+		else if (raw->red_in_delim)
+			ft_lstadd_back(&info.red_in,
+				ft_lstnew(new_red_details(raw->red_in_delim, RED_IN_DELIM)));
+		else if (raw->red_out_delim)
+			ft_lstadd_back(&info.red_out,
+				ft_lstnew(new_red_details(raw->red_out_delim, RED_OUT_APPEND)));
+		raw = raw->next;
+	}
+	return (info);
+}

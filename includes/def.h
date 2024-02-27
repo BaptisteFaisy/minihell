@@ -53,7 +53,8 @@
 # include <errno.h>
 # include "struct.h"
 
-// int	g_status = 0;
+extern int	g_status;
+
 int				redirect(char *str, int i, t_red *redirect, t_cmd_args *head);
 void			create_firstnode_and_put(t_list **head, char *data);
 int				create_node_and_put(t_list **head, char *data);
@@ -65,7 +66,7 @@ char			*transform_str(char *str);
 void			freered(t_red redirect);
 void			freelist(t_list *head);
 void			freeheadcmd(t_cmd_args *head);
-void 			create_redirect_node_main(t_cmd_args *head);
+void			create_redirect_node_main(t_cmd_args *head);
 void			create_redirect_node(t_red *head);
 t_red			*get_last_redirect_node(t_red *head);
 t_cmd_args		*create_next_node_head(t_cmd_args *head, char **ev);
@@ -89,18 +90,17 @@ bool			set_exec_info(
 					t_cmd_args *cargs, char **paths);
 void			print_final_output(int ifd);
 void			set_fd(int fdcontainer[2], int first, int next);
-void			free_redirect(void *content);
-bool			add_pid(t_list **pids, pid_t pid);
-int				wait_pid(t_list **pids);
-t_list			*search_env_var(t_list *envp, char *var);
+void			free_redirect_fd(void *content);
+char			*search_env_var(t_list *envp, char *var);
 char			**transform_envp(t_list *envp);
 t_list			*get_list_envp(char **envp);
-void			builtin_echo(t_cmd_args *cargs, t_exec_info *info);
-void			builtin_cd(t_cmd_args *cargs, t_exec_info *info);
-void			builtin_pwd(t_cmd_args *cargs, t_exec_info *info);
-void			builtin_export(t_cmd_args *cargs, t_exec_info *info);
-void			builtin_unset(t_cmd_args *cargs, t_exec_info *info);
-void			builtin_env(t_cmd_args *cargs, t_exec_info *info);
-void			exec_builtin(t_cmd_args *cargs, t_exec_info *info);
+int				builtin_echo(t_cmd_args *cargs, t_exec_info *info);
+int				builtin_cd(t_cmd_args *cargs, t_exec_info *info);
+int				builtin_pwd(t_cmd_args *cargs, t_exec_info *info);
+int				builtin_export(t_cmd_args *cargs, t_exec_info *info);
+int				builtin_unset(t_cmd_args *cargs, t_exec_info *info);
+int				builtin_env(t_cmd_args *cargs, t_exec_info *info);
+int				exec_builtin(t_cmd_args *cargs, t_exec_info *info);
+char			**list_to_args(char *cmd, t_list *args);
 
 #endif

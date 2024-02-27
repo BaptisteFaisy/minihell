@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 15:53:47 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/19 16:34:41 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/27 14:13:13 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_error(char *error)
 	free(s);
 }
 
-void	builtin_pwd(t_cmd_args *cargs, t_exec_info *info)
+int	builtin_pwd(t_cmd_args *cargs, t_exec_info *info)
 {
 	char	*pwd;
 
@@ -31,10 +31,10 @@ void	builtin_pwd(t_cmd_args *cargs, t_exec_info *info)
 	if (!pwd)
 	{
 		print_error(ERR_GETCWD);
-		exit(EXEC_FAILURE);
+		return (EXEC_FAILURE);
 	}
 	ft_putstr_fd(pwd, 1);
 	ft_putchar_fd('\n', 1);
 	free(pwd);
-	exit(EXEC_SUCCESS);
+	return (EXEC_SUCCESS);
 }
