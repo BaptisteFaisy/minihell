@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/23 16:17:00 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/27 13:54:38 by lhojoon          ###   ########.fr       */
+/*   Created: 2024/02/27 16:53:57 by bfaisy            #+#    #+#             */
+/*   Updated: 2024/02/27 16:56:13 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	parsing(char *str, t_list *ev)
 
 	i = 0;
 	head = NULL;
-	str = transform_str(str);
-	if (!str)
+	if (check_test(str) == 1)
 		return (0);
+	str = transform_str(str);
 	tmpargs = create_node_cmd(&head, ev);
 	while (str[i])
 	{
@@ -33,20 +33,13 @@ int	parsing(char *str, t_list *ev)
 			tmpargs = create_next_node_head(tmpargs, ev);
 		while (str[i] == ' ')
 			i++;
-		// printf("%c\n", str[i]);
-		// printf("%c\n", str[i]);
 		if (str[i] == '<' || str[i] == '>')
 		{
 			create_redirect_node_main(tmpargs);
 			tmp = get_last_redirect_node(tmpargs->redirect);
 			return_value = redirect(str, i, tmp, tmpargs);
-			// printf("redirect_out_delim %s\n", head->redirect->red_out_delim);
-			// printf("%d\n", return_value);
 			if (return_value == -1)
-			{
-				perror("help");
 				return (0);
-			}
 			i = return_value;
 		}
 		else if (tmpargs->cmd == NULL && str[i])
@@ -66,6 +59,11 @@ int	parsing(char *str, t_list *ev)
 		}
 	}
 	execution(head);
+	free(str);
+	freeheadcmd(head);
+	return (1);
+}
+
 	// while (head)
 	// {
 	// 	while (head->redirect)
@@ -102,7 +100,30 @@ int	parsing(char *str, t_list *ev)
 	// 	printf("redirect_in_delim %s\n", head->redirect->red_in_delim);
 	// 	head->redirect = head->redirect->next;
 	// }
-	free(str);
-	freeheadcmd(head);
-	return (1);
+
+t_cmd_args	*create_next_node_head(t_cmd_args *head, t_list *ev)
+{
+	t_cmd_args	*tmp;
+
+	tmp = malloc(sizeof(t_cmd_args));
+	if (!tmp)
+	{
+		perror("Malloc fail");
+		exit (1);
+	}
+	head->next = tmp;
+	tmp->redirect = malloc(sizeof(t_red));
+	if (!tmp->redirect)
+		exit(1);
+	tmp->redirect->red_out = NULL;
+	tmp->redirect->red_in = NULL;
+	tmp->redirect->red_in_delim = NULL;
+	tmp->redirect->red_out_delim = NULL;
+	tmp->is_first = TRUE;
+	tmp->args = NULL;
+	tmp->cmd = NULL;
+	tmp->is_pipe = 0;
+	tmp->ep = ev;
+	tmp->next = NULL;
+	return (tmp);
 }

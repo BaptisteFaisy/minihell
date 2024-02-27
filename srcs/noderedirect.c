@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:56:42 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/19 04:57:03 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/27 16:07:48 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	create_redirect_node(t_red *head)
 	next1->next = NULL;
 }
 
-void create_redirect_node_main(t_cmd_args *head)
+void	create_redirect_node_main(t_cmd_args *head)
 {
 	if (head->is_first == TRUE)
 		head->is_first = FALSE;

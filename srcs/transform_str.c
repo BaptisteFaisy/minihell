@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 19:21:19 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/23 17:04:37 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/27 16:11:18 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,11 @@ char	*transform_str(char *str)
 	i = 0;
 	cond = FALSE;
 	j = 0;
-	// if (check_input() == 1)
-	// 	return (NULL);
 	new_str = malloc(sizeof(char) * (ft_strlen(str) + 1));
 	if (!new_str)
 		exit (1);
 	while (str[i])
 	{
-		// if (str[i] == '~')
-		// 	new_str = ft_strjoin(new_str, )
 		if (str[i] == ' ' && cond == FALSE)
 		{
 			cond = TRUE;
@@ -53,4 +49,3 @@ char	*transform_str(char *str)
 	}
 	return (new_str);
 }
-

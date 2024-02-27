@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   node.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:43:01 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/27 13:09:02 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/27 16:57:10 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ t_cmd_args	*create_node_cmd(t_cmd_args **head, t_list *ev)
 	(*head)->redirect->red_in = NULL;
 	(*head)->redirect->red_in_delim = NULL;
 	(*head)->redirect->red_out_delim = NULL;
+	(*head)->redirect->next = NULL;
 	(*head)->is_first = TRUE;
 	(*head)->args = NULL;
 	(*head)->cmd = NULL;
 	(*head)->is_pipe = 0;
-	(*head)->envp = ev;
+	(*head)->ep = ev;
 	(*head)->next = NULL;
 	return ((*head));
 }
@@ -85,7 +86,6 @@ int	create_node_and_put(t_list **head, char *data)
 	if (!(tmp)->next)
 		return (-1);
 	(tmp)->next->content = data;
-	// printf("%sa\n", data);
 	return (0);
 }
 
@@ -94,31 +94,4 @@ t_list	*get_last(t_list *head)
 	while (head->next)
 		head = head->next;
 	return (head);
-}
-
-t_cmd_args	*create_next_node_head(t_cmd_args *head, t_list *ev)
-{
-	t_cmd_args	*tmp;
-
-	tmp = malloc(sizeof(t_cmd_args));
-	if (!tmp)
-	{
-		perror("Malloc fail");
-		exit (1);
-	}
-	head->next = tmp;
-	tmp->redirect = malloc(sizeof(t_red));
-	if (!tmp->redirect)
-		exit(1);
-	tmp->redirect->red_out = NULL;
-	tmp->redirect->red_in = NULL;
-	tmp->redirect->red_in_delim = NULL;
-	tmp->redirect->red_out_delim = NULL;
-	tmp->is_first = TRUE;
-	tmp->args = NULL;
-	tmp->cmd = NULL;
-	tmp->is_pipe = 0;
-	tmp->envp = ev;
-	tmp->next = NULL;
-	return (tmp);
 }

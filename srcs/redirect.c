@@ -6,14 +6,15 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:37:30 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/22 10:46:10 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/27 16:10:54 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "def.h"
 
-static	int	redirect_droite(char *str, int i, t_red *redirect, t_cmd_args *head);
-static	int	test_error_newline(char *str, int i, int cas);
+static	int	redirect_droite(char *str, int i, t_red *redirect,
+				t_cmd_args *head);
+static	int	test_error_newline(char *str, int i);
 static	int	double_gauche(char *str, int i, t_red *redirect, t_cmd_args *head);
 static	int	double_droite(char *str, int i, t_red *redirect, t_cmd_args *head);
 
@@ -25,15 +26,19 @@ int	redirect(char *str, int i, t_red *redirect, t_cmd_args *head)
 	{
 		if (str[i + 1] == '<')
 			return (double_gauche(str, i, redirect, head));
-		if (test_error_newline(str, i, 0) == 1)
-		{
+		if (test_error_newline(str, i) == 1)
 			return (-1);
-		}
 		else
 		{
 			storage = data_after(str, i, head);
 			i = storage.i;
 			redirect->red_in = storage.str;
+			if (storage.i == -100)
+				return (-1);
+			if (storage.str == NULL)
+				return (ft_putstr_fd
+					("bash: syntax error near\nunexpected token `newline'\n", 2)
+					, -1);
 			return (i);
 		}
 	}
@@ -48,7 +53,7 @@ static	int	redirect_droite(char *str, int i, t_red *redirect, t_cmd_args *head)
 
 	if (str[i + 1] == '>')
 		return (double_droite(str, i, redirect, head));
-	if (test_error_newline(str, i, 1) == 1)
+	if (test_error_newline(str, i) == 1)
 	{
 		return (-1);
 	}
@@ -56,73 +61,76 @@ static	int	redirect_droite(char *str, int i, t_red *redirect, t_cmd_args *head)
 	{
 		storage = data_after(str, i, head);
 		i = storage.i;
-		redirect->red_out =  storage.str;
+		redirect->red_out = storage.str;
+		if (storage.i == -100)
+			return (-1);
+		if (storage.str == NULL)
+		{
+			ft_putstr_fd("bash: syntax error near\nunexpected token `newline'\n",
+				2);
+			return (-1);
+		}
 		return (i);
 	}
 	return (0);
 }
 
-static	int	test_error_newline(char *str, int i, int cas)
+static	int	test_error_newline(char *str, int i)
 {
-	i++;
-	if (cas == 0 && str[i] == '<')
+	i += 2;
+	while (str[i] == ' ')
 		i++;
-	else if (cas == 0 && str[i] == '>')
+	if (str[i] == '>')
 	{
-		ft_putendl_fd("bash: syntax error near \nunexpected token 'newline'", 2);
+		ft_putstr_fd("bash: syntax error near\nunexpected token '>'\n", 2);
 		return (1);
 	}
-	else if (cas == 1 && str[i] == '>')
-		i++;
-	else if (cas == 1 && str[i] == '<')
+	if (str[i] == '<')
 	{
-		ft_putendl_fd("bash: syntax error near \nunexpected token 'newline'", 2);
-		return (1);
-	}
-	if (str[i] == '\0' || str[i] == '|')
-	{
-		ft_putendl_fd("bash: syntax error near \nunexpected token 'newline'", 2);
+		ft_putstr_fd("bash: syntax error near\nunexpected token '<'\n", 2);
 		return (1);
 	}
 	return (0);
 }
-
 
 static	int	double_gauche(char *str, int i, t_red *redirect, t_cmd_args *head)
 {
 	t_string_and_i	storage;
 
-	// if (test_error_newline(str, i, 1) == 1)
-	// {
-	// 	return (-1);
-	// }
-	// else
-	// {
+	if (test_error_newline(str, i) == 1)
+	{
+		return (-1);
+	}
 	storage = data_after(str, i, head);
 	i = storage.i;
-				// printf("%s\n",storage.str);
-
-	redirect->red_in_delim =  storage.str;
+	redirect->red_in_delim = storage.str;
+	if (storage.i == -100)
+		return (-1);
+	if (storage.str == NULL)
+	{
+		ft_putstr_fd("bash: syntax error near\nunexpected token `newline'\n", 2);
+		return (-1);
+	}
 	return (i);
-	// }
-	return (0);
 }
-
 
 static	int	double_droite(char *str, int i, t_red *redirect, t_cmd_args *head)
 {
 	t_string_and_i	storage;
 
-	// if (test_error_newline(str, i, 1) == 1)
-	// {
-	// 	return (-1);
-	// }
-	// else
-	// {
-		storage = data_after(str, i, head);
-		i = storage.i;
-		redirect->red_out_delim =  storage.str;
-		return (i);
-	// }
-	return (0);
+	if (test_error_newline(str, i) == 1)
+	{
+		return (-1);
+	}
+	storage = data_after(str, i, head);
+	i = storage.i;
+	redirect->red_out_delim = storage.str;
+	if (storage.i == -100)
+		return (-1);
+	if (storage.str == NULL)
+	{
+		ft_putstr_fd("bash: syntax error near\nunexpected token `newline'\n", 2);
+		return (-1);
+	}
+	return (i);
 }
