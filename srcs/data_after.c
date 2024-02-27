@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_after.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:38:41 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/22 10:48:32 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/27 15:40:31 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,25 @@ t_string_and_i	data_after(char *str, int i, t_cmd_args *head)
 	data.str = NULL;
 	data.i = i;
 	// printf("int avant data_after : %d\n", data.i);
-	// printf("str[i] in data after : %d\n", i);
 	while (str[data.i] == ' ' || str[data.i] == '<' || str[data.i] == '>')
 		data.i++;
+	if (str[data.i] == '\n')
+		return (data);
 	while (str[data.i])
 	{
 		if (str[data.i] == ' ')
 			break ;
-		else if (str[data.i] == '|')
+		else if (str[data.i] == '|' && data.str != NULL)
 		{
 			data.i++;
 			head->is_pipe = 1;
 			break;
+		}
+		else if (str[data.i] == '|')
+		{
+			ft_putstr_fd("bash: syntax error near\nunexpected token `|'\n", 2);
+			data.i = -100;
+			return (data);
 		}
 		else
 		{

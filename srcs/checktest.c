@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution_main.c                                   :+:      :+:    :+:   */
+/*   checktest.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 17:37:49 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/22 15:07:17 by bfaisy           ###   ########.fr       */
+/*   Created: 2024/02/27 15:20:23 by bfaisy            #+#    #+#             */
+/*   Updated: 2024/02/27 15:24:59 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "def.h"
 
-// int	execution(t_cmd_args *cargs)
-// {
-// 	char	**paths;
+int	check_test(char* str)
+{
+	int	i;
 
-// 	paths = resolve_path(cargs->envp);
-// 	if (paths == NULL)
-// 		return (EXEC_FAILURE);
-// 	return (iter_exec(cargs, paths));
-// }
+	i = 0;
+	while (str[i] == ' ')
+		i++;
+	if (str[i] == '\n')
+		return (1);
+	else if (str[i] == '|')
+	{
+		ft_putstr_fd("bash: syntax error near\nunexpected token `|'\n", 2);
+		return (1);
+	}
+	return (0);
+}
