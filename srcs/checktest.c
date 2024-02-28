@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:20:23 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/28 17:14:09 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/28 17:35:17 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	check_test(char *str)
 		i++;
 	if (str[i] == ';')
 	{
+		g_status = 2;
 		ft_putstr_fd("bash: syntax error near\nunexpected token `;'\n", 2);
 		return (1);
 	}
@@ -28,6 +29,7 @@ int	check_test(char *str)
 		return (1);
 	else if (str[i] == '|')
 	{
+		g_status = 2;
 		ft_putstr_fd("bash: syntax error near\nunexpected token `|'\n", 2);
 		return (1);
 	}

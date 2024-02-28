@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:37:30 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/27 16:10:54 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/28 17:41:17 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	redirect(char *str, int i, t_red *redirect, t_cmd_args *head)
 			if (storage.str == NULL)
 				return (ft_putstr_fd
 					("bash: syntax error near\nunexpected token `newline'\n", 2)
-					, -1);
+					, g_status = 2, -1);
 			return (i);
 		}
 	}
@@ -66,6 +66,7 @@ static	int	redirect_droite(char *str, int i, t_red *redirect, t_cmd_args *head)
 			return (-1);
 		if (storage.str == NULL)
 		{
+			g_status = 2;
 			ft_putstr_fd("bash: syntax error near\nunexpected token `newline'\n",
 				2);
 			return (-1);
@@ -82,6 +83,7 @@ static	int	test_error_newline(char *str, int i)
 		i++;
 	if (str[i] == '>')
 	{
+		g_status = 2;
 		ft_putstr_fd("bash: syntax error near\nunexpected token '>'\n", 2);
 		return (1);
 	}
@@ -108,6 +110,7 @@ static	int	double_gauche(char *str, int i, t_red *redirect, t_cmd_args *head)
 		return (-1);
 	if (storage.str == NULL)
 	{
+		g_status = 2;
 		ft_putstr_fd("bash: syntax error near\nunexpected token `newline'\n", 2);
 		return (-1);
 	}
@@ -129,6 +132,7 @@ static	int	double_droite(char *str, int i, t_red *redirect, t_cmd_args *head)
 		return (-1);
 	if (storage.str == NULL)
 	{
+		g_status = 2;
 		ft_putstr_fd("bash: syntax error near\nunexpected token `newline'\n", 2);
 		return (-1);
 	}

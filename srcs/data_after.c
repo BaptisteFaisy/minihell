@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:38:41 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/28 17:30:06 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/28 17:40:51 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ t_string_and_i	data_after(char *str, int i, t_cmd_args *head)
 
 	data.str = NULL;
 	data.i = i;
-	while (str[data.i] == ' ' || str[data.i] == '<' || str[data.i] == '>')
+	while (str[data.i] == ' ' || str[data.i] == '<' || str[data.i] == '>'
+		|| str[data.i] == '!')
 		data.i++;
 	if (str[data.i] == '\n')
 		return (data);
@@ -34,8 +35,8 @@ t_string_and_i	data_after(char *str, int i, t_cmd_args *head)
 			return (data_afterv2(&data, &head), data);
 		else if (str[data.i] == '|')
 			return (ft_putstr_fd
-				("bash: syntax error near\nunexpected token1 `|'\n", 2),
-				data.i = -100, data);
+				("bash: syntax error near\nunexpected token `|'\n", 2),
+				data.i = -100, g_status = 2, data);
 		else
 			data.str = concatenation(data.str, str[data.i]);
 		data.i++;
