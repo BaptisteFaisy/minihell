@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/27 22:41:55 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/01 16:40:27 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 // Defs : errors
 # define ERR_MALLOC "Malloc error"
+# define ERR_PIPE "Pipe error"
 # define ERR_OPEN "Cannot open file"
 # define ERR_UNKNOWN "Unknown error"
 # define ERR_GETCWD "Cannot get current working directory"
