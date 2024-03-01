@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:30:42 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/01 15:46:41 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/01 15:44:48 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,29 +61,29 @@ static bool	output_redirect(t_exec_info *info, int curfd[2], int *stdout_cpy)
 	return (true);
 }
 
-static int	handle_execve(t_exec_info *info, char **envp_tmp, char **args_tmp)
+static int	handle_execve(t_exec_info *info, char **envp_tmp,
+		char **args_tmp, int *fds[2])
 {
 	pid_t	pid;
 	int		status;
 
+	if (!envp_tmp || !args_tmp)
+		return (perror(ERR_MALLOC), EXEC_FAILURE);
 	pid = fork();
 	if (pid == 0)
 	{
+		if (!input_redirect(info, fds[0])
+			|| !output_redirect(info, fds[1], NULL))
+			exit(EXEC_FAILURE);
 		if (info->cmd != NULL)
-			status = execve(info->cmd, args_tmp, envp_tmp);
+			execve(info->cmd, args_tmp, envp_tmp);
 		else
-			status = EXEC_FAILURE;
-		free(envp_tmp);
-		free(args_tmp);
-		exit(status);
-	}
-	else
-	{
-		if (true || waitpid(-1, &status, 0) == -1)
-			return (free(envp_tmp), free(args_tmp), EXEC_FAILURE);
+			exit(EXEC_FAILURE);
 	}
 	free(envp_tmp);
 	free(args_tmp);
+	if (waitpid(pid, &status, 0) == -1)
+		return (EXEC_FAILURE);
 	return (status);
 }
 
@@ -107,11 +107,11 @@ static int
 		return (EXEC_FAILURE); // TODO : free exec_info
 	if (is_builtin(cargs->cmd) == true)
 	{
+		info->cmd = ft_strdup(cargs->cmd);
+		exit_code = exec_builtin(cargs, info);
 		if (!input_redirect(info, prevfd)
 			|| !output_redirect(info, curfd, &stdout_cpy))
 			return (EXEC_FAILURE); // TODO : free exec_info
-		info->cmd = ft_strdup(cargs->cmd);
-		exit_code = exec_builtin(cargs, info);
 		closefd(&curfd[1]);
 		dup2(stdout_cpy, 1);
 	}
@@ -119,7 +119,8 @@ static int
 	{
 		info->cmd = get_cmd(cargs, info);
 		exit_code = handle_execve(info, transform_envp(cargs->envp),
-				list_to_args(cargs->cmd, cargs->args));
+				list_to_args(cargs->cmd, cargs->args),
+				(int *[2]){prevfd, curfd});
 	}
 	return (exit_code); // TODO : free exec_info
 }
