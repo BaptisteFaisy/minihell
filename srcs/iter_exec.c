@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:30:42 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/28 17:01:58 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/01 15:41:04 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,20 +112,13 @@ static int
 		if (!input_redirect(info, prevfd)
 			|| !output_redirect(info, curfd, &stdout_cpy))
 			return (EXEC_FAILURE); // TODO : free exec_info
-		perror("Hello1!");
 		info->cmd = ft_strdup(cargs->cmd);
-		perror("Hello2!");
 		exit_code = exec_builtin(cargs, info);
-		perror("Hello3!");
-		// closefd(&curfd[0]);
+		closefd(&curfd[1]);
 		dup2(stdout_cpy, 1);
-		printf("Hello!\n");
 	}
 	else
 	{
-		if (!input_redirect(info, prevfd)
-			|| !output_redirect(info, curfd, NULL))
-			return (EXEC_FAILURE); // TODO : free exec_info
 		info->cmd = get_cmd(cargs, info);
 		exit_code = handle_execve(info, transform_envp(cargs->envp),
 				list_to_args(cargs->cmd, cargs->args));
@@ -152,7 +145,7 @@ int	iter_exec(t_cmd_args *cargs, char **paths)
 		set_fd(prevfd, curfd[0], curfd[1]);
 		cargs = cargs->next;
 	}
-	closefd(&prevfd[0]);
+	closefd(&prevfd[1]);
 	print_final_output(prevfd[0]);
 	return (exit_code);
 }
