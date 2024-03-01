@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:53:57 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/27 16:56:13 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/27 22:08:42 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ t_cmd_args	*create_next_node_head(t_cmd_args *head, t_list *ev)
 	tmp->args = NULL;
 	tmp->cmd = NULL;
 	tmp->is_pipe = 0;
-	tmp->ep = ev;
+	tmp->envp = ev;
 	tmp->next = NULL;
 	return (tmp);
 }

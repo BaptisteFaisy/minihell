@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   iter_exec_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:13:37 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/27 16:58:45 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/27 22:41:45 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,13 @@ void	free_redirect_fd(void *content)
 	if (fd != -1)
 		close(*(int *)content);
 	free(content);
+}
+
+void	closefd(int *fd)
+{
+	if (*fd != -1)
+	{
+		close(*fd);
+		*fd = -1;
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   node.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:43:01 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/27 16:57:10 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/27 22:08:37 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_cmd_args	*create_node_cmd(t_cmd_args **head, t_list *ev)
 	(*head)->args = NULL;
 	(*head)->cmd = NULL;
 	(*head)->is_pipe = 0;
-	(*head)->ep = ev;
+	(*head)->envp = ev;
 	(*head)->next = NULL;
 	return ((*head));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   iter_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:30:42 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/27 16:58:20 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/28 17:01:58 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,17 @@ static bool	input_redirect(t_exec_info *info, int prevfd[2])
 {
 	if (info->redirect.red_in)
 	{
-		dup2(*(int *)ft_lstlast(info->redirect.red_in)->content, 0);
+		if (dup2(*(int *)ft_lstlast(info->redirect.red_in)->content, 0) == -1)
+		{
+			return (false);
+		}
 		ft_lstclear(&info->redirect.red_in, free_redirect_fd);
 	}
 	else if (prevfd[0] != -1)
-		dup2(prevfd[0], 0);
+	{
+		if (dup2(prevfd[0], 0) == -1)
+			return (false);
+	}
 	if (prevfd[1] != -1)
 	{
 		close(prevfd[1]);
@@ -35,20 +41,23 @@ static bool	input_redirect(t_exec_info *info, int prevfd[2])
 	return (true);
 }
 
-static bool	output_redirect(t_exec_info *info, int curfd[2])
+static bool	output_redirect(t_exec_info *info, int curfd[2], int *stdout_cpy)
 {
+	if (stdout_cpy != NULL)
+		*stdout_cpy = dup(1);
 	if (info->redirect.red_out)
 	{
-		dup2(*(int *)ft_lstlast(info->redirect.red_out)->content, 1);
+		if (dup2(*(int *)ft_lstlast(info->redirect.red_out)->content, 1) == -1)
+			return (false);
 		ft_lstclear(&info->redirect.red_out, free_redirect_fd);
 	}
 	else if (curfd[1] != -1)
-		dup2(curfd[1], 1);
-	if (curfd[0] != -1)
 	{
-		close(curfd[0]);
-		curfd[0] = -1;
+		if (dup2(curfd[1], 1) == -1)
+			return (false);
 	}
+	if (stdout_cpy != NULL)
+		closefd(&curfd[0]);
 	return (true);
 }
 
@@ -60,16 +69,31 @@ static int	handle_execve(t_exec_info *info, char **envp_tmp, char **args_tmp)
 	pid = fork();
 	if (pid == 0)
 	{
-		status = execve(info->cmd, args_tmp, envp_tmp);
+		perror("Hey2!");
+		if (info->cmd != NULL)
+			status = execve(info->cmd, args_tmp, envp_tmp);
+		else
+			status = EXEC_FAILURE;
+		perror("Hey!");
+		free(envp_tmp);
+		free(args_tmp);
 		exit(status);
 	}
 	else
 	{
-		if (waitpid(0, &status, 0) == -1)
-			return (EXEC_FAILURE);
+		if (true || waitpid(-1, &status, 0) == -1)
+			return (free(envp_tmp), free(args_tmp), EXEC_FAILURE);
 	}
+	free(envp_tmp);
+	free(args_tmp);
 	return (status);
 }
+
+// static int	redirect_fdvalue(int *fd)
+// {
+// 	dup2(1, *fd);
+// 	close(*fd);
+// }
 
 /**
  * must close all file descriptors
@@ -78,27 +102,33 @@ static int
 	execution_child(t_cmd_args *cargs, t_exec_info *info,
 					int prevfd[2], int curfd[2])
 {
-	char	**envp_tmp;
-	char	**args_tmp;
 	int		exit_code;
+	int		stdout_cpy;
 
 	if (!init_redirect_files(cargs, info))
 		return (EXEC_FAILURE); // TODO : free exec_info
-	if (is_builtin(cargs->cmd))
+	if (is_builtin(cargs->cmd) == true)
 	{
+		if (!input_redirect(info, prevfd)
+			|| !output_redirect(info, curfd, &stdout_cpy))
+			return (EXEC_FAILURE); // TODO : free exec_info
+		perror("Hello1!");
 		info->cmd = ft_strdup(cargs->cmd);
+		perror("Hello2!");
 		exit_code = exec_builtin(cargs, info);
+		perror("Hello3!");
+		// closefd(&curfd[0]);
+		dup2(stdout_cpy, 1);
+		printf("Hello!\n");
 	}
 	else
 	{
-		input_redirect(info, prevfd);
-		output_redirect(info, curfd);
+		if (!input_redirect(info, prevfd)
+			|| !output_redirect(info, curfd, NULL))
+			return (EXEC_FAILURE); // TODO : free exec_info
 		info->cmd = get_cmd(cargs, info);
-		envp_tmp = transform_envp(cargs->envp);
-		args_tmp = list_to_args(cargs->cmd, cargs->args);
-		exit_code = handle_execve(info, envp_tmp, args_tmp);
-		free(envp_tmp);
-		free(args_tmp);
+		exit_code = handle_execve(info, transform_envp(cargs->envp),
+				list_to_args(cargs->cmd, cargs->args));
 	}
 	return (exit_code); // TODO : free exec_info
 }
@@ -122,6 +152,7 @@ int	iter_exec(t_cmd_args *cargs, char **paths)
 		set_fd(prevfd, curfd[0], curfd[1]);
 		cargs = cargs->next;
 	}
-	close(prevfd[1]);
-	return (print_final_output(prevfd[0]), exit_code);
+	closefd(&prevfd[0]);
+	print_final_output(prevfd[0]);
+	return (exit_code);
 }
