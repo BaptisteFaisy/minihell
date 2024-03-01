@@ -71,6 +71,7 @@ void			create_redirect_node(t_red *head);
 t_red			*get_last_redirect_node(t_red *head);
 t_cmd_args		*create_next_node_head(t_cmd_args *head, t_list *ev);
 int				check_test(char *str);
+int				skipspace(char *str, int i);
 
 // Execution part
 int				execution(t_cmd_args *cmd_args);

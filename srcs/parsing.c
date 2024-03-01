@@ -6,33 +6,48 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:53:57 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/27 22:08:42 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/28 17:09:24 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "def.h"
 
+t_cmd_args	*parsingv2(t_cmd_args *tmpargs, t_cmd_args *head,
+				char *str, t_list *ev);
+int			parsingv3(char *str, int i, t_cmd_args *tmpargs);
+int			parsingv4(char *str, int i, t_cmd_args **tmpargs);
+
 int	parsing(char *str, t_list *ev)
 {
-	int				i;
 	t_cmd_args		*head;
-	int				return_value;
-	t_string_and_i	storage;
-	t_red			*tmp;
 	t_cmd_args		*tmpargs;
 
-	i = 0;
 	head = NULL;
+	g_status = 0;
 	if (check_test(str) == 1)
 		return (0);
 	str = transform_str(str);
 	tmpargs = create_node_cmd(&head, ev);
+	head = parsingv2(tmpargs, head, str, ev);
+	execution(head);
+	free(str);
+	freeheadcmd(head);
+	return (1);
+}
+
+t_cmd_args	*parsingv2(t_cmd_args *tmpargs, t_cmd_args *head,
+	char *str, t_list *ev)
+{
+	int				return_value;
+	int				i;
+	t_red			*tmp;
+
+	i = 0;
 	while (str[i])
 	{
 		if (tmpargs->is_pipe == 1)
 			tmpargs = create_next_node_head(tmpargs, ev);
-		while (str[i] == ' ')
-			i++;
+		i = skipspace(str, i);
 		if (str[i] == '<' || str[i] == '>')
 		{
 			create_redirect_node_main(tmpargs);
@@ -43,27 +58,33 @@ int	parsing(char *str, t_list *ev)
 			i = return_value;
 		}
 		else if (tmpargs->cmd == NULL && str[i])
-		{
-			storage = data_after(str, i, tmpargs);
-			tmpargs->cmd = storage.str;
-			i = storage.i;
-		}
+			i = parsingv4(str, i, &tmpargs);
 		else if (str[i])
-		{
-			storage = data_after(str, i, tmpargs);
-			if (!tmpargs->args)
-				create_firstnode_and_put(&tmpargs->args, storage.str);
-			else
-				create_node_and_put(&tmpargs->args, storage.str);
-			i = storage.i;
-		}
+			i = parsingv3(str, i, tmpargs);
 	}
-	execution(head);
-	free(str);
-	freeheadcmd(head);
-	return (1);
+	return (head);
 }
 
+int	parsingv3(char *str, int i, t_cmd_args *tmpargs)
+{
+	t_string_and_i	storage;
+
+	storage = data_after(str, i, tmpargs);
+	if (!tmpargs->args)
+		create_firstnode_and_put(&tmpargs->args, storage.str);
+	else
+		create_node_and_put(&tmpargs->args, storage.str);
+	return (storage.i);
+}
+
+int	parsingv4(char *str, int i, t_cmd_args **tmpargs)
+{
+	t_string_and_i	storage;
+
+	storage = data_after(str, i, *tmpargs);
+	(*tmpargs)->cmd = storage.str;
+	return (storage.i);
+}
 	// while (head)
 	// {
 	// 	while (head->redirect)

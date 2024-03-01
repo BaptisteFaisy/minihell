@@ -6,13 +6,15 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:38:41 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/27 15:40:31 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/02/28 17:40:51 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "def.h"
 
-char	*concatenation(char *str, char c);
+char			*concatenation(char *str, char c);
+void			data_afterv2(t_string_and_i *data, t_cmd_args **head);
+t_string_and_i	data_afterv3(t_string_and_i	data, t_cmd_args *head, char *str);
 
 t_string_and_i	data_after(char *str, int i, t_cmd_args *head)
 {
@@ -20,36 +22,42 @@ t_string_and_i	data_after(char *str, int i, t_cmd_args *head)
 
 	data.str = NULL;
 	data.i = i;
-	// printf("int avant data_after : %d\n", data.i);
-	while (str[data.i] == ' ' || str[data.i] == '<' || str[data.i] == '>')
+	while (str[data.i] == ' ' || str[data.i] == '<' || str[data.i] == '>'
+		|| str[data.i] == '!')
 		data.i++;
 	if (str[data.i] == '\n')
 		return (data);
 	while (str[data.i])
 	{
 		if (str[data.i] == ' ')
-			break ;
+			return (data_afterv3(data, head, str));
 		else if (str[data.i] == '|' && data.str != NULL)
-		{
-			data.i++;
-			head->is_pipe = 1;
-			break;
-		}
+			return (data_afterv2(&data, &head), data);
 		else if (str[data.i] == '|')
-		{
-			ft_putstr_fd("bash: syntax error near\nunexpected token `|'\n", 2);
-			data.i = -100;
-			return (data);
-		}
+			return (ft_putstr_fd
+				("bash: syntax error near\nunexpected token `|'\n", 2),
+				data.i = -100, g_status = 2, data);
 		else
-		{
 			data.str = concatenation(data.str, str[data.i]);
-			if (!data.str)
-				exit(1);
-		}
 		data.i++;
 	}
-	// printf("%c", str[data.i]);
+	return (data);
+}
+
+void	data_afterv2(t_string_and_i *data, t_cmd_args **head)
+{
+	(*data).i++;
+	(*head)->is_pipe = 1;
+}
+
+t_string_and_i	data_afterv3(t_string_and_i	data, t_cmd_args *head, char *str)
+{
+	while (str[data.i] == ' ')
+	{
+		data.i++;
+		if (str[data.i] == '|')
+			return (data_afterv2(&data, &head), data);
+	}
 	return (data);
 }
 
