@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:30:42 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/01 15:41:04 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/01 15:46:41 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,10 @@ static int	handle_execve(t_exec_info *info, char **envp_tmp, char **args_tmp)
 	pid = fork();
 	if (pid == 0)
 	{
-		perror("Hey2!");
 		if (info->cmd != NULL)
 			status = execve(info->cmd, args_tmp, envp_tmp);
 		else
 			status = EXEC_FAILURE;
-		perror("Hey!");
 		free(envp_tmp);
 		free(args_tmp);
 		exit(status);
