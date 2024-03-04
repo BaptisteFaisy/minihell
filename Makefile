@@ -46,7 +46,7 @@ LIBFT = libft/libft.a
 
 all: $(NAME)
 $(NAME): ${LIBFT} $(OBJS)
-	$(CC) $(OBJS) $(DEBUG) $(INCLUDES) -o $(NAME) $(CFLAGS) -l:libft.a -Llibft 
+	$(CC) $(OBJS) $(DEBUG) $(INCLUDES) -o $(NAME) $(CFLAGS) -l:libft.a -Llibft -lreadline
 clean:
 	rm $(OBJS) $(OBJB) -f
 fclean: clean libftclean

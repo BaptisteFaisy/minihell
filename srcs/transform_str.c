@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 19:21:19 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/27 17:16:53 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/04 18:08:55 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ int	transform_str2(char *str, int i, int j, char **new_str)
 		}
 		i++;
 	}
-	(*new_str)[j - 1] = '\0';
+	(*new_str)[j] = '\0';
 	return (j);
 }

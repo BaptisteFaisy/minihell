@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/27 18:44:09 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/02 17:59:59 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@
 # include <term.h>
 # include <stdbool.h>
 # include <errno.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include "struct.h"
 
 extern int	g_status;
