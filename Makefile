@@ -34,7 +34,8 @@ SRCS_RAW =	main.c \
 			list_to_args.c \
 			transform_envp.c \
 			search_env_var.c \
-			checktest.c
+			checktest.c \
+			iter_exec_3.c
 SRCS = $(addprefix $(DIR)/,$(SRCS_RAW)) \
 
 OBJS = $(SRCS:c=o)

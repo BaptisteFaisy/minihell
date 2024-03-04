@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/01 16:40:27 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/04 17:05:36 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,7 @@ int				builtin_env(t_cmd_args *cargs, t_exec_info *info);
 int				exec_builtin(t_cmd_args *cargs, t_exec_info *info);
 char			**list_to_args(char *cmd, t_list *args);
 void			closefd(int *fd);
+int				get_input_fd(t_exec_info *info, int prevfd[2]);
+int				get_output_fd(t_exec_info *info, int curfd[2]);
 
 #endif

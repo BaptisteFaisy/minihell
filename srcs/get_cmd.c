@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:38:23 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/27 16:59:16 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/04 17:12:56 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,26 @@
 // TODO : Verify if I have to verify cmd itself (ex. if /usr/bin/echo is received as command...)
 char	*get_cmd(t_cmd_args *cargs, t_exec_info *info)
 {
-	char	*tmp;
 	char	*c;
 	char	**paths;
 
 	paths = info->paths;
-	tmp = get_env_var(cargs->envp, "HOME");
-	c = ft_strjoin_many(3, tmp, "/", cargs->cmd);
+	if (ft_strncmp(cargs->cmd, "./", 2) == 0)
+	{
+		c = ft_strjoin_many(3,
+				get_env_var(cargs->envp, "HOME"), "/", cargs->cmd);
+		if (access(c, 0) == 0)
+			return (c);
+		else
+			return (free(c), NULL);
+	}
+	c = ft_strdup(cargs->cmd);
 	if (access(c, 0) == 0)
 		return (c);
 	free(c);
 	while (*paths)
 	{
-		tmp = ft_strjoin(*paths, "/");
-		c = ft_strjoin(tmp, cargs->cmd);
-		free(tmp);
+		c = ft_strjoin_many(3, *paths, "/", cargs->cmd);
 		if (access(c, 0) == 0)
 			return (c);
 		free(c);

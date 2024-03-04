@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:23:37 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/27 22:22:35 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/04 16:42:39 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ int	builtin_echo(t_cmd_args *cargs, t_exec_info *info)
 	}
 	while (args)
 	{
-		ft_putstr_fd((char *)args->content, 1);
+		ft_putstr_fd((char *)args->content, info->out_fd);
 		if (args->next)
-			ft_putchar_fd(' ', 1);
+			ft_putchar_fd(' ', info->out_fd);
 		args = args->next;
 	}
 	if (n_flag == false)
-		ft_putchar_fd('\n', 1);
+		ft_putchar_fd('\n', info->out_fd);
 	return (EXEC_SUCCESS);
 }

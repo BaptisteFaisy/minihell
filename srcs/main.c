@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 14:45:12 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/27 16:55:37 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/04 17:10:45 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ int	main(int ac, char **av, char **ev)
 			continue ;
 		if (ft_strncmp(str, "exit", 4) == 0)
 		{
-			free(str);
-			return (0);
+			return (free(str), ft_lstclear(&envp, free), 0);
 		}
 		free(str);
 	}

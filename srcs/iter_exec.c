@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:30:42 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/01 15:44:48 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/04 17:13:11 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static bool	input_redirect(t_exec_info *info, int prevfd[2])
 {
 	if (info->redirect.red_in)
 	{
+		closefd(&prevfd[0]);
 		if (dup2(*(int *)ft_lstlast(info->redirect.red_in)->content, 0) == -1)
 		{
 			return (false);
@@ -33,20 +34,14 @@ static bool	input_redirect(t_exec_info *info, int prevfd[2])
 		if (dup2(prevfd[0], 0) == -1)
 			return (false);
 	}
-	if (prevfd[1] != -1)
-	{
-		close(prevfd[1]);
-		prevfd[1] = -1;
-	}
 	return (true);
 }
 
-static bool	output_redirect(t_exec_info *info, int curfd[2], int *stdout_cpy)
+static bool	output_redirect(t_exec_info *info, int curfd[2])
 {
-	if (stdout_cpy != NULL)
-		*stdout_cpy = dup(1);
 	if (info->redirect.red_out)
 	{
+		closefd(&curfd[1]);
 		if (dup2(*(int *)ft_lstlast(info->redirect.red_out)->content, 1) == -1)
 			return (false);
 		ft_lstclear(&info->redirect.red_out, free_redirect_fd);
@@ -56,8 +51,6 @@ static bool	output_redirect(t_exec_info *info, int curfd[2], int *stdout_cpy)
 		if (dup2(curfd[1], 1) == -1)
 			return (false);
 	}
-	if (stdout_cpy != NULL)
-		closefd(&curfd[0]);
 	return (true);
 }
 
@@ -73,7 +66,7 @@ static int	handle_execve(t_exec_info *info, char **envp_tmp,
 	if (pid == 0)
 	{
 		if (!input_redirect(info, fds[0])
-			|| !output_redirect(info, fds[1], NULL))
+			|| !output_redirect(info, fds[1]))
 			exit(EXEC_FAILURE);
 		if (info->cmd != NULL)
 			execve(info->cmd, args_tmp, envp_tmp);
@@ -87,12 +80,6 @@ static int	handle_execve(t_exec_info *info, char **envp_tmp,
 	return (status);
 }
 
-// static int	redirect_fdvalue(int *fd)
-// {
-// 	dup2(1, *fd);
-// 	close(*fd);
-// }
-
 /**
  * must close all file descriptors
 */
@@ -101,19 +88,16 @@ static int
 					int prevfd[2], int curfd[2])
 {
 	int		exit_code;
-	int		stdout_cpy;
 
 	if (!init_redirect_files(cargs, info))
 		return (EXEC_FAILURE); // TODO : free exec_info
+	info->in_fd = get_input_fd(info, prevfd);
+	info->out_fd = get_output_fd(info, curfd);
 	if (is_builtin(cargs->cmd) == true)
 	{
 		info->cmd = ft_strdup(cargs->cmd);
 		exit_code = exec_builtin(cargs, info);
-		if (!input_redirect(info, prevfd)
-			|| !output_redirect(info, curfd, &stdout_cpy))
-			return (EXEC_FAILURE); // TODO : free exec_info
 		closefd(&curfd[1]);
-		dup2(stdout_cpy, 1);
 	}
 	else
 	{
@@ -121,6 +105,7 @@ static int
 		exit_code = handle_execve(info, transform_envp(cargs->envp),
 				list_to_args(cargs->cmd, cargs->args),
 				(int *[2]){prevfd, curfd});
+		closefd(&curfd[1]);
 	}
 	return (exit_code); // TODO : free exec_info
 }
@@ -139,12 +124,11 @@ int	iter_exec(t_cmd_args *cargs, char **paths)
 		if (set_exec_info(&exec_info, NULL, cargs, paths) == false)
 			return (EXEC_FAILURE);
 		if (pipe(curfd) == -1)
-			return (EXEC_FAILURE); // TODO : Error message, free all fds
+			return (free(exec_info), EXEC_FAILURE); // TODO : Error message, free all fds
 		exit_code = execution_child(cargs, exec_info, prevfd, curfd);
 		set_fd(prevfd, curfd[0], curfd[1]);
 		cargs = cargs->next;
 	}
-	closefd(&prevfd[1]);
 	print_final_output(prevfd[0]);
-	return (exit_code);
+	return (free(exec_info), exit_code);
 }
