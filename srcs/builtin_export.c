@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 01:08:56 by marvin            #+#    #+#             */
-/*   Updated: 2024/02/27 16:59:00 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/04 16:38:53 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	builtin_export(t_cmd_args *cargs, t_exec_info *info)
 	t_list	*envp;
 	bool	exist;
 
+	if (cargs->args == NULL)
+		return (builtin_env(cargs, info));
 	args = cargs->args;
 	while (args)
 	{

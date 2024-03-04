@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   def.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
 /*   Updated: 2024/03/02 17:59:59 by bfaisy           ###   ########.fr       */
@@ -24,6 +24,7 @@
 
 // Defs : errors
 # define ERR_MALLOC "Malloc error"
+# define ERR_PIPE "Pipe error"
 # define ERR_OPEN "Cannot open file"
 # define ERR_UNKNOWN "Unknown error"
 # define ERR_GETCWD "Cannot get current working directory"
@@ -105,5 +106,8 @@ int				builtin_unset(t_cmd_args *cargs, t_exec_info *info);
 int				builtin_env(t_cmd_args *cargs, t_exec_info *info);
 int				exec_builtin(t_cmd_args *cargs, t_exec_info *info);
 char			**list_to_args(char *cmd, t_list *args);
+void			closefd(int *fd);
+int				get_input_fd(t_exec_info *info, int prevfd[2]);
+int				get_output_fd(t_exec_info *info, int curfd[2]);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_t_exec_info.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 10:42:21 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/27 16:58:12 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/04 16:32:37 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ t_exec_info	*init_t_exec_info(void)
 	var->redirect.red_in = NULL;
 	var->redirect.red_out = NULL;
 	var->paths = NULL;
+	var->in_fd = -1;
+	var->out_fd = -1;
 	return (var);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:13:01 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/23 16:36:58 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/02/28 16:12:15 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	is_builtin(char *cmd)
 		return (false);
 	while (*(builtins + i))
 	{
-		if (ft_strncmp(cmd, *(builtins + i), ft_strlen(*(builtins + i))))
+		if (ft_strncmp(cmd, *(builtins + i), ft_strlen(*(builtins + i))) == 0)
 		{
 			ft_freesplit(builtins);
 			return (true);

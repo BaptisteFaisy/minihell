@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 14:45:12 by bfaisy            #+#    #+#             */
 /*   Updated: 2024/03/04 17:27:52 by bfaisy           ###   ########.fr       */
@@ -37,6 +37,7 @@ int	main(int ac, char **av, char **ev)
 			free(str);
 			rl_clear_history();
 			return (0);
+			return (free(str), ft_lstclear(&envp, free), 0);
 		}
 		free(str);
 	}

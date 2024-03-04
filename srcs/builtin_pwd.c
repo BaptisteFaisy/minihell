@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 15:53:47 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/27 14:13:13 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/04 16:36:26 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	builtin_pwd(t_cmd_args *cargs, t_exec_info *info)
 		print_error(ERR_GETCWD);
 		return (EXEC_FAILURE);
 	}
-	ft_putstr_fd(pwd, 1);
-	ft_putchar_fd('\n', 1);
+	ft_putstr_fd(pwd, info->out_fd);
+	ft_putchar_fd('\n', info->out_fd);
 	free(pwd);
 	return (EXEC_SUCCESS);
 }
