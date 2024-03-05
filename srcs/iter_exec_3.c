@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:02:14 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/05 18:01:15 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/05 20:02:17 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	get_input_fd(t_exec_info *info, int prevfd[2])
 	{
 		fd = prevfd[0];
 	}
+	ft_putstr_fd(ft_itoa(fd), 2);
+	print_final_output(fd);
 	return (fd);
 }
 
