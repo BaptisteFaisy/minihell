@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:53:57 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/04 18:07:34 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/05 18:28:04 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,9 @@ t_cmd_args	*parsingv2(t_cmd_args *tmpargs, t_cmd_args *head,
 		i = skipspace(str, i);
 		if (str[i] == '<' || str[i] == '>')
 		{
-			// printf("%s\n", str);
 			create_redirect_node_main(tmpargs);
 			tmp = get_last_redirect_node(tmpargs->redirect);
 			return_value = redirect(str, i, tmp, tmpargs);
-			// printf("%s\n", tmp->red_in);
-			// printf("%s\n", tmp->red_in_delim);
-			// printf("%s\n", tmp->red_out);
-			// printf("%s\n\n", tmp->red_out_delim);
 			if (return_value == -1)
 				return (0);
 			i = return_value;
@@ -138,13 +133,7 @@ t_cmd_args	*create_next_node_head(t_cmd_args *head, t_list *ev)
 		exit (1);
 	}
 	head->next = tmp;
-	tmp->redirect = malloc(sizeof(t_red));
-	if (!tmp->redirect)
-		exit(1);
-	tmp->redirect->red_out = NULL;
-	tmp->redirect->red_in = NULL;
-	tmp->redirect->red_in_delim = NULL;
-	tmp->redirect->red_out_delim = NULL;
+	tmp->redirect = NULL;
 	tmp->is_first = TRUE;
 	tmp->args = NULL;
 	tmp->cmd = NULL;
