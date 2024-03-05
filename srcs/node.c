@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:43:01 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/28 16:46:49 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/05 18:21:12 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_cmd_args	*create_node_cmd(t_cmd_args **head, t_list *ev)
 	(*head)->is_pipe = 0;
 	(*head)->envp = ev;
 	(*head)->next = NULL;
-	return ((*head));
+	return (*head);
 }
 
 void	freeheadcmd(t_cmd_args *head)

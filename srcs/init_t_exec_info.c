@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 10:42:21 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/04 16:32:37 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/05 18:22:25 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ bool	set_exec_info(
 		t_exec_info **info, char *cmd, t_cmd_args *cargs, char **paths)
 {
 	*info = init_t_exec_info();
-	if (!info)
+	if (!*info)
 		return (false);
 	(*info)->cmd = cmd;
 	(*info)->paths = paths;
 	if (init_redirect_files(cargs, *info) == false)
-		return (free(info), false);
+		return (free(*info), false);
 	return (true);
 }
