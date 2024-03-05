@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:30:42 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/04 17:13:11 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/05 18:10:40 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,8 @@ int	iter_exec(t_cmd_args *cargs, char **paths)
 		exit_code = execution_child(cargs, exec_info, prevfd, curfd);
 		set_fd(prevfd, curfd[0], curfd[1]);
 		cargs = cargs->next;
+		free_exec_info(exec_info);
 	}
 	print_final_output(prevfd[0]);
-	return (free(exec_info), exit_code);
+	return (exit_code);
 }

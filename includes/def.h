@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/02 17:59:59 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/04 18:26:43 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,6 @@ char			**list_to_args(char *cmd, t_list *args);
 void			closefd(int *fd);
 int				get_input_fd(t_exec_info *info, int prevfd[2]);
 int				get_output_fd(t_exec_info *info, int curfd[2]);
+void			free_exec_info(t_exec_info *info);
 
 #endif
