@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 16:42:44 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/27 14:14:02 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/04 16:36:10 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	print_error(char *err, char *name)
 		s = ft_strjoin_many(4, SHELL_NAME, ": ", "cd: ", err);
 	else
 		s = ft_strjoin_many(6, SHELL_NAME, ": ", "cd: ", name, ": ", err);
-	perror(s);
+	ft_putendl_fd(s, 2);
 	free(s);
 }
 
@@ -29,7 +29,6 @@ int	builtin_cd(t_cmd_args *cargs, t_exec_info *info)
 	char	*path;
 
 	(void)info;
-	printf("%d\n", ft_lstsize(cargs->args));
 	if (ft_lstsize(cargs->args) >= 2)
 	{
 		print_error(ERR_CD_TOO_MANY_ARGS, NULL);

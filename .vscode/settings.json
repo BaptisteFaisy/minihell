@@ -9,7 +9,12 @@
 		"minishell.h": "c",
 		"features.h": "c",
 		"libft.h": "c",
-		"def.h": "c"
+		"def.h": "c",
+		"fcntl.h": "c",
+		"stat.h": "c",
+		"struct.h": "c",
+		"readline.h": "c",
+		"history.h": "c"
 	},
 	"C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools"
 }

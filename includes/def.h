@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   def.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/27 16:57:19 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/04 18:26:43 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 // Defs : errors
 # define ERR_MALLOC "Malloc error"
+# define ERR_PIPE "Pipe error"
 # define ERR_OPEN "Cannot open file"
 # define ERR_UNKNOWN "Unknown error"
 # define ERR_GETCWD "Cannot get current working directory"
@@ -51,6 +52,9 @@
 # include <term.h>
 # include <stdbool.h>
 # include <errno.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include "struct.h"
 
 extern int	g_status;
@@ -71,6 +75,7 @@ void			create_redirect_node(t_red *head);
 t_red			*get_last_redirect_node(t_red *head);
 t_cmd_args		*create_next_node_head(t_cmd_args *head, t_list *ev);
 int				check_test(char *str);
+int				skipspace(char *str, int i);
 
 // Execution part
 int				execution(t_cmd_args *cmd_args);
@@ -101,5 +106,9 @@ int				builtin_unset(t_cmd_args *cargs, t_exec_info *info);
 int				builtin_env(t_cmd_args *cargs, t_exec_info *info);
 int				exec_builtin(t_cmd_args *cargs, t_exec_info *info);
 char			**list_to_args(char *cmd, t_list *args);
+void			closefd(int *fd);
+int				get_input_fd(t_exec_info *info, int prevfd[2]);
+int				get_output_fd(t_exec_info *info, int curfd[2]);
+void			free_exec_info(t_exec_info *info);
 
 #endif

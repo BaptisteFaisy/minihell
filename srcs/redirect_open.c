@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:27:50 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/22 14:04:49 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/01 16:40:48 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static bool	access_file(char *path, int type)
 	access_result = access(path, type & (F_OK | R_OK | W_OK | X_OK));
 	if (access_result == 0)
 		return (true);
-	if (errno == ENOENT && (type & F_SKIP_NUL) == 0)
+	if (errno == ENOENT && (type & F_SKIP_NUL) == F_SKIP_NUL)
 		return (true);
 	print_error(path, strerror(errno));
 	return (false);
@@ -73,17 +73,14 @@ int	get_file_by_prompt_delim(char *delim)
 	char	*delim_modif;
 	char	*buf;
 
-	pipe(fd);
 	delim_modif = ft_strjoin(delim, "\n");
 	ft_putstr_fd("> ", 1);
 	buf = get_next_line(0);
 	if (buf == NULL)
-	{
-		close(fd[1]);
-		close(fd[0]);
 		return (free(delim_modif), print_error(NULL, ERR_MALLOC), -1);
-	}
-	while (buf && ft_strncmp(buf, delim_modif, ft_strlen(delim_modif)))
+	if (pipe(fd) == -1)
+		return (free(delim_modif), free(buf), print_error(NULL, ERR_PIPE), -1);
+	while (buf != NULL && ft_strncmp(buf, delim_modif, ft_strlen(delim_modif)))
 	{
 		ft_putstr_fd(buf, fd[1]);
 		free(buf);

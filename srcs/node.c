@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:43:01 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/27 16:57:10 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/05 18:21:12 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ t_cmd_args	*create_node_cmd(t_cmd_args **head, t_list *ev)
 	(*head)->args = NULL;
 	(*head)->cmd = NULL;
 	(*head)->is_pipe = 0;
-	(*head)->ep = ev;
+	(*head)->envp = ev;
 	(*head)->next = NULL;
-	return ((*head));
+	return (*head);
 }
 
 void	freeheadcmd(t_cmd_args *head)
@@ -74,6 +74,7 @@ void	create_firstnode_and_put(t_list **head, char *data)
 	if (!(*head))
 		exit (1);
 	(*head)->content = data;
+	(*head)->next = NULL;
 }
 
 int	create_node_and_put(t_list **head, char *data)

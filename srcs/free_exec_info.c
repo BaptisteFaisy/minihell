@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution_main.c                                   :+:      :+:    :+:   */
+/*   free_exec_info.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 17:37:49 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/04 18:28:15 by lhojoon          ###   ########.fr       */
+/*   Created: 2024/03/04 17:13:38 by lhojoon           #+#    #+#             */
+/*   Updated: 2024/03/04 18:27:12 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	execution(t_cmd_args *cargs)
+void	free_exec_info(t_exec_info *info)
 {
-	char	**paths;
-	int		res;
-
-	if (cargs->envp == NULL)
-		printf("envp is NULL\n");
-	paths = resolve_path(cargs->envp);
-	if (paths == NULL)
-		return (EXEC_FAILURE);
-	res = iter_exec(cargs, paths);
-	return (ft_freesplit(paths), res);
+	if (info->cmd)
+	{
+		free(info->cmd);
+		info->cmd = NULL;
+	}
+	// if (info->redirect.red_in)
+	// 	ft_lstclear(&info->redirect.red_in, free);
+	// if (info->redirect.red_out)
+	// 	ft_lstclear(&info->redirect.red_out, free);
+	// if (info->paths)
+	// 	ft_lstclear(&info->paths, free);
+	free(info);
 }
