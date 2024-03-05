@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:30:42 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/05 18:10:40 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/05 20:07:42 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,25 @@ static int	handle_execve(t_exec_info *info, char **envp_tmp,
 	pid = fork();
 	if (pid == 0)
 	{
-		if (!input_redirect(info, fds[0])
-			|| !output_redirect(info, fds[1]))
-			exit(EXEC_FAILURE);
+		// if (!input_redirect(info, fds[0])
+		// 	|| !output_redirect(info, fds[1]))
+		// 	exit(EXEC_FAILURE);
+		(void)fds;
+		(void)input_redirect;
+		(void)output_redirect;
+		ft_putstr_fd(ft_itoa(info->in_fd), 2);
+		if (info->in_fd != -1 && info->in_fd != 0)
+			dup2(info->in_fd, STDIN_FILENO);
+		if (info->out_fd != -1 && info->out_fd != 1)
+			dup2(info->out_fd, STDOUT_FILENO);
 		if (info->cmd != NULL)
 			execve(info->cmd, args_tmp, envp_tmp);
 		else
-			exit(EXEC_FAILURE);
+			exit(EXEC_SUCCESS);
 	}
 	free(envp_tmp);
 	free(args_tmp);
-	if (waitpid(pid, &status, 0) == -1)
+	if (waitpid(-1, &status, 0) == -1)
 		return (EXEC_FAILURE);
 	return (status);
 }
@@ -97,7 +105,8 @@ static int
 	{
 		info->cmd = ft_strdup(cargs->cmd);
 		exit_code = exec_builtin(cargs, info);
-		closefd(&curfd[1]);
+		closefd(&info->out_fd);
+		// closefd(&curfd[1]);
 	}
 	else
 	{
@@ -105,7 +114,7 @@ static int
 		exit_code = handle_execve(info, transform_envp(cargs->envp),
 				list_to_args(cargs->cmd, cargs->args),
 				(int *[2]){prevfd, curfd});
-		closefd(&curfd[1]);
+		closefd(&info->out_fd);
 	}
 	return (exit_code); // TODO : free exec_info
 }
@@ -126,6 +135,8 @@ int	iter_exec(t_cmd_args *cargs, char **paths)
 		if (pipe(curfd) == -1)
 			return (free(exec_info), EXEC_FAILURE); // TODO : Error message, free all fds
 		exit_code = execution_child(cargs, exec_info, prevfd, curfd);
+		if (exit_code != EXIT_SUCCESS)
+			g_status = exit_code;
 		set_fd(prevfd, curfd[0], curfd[1]);
 		cargs = cargs->next;
 		free_exec_info(exec_info);

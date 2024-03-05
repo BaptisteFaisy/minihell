@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:13:01 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/28 16:12:15 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/05 19:08:58 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ bool	is_builtin(char *cmd)
 	char	**builtins;
 	int		i;
 
+	if (!cmd)
+		return (false);
 	builtins = ft_split("echo cd pwd export unset env exit", ' ');
 	i = 0;
 	if (!builtins)

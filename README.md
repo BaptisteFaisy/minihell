@@ -20,16 +20,23 @@ https://tldp.org/LDP/lpg/node11.html
 faut ouvrir tous les redirects et peter tous les contenues, et prendre que le dernier
 
 Builtin list: (tous non testé)
-echo *
-cd *
-pwd *
-export *
-unset *
-env *
-exit *?
+echo _
+cd _
+pwd _
+export _
+unset _
+env _
+exit \*?
 
 Signals
 
 SIGQUIT (Ctrl + \)
 SIGQUIT (Ctrl + D)
 SIGINT (Ctrl + C)
+
+valgrind --leak-check=full --track-fds=yes --show-leak-kinds=all --suppressions=readline.supp ./minishell
+
+todo:
+global variables
+guillemets
+bugfix
