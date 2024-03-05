@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   node.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:43:01 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/02/28 16:46:49 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/05 18:22:44 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	create_firstnode_and_put(t_list **head, char *data)
 	if (!(*head))
 		exit (1);
 	(*head)->content = data;
+	(*head)->next = NULL;
 }
 
 int	create_node_and_put(t_list **head, char *data)
