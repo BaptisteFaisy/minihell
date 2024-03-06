@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 14:45:12 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/06 21:00:23 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/07 00:15:44 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	main(int ac, char **av, char **ev)
 	{
 		str = readline_str("$> ");
 		if (!str)
-			return (EXIT_FAILURE);
+			return (ft_putendl_fd("exit", 1),
+				ft_lstclear(&envp, free), EXIT_FAILURE);
 		if (isatty(STDIN_FILENO) && str && *str)
 			add_history(str);
 		if (parsing(str, envp) == 0)

@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 20:46:48 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/06 23:31:27 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/07 00:09:05 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	sigint_handler_process(int sig)
 {
 	(void)sig;
 	ft_putstr_fd("\n", 1);
+	g_status = 130;
 }
 
 void	sigquit_handler_process(int sig)
@@ -26,6 +27,7 @@ void	sigquit_handler_process(int sig)
 static void	sigint_handler(int sig)
 {
 	(void)sig;
+	g_status = 130;
 	ft_putstr_fd("\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);

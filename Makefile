@@ -40,7 +40,6 @@ SRCS_RAW =	main.c \
 			data_afterv2.c \
 			transform_str_env.c \
 			transform_str_quote.c \
-			print_bash_error.c \
 			transform_str_env_utils.c \
 			print_bash_error.c \
 			is_directory.c \
