@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   def.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/05 21:34:48 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/05 20:21:18 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ t_red			*get_last_redirect_node(t_red *head);
 t_cmd_args		*create_next_node_head(t_cmd_args *head, t_list *ev);
 int				check_test(char *str);
 int				skipspace(char *str, int i);
+t_string_and_i	data_after2(char *str, int i, t_cmd_args *head);
+char			*transform_str_env(char *str, t_list *ev, t_cmd_args *head);
 
 // Execution part
 int				execution(t_cmd_args *cmd_args);

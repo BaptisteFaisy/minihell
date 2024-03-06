@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:53:57 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/05 18:28:04 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/05 21:42:03 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	parsing(char *str, t_list *ev)
 	g_status = 0;
 	if (check_test(str) == 1)
 		return (0);
+	str = transform_str_env(str, ev, head);
+	printf("%s\n", str);
 	str = transform_str(str);
 	tmpargs = create_node_cmd(&head, ev);
 	head = parsingv2(tmpargs, head, str, ev);
