@@ -38,4 +38,7 @@ valgrind --leak-check=full --track-fds=yes --show-leak-kinds=all --suppressions=
 todo:
 global variables
 guillemets
+
 bugfix
+/ -> command not found
+test -> command not found

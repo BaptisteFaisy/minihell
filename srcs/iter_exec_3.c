@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:02:14 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/05 18:01:15 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/06 17:54:10 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,10 @@ int	get_output_fd(t_exec_info *info, int curfd[2])
 		fd = curfd[1];
 	}
 	return (fd);
+}
+
+void	close_two_fds(t_exec_info *info)
+{
+	closefd(&info->in_fd);
+	closefd(&info->out_fd);
 }
