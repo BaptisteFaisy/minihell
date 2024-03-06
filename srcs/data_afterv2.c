@@ -6,17 +6,15 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:12:03 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/06 18:38:17 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/06 22:49:49 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "def.h"
 
-char			*concatenation2(char *str, char c);
-void			data_afterv22(t_string_and_i *data, t_cmd_args **head);
-t_string_and_i	data_afterv32(t_string_and_i data, t_cmd_args *head, char *str);
+char			*concatenation2(char *str, char c, char *str2);
 
-t_string_and_i	data_after2(char *str, int i, t_cmd_args *head, bool *cond)
+t_string_and_i	data_after2(char *str, int i)
 {
 	t_string_and_i	data;
 
@@ -30,33 +28,10 @@ t_string_and_i	data_after2(char *str, int i, t_cmd_args *head, bool *cond)
 	while (str[data.i])
 	{
 		if (str[data.i] == ' ' || str[data.i] == '"')
-			return (data_afterv32(data, head, str));
-		else if (str[data.i] == '|' && data.str != NULL)
-			return (data_afterv22(&data, &head), data);
-		else if (str[data.i] == '|')
-			return (ft_putstr_fd
-				("bash: syntax error near\nunexpected token `|'\n", 2),
-				data.i = -100, g_status = 2, *cond = false, data);
+			return (data);
 		else
-			data.str = concatenation2(data.str, str[data.i]);
+			data.str = concatenation2(data.str, str[data.i], str);
 		data.i++;
-	}
-	return (data);
-}
-
-void	data_afterv22(t_string_and_i *data, t_cmd_args **head)
-{
-	(*data).i++;
-	(*head)->is_pipe = 1;
-}
-
-t_string_and_i	data_afterv32(t_string_and_i data, t_cmd_args *head, char *str)
-{
-	while (str[data.i] == ' ')
-	{
-		data.i++;
-		if (str[data.i] == '|')
-			return (data_afterv22(&data, &head), data);
 	}
 	return (data);
 }
@@ -76,7 +51,7 @@ t_string_and_i	data_afterv32(t_string_and_i data, t_cmd_args *head, char *str)
 // 	return (0);
 // }
 
-char	*concatenation2(char *str, char c)
+char	*concatenation2(char *str, char c, char *str2)
 {
 	char	*new_str;
 	int		i;
@@ -84,10 +59,10 @@ char	*concatenation2(char *str, char c)
 	i = 0;
 	if (str)
 	{
-		new_str = malloc(sizeof(char) * (ft_strlen(str) + 2));
+		new_str = ft_calloc(sizeof(char), ft_strlen(str) + 10);
 		if (!new_str)
 			exit (1);
-		ft_strlcpy(new_str, str, ft_strlen(str) + 2);
+		ft_strlcpy(new_str, str, ft_strlen(str) + 10);
 		while (str[i])
 			i++;
 		new_str[i] = c;
@@ -96,7 +71,7 @@ char	*concatenation2(char *str, char c)
 	}
 	else
 	{
-		new_str = malloc(sizeof(char) * 2);
+		new_str = ft_calloc(sizeof(char), ft_strlen(str2) + 10);
 		if (!new_str)
 			exit(1);
 		new_str[0] = c;

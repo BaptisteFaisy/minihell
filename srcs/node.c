@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:43:01 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/05 18:21:12 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/06 22:22:53 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,14 @@ void	create_firstnode_and_put(t_list **head, char *data)
 int	create_node_and_put(t_list **head, char *data)
 {
 	t_list	*tmp;
+	t_list	*t2;
 
 	tmp = *head;
 	tmp = get_last(tmp);
-	(tmp)->next = malloc(sizeof(t_list));
-	if (!(tmp)->next)
+	t2 = ft_lstnew(data);
+	if (!t2)
 		return (-1);
-	(tmp)->next->content = data;
+	(tmp)->next = t2;
 	return (0);
 }
 

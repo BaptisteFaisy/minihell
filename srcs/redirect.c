@@ -6,31 +6,33 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:37:30 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/06 16:46:30 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/06 19:32:28 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "def.h"
 
-static	int	redirect_droite(char *str, int i, t_red *redirect,
-				t_cmd_args *head, bool *cond);
+static	int	redirect_droite(int i, t_red *redirect,
+				t_cmd_args *head, t_storage *storage);
 static	int	test_error_newline(char *str, int i, bool *cond);
-static	int	double_gauche(char *str, int i, t_red *redirect, t_cmd_args *head, bool *cond);
-static	int	double_droite(char *str, int i, t_red *redirect, t_cmd_args *head, bool *cond);
+static	int	double_gauche(int i, t_red *redirect,
+				t_cmd_args *head, t_storage *storage);
+static	int	double_droite(int i, t_red *redirect,
+				t_cmd_args *head, t_storage *storage);
 
-int	redirect(char *str, int i, t_red *redirect, t_cmd_args *head, bool *cond)
+int	redirect(int i, t_red *redirect, t_cmd_args *head, t_storage *stock)
 {
 	t_string_and_i	storage;
 
-	if (str[i] == '<')
+	if (stock->str[i] == '<')
 	{
-		if (str[i + 1] == '<')
-			return (double_gauche(str, i, redirect, head, cond));
-		if (test_error_newline(str, i, cond) == 1)
+		if (stock->str[i + 1] == '<')
+			return (double_gauche(i, redirect, head, stock));
+		if (test_error_newline(stock->str, i, &stock->cond) == 1)
 			return (-1);
 		else
 		{
-			storage = data_after(str, i, head, cond);
+			storage = data_after(stock->str, i, head, &stock->cond);
 			i = storage.i;
 			redirect->red_in = storage.str;
 			if (storage.i == -100)
@@ -38,40 +40,36 @@ int	redirect(char *str, int i, t_red *redirect, t_cmd_args *head, bool *cond)
 			if (storage.str == NULL)
 				return (ft_putstr_fd
 					("bash: syntax error near\nunexpected token `newline'\n", 2)
-					, g_status = 2, *cond = false, -1);
+					, g_status = 2, stock->cond = false, -1);
 			return (g_status = 0, i);
 		}
 	}
 	else
-		return (redirect_droite(str, i, redirect, head, cond));
+		return (redirect_droite(i, redirect, head, stock));
 	return (0);
 }
 
-static	int	redirect_droite(char *str, int i, t_red *redirect, t_cmd_args *head, bool *cond)
+static	int	redirect_droite(int i,
+		t_red *redirect, t_cmd_args *head, t_storage *stock)
 {
 	t_string_and_i	storage;
 
-	if (str[i + 1] == '>')
-		return (double_droite(str, i, redirect, head, cond));
-	if (test_error_newline(str, i, cond) == 1)
+	if (stock->str[i + 1] == '>')
+		return (double_droite(i, redirect, head, stock));
+	if (test_error_newline(stock->str, i, &stock->cond) == 1)
 	{
 		return (-1);
 	}
 	else
 	{
-		storage = data_after(str, i, head, cond);
+		storage = data_after(stock->str, i, head, &stock->cond);
 		i = storage.i;
 		redirect->red_out = storage.str;
 		if (storage.i == -100)
 			return (-1);
 		if (storage.str == NULL)
-		{
-			g_status = 2;
-			*cond = false;
-			ft_putstr_fd("bash: syntax error near\nunexpected token `newline'\n",
-				2);
-			return (-1);
-		}
+			return (g_status = 2, stock->cond = false, ft_putstr_fd
+				("bash: syntax error near\nunexpected token `newline'\n", 2), -1);
 		return (g_status = 0, i);
 	}
 	return (0);
@@ -99,15 +97,16 @@ static	int	test_error_newline(char *str, int i, bool *cond)
 	return (0);
 }
 
-static	int	double_gauche(char *str, int i, t_red *redirect, t_cmd_args *head, bool *cond)
+static	int	double_gauche(int i, t_red *redirect,
+		t_cmd_args *head, t_storage *stock)
 {
 	t_string_and_i	storage;
 
-	if (test_error_newline(str, i, cond) == 1)
+	if (test_error_newline(stock->str, i, &stock->cond) == 1)
 	{
 		return (-1);
 	}
-	storage = data_after(str, i, head, cond);
+	storage = data_after(stock->str, i, head, &stock->cond);
 	i = storage.i;
 	redirect->red_in_delim = storage.str;
 	if (storage.i == -100)
@@ -115,22 +114,23 @@ static	int	double_gauche(char *str, int i, t_red *redirect, t_cmd_args *head, bo
 	if (storage.str == NULL)
 	{
 		g_status = 2;
-		*cond = false;
+		stock->cond = false;
 		ft_putstr_fd("bash: syntax error near\nunexpected token `newline'\n", 2);
 		return (-1);
 	}
 	return (g_status = 0, i);
 }
 
-static	int	double_droite(char *str, int i, t_red *redirect, t_cmd_args *head, bool *cond)
+static	int	double_droite(int i, t_red *redirect, t_cmd_args *head,
+	t_storage *stock)
 {
 	t_string_and_i	storage;
 
-	if (test_error_newline(str, i, cond) == 1)
+	if (test_error_newline(stock->str, i, &stock->cond) == 1)
 	{
 		return (-1);
 	}
-	storage = data_after(str, i, head, cond);
+	storage = data_after(stock->str, i, head, &stock->cond);
 	i = storage.i;
 	redirect->red_out_delim = storage.str;
 	if (storage.i == -100)
@@ -138,7 +138,7 @@ static	int	double_droite(char *str, int i, t_red *redirect, t_cmd_args *head, bo
 	if (storage.str == NULL)
 	{
 		g_status = 2;
-		*cond = false;
+		stock->cond = false;
 		ft_putstr_fd("bash: syntax error near\nunexpected token `newline'\n", 2);
 		return (-1);
 	}

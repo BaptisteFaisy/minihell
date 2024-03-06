@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/06 18:37:15 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/06 23:10:10 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@
 
 extern int	g_status;
 
-int				redirect(char *str, int i, t_red *redirect,
-					t_cmd_args *head, bool *cond);
+int				redirect(int i, t_red *redirect,
+					t_cmd_args *head, t_storage *stock);
 void			create_firstnode_and_put(t_list **head, char *data);
 int				create_node_and_put(t_list **head, char *data);
 int				parsing(char *str, t_list *ev);
@@ -81,9 +81,18 @@ t_red			*get_last_redirect_node(t_red *head);
 t_cmd_args		*create_next_node_head(t_cmd_args *head, t_list *ev);
 int				check_test(char *str, bool *cond);
 int				skipspace(char *str, int i);
-t_string_and_i	data_after2(char *str, int i, t_cmd_args *head, bool *cond);
-char			*transform_str_env(char *str, t_list *ev, t_cmd_args *head, bool *cond, bool *cond2);
+t_string_and_i	data_after2(char *str, int i);
+char			*transform_str_env(char *str, t_list *ev,
+					t_storage *stock);
 char			*transform_str_quote(char *str, bool cond2);
+char			*transform_str_env2(char *str, t_list *ev,
+					t_storage *storage, t_string_and_i stock);
+char			*replacestr(char *strev, char *str, int cond);
+int				compare(char *strev, char *str2, int i);
+char			*replacestr2(char *newstr, int *k, int *i);
+char			*replacestr3(char *str, char *strev, char *newstr,
+					t_indice *indi);
+char			*replacestr4(char *newstr, char *str, t_indice *indi);
 
 // Execution part
 int				execution(t_cmd_args *cmd_args);

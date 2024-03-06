@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/06 16:28:54 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/06 23:16:47 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,22 @@ typedef struct s_exec_info
 	int				out_fd;
 	int				in_fd;
 }	t_exec_info;
+
+typedef struct s_storage
+{
+	char	*str;
+	bool	cond;
+	bool	cond2;
+	bool	cond3;
+	int		i;
+}t_storage;
+
+typedef struct s_indice
+{
+	int		i;
+	int		k;
+	bool	cond_simple;
+	bool	cond_double;
+}t_indice;
 
 #endif
