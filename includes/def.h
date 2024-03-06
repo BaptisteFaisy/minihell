@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/06 19:12:46 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/06 23:28:07 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,15 @@
 # define ERR_UNKNOWN "Unknown error"
 # define ERR_GETCWD "Cannot get current working directory"
 # define ERR_FORK "Fork error"
-# define ERR_CD_TOO_MANY_ARGS "too many arguments"
+# define ERR_TOO_MANY_ARGS "too many arguments"
 # define ERR_CMD_NOT_FOUND "command not found"
 # define ERR_IS_DIR "Is a directory"
+# define ERR_NUMERIC_REQUIRED "numeric argument required"
 
 // Defs : Exit codes
 # define EXEC_SUCCESS 0
 # define EXEC_FAILURE 1
+# define EXEC_INVLD_USAGE 2
 # define EXEC_IS_DIR 126
 # define EXEC_CMD_NFD 127
 
@@ -95,6 +97,7 @@ char			*replacestr2(char *newstr, int *k, int *i);
 char			*replacestr3(char *str, char *strev, char *newstr,
 					t_indice *indi);
 char			*replacestr4(char *newstr, char *str, t_indice *indi);
+char			*readline_str(char *prompt);
 
 // Execution part
 int				execution(t_cmd_args *cmd_args);
@@ -123,6 +126,7 @@ int				builtin_pwd(t_cmd_args *cargs, t_exec_info *info);
 int				builtin_export(t_cmd_args *cargs, t_exec_info *info);
 int				builtin_unset(t_cmd_args *cargs, t_exec_info *info);
 int				builtin_env(t_cmd_args *cargs, t_exec_info *info);
+int				builtin_exit(t_cmd_args *cargs, t_exec_info *info);
 int				exec_builtin(t_cmd_args *cargs, t_exec_info *info);
 char			**list_to_args(char *cmd, t_list *args);
 void			closefd(int *fd);
@@ -132,7 +136,12 @@ void			free_exec_info(t_exec_info *info);
 void			close_two_fds(t_exec_info *info);
 void			basherr(char *name, char *err);
 bool			is_directory(char *path);
-int				handle_execve(t_exec_info *info, char **envp_tmp,
-					char **args_tmp);
+int				handle_execve(t_cmd_args *cargs, t_exec_info *info,
+					char **envp_tmp, char **args_tmp);
+void			signals(void);
+void			sigquit_handler_process(int sig);
+void			sigint_handler_process(int sig);
+void			activate_sig_process(t_exec_info *info);
+void			deactivate_sig_process(t_exec_info *info);
 
 #endif

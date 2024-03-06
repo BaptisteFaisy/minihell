@@ -42,3 +42,5 @@ guillemets
 bugfix
 / -> command not found
 test -> chelou
+
+echo test | cat > test2 -> baptiste

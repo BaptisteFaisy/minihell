@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
 /*   Updated: 2024/03/06 23:16:47 by bfaisy           ###   ########.fr       */
@@ -90,6 +90,8 @@ typedef struct s_exec_info
 	char			*cmd;
 	int				out_fd;
 	int				in_fd;
+	__sighandler_t	oldsint;
+	__sighandler_t	oldsquit;
 }	t_exec_info;
 
 typedef struct s_storage

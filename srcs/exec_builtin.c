@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 15:21:11 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/04 16:42:40 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/06 21:07:39 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	exec_builtin(t_cmd_args *cargs, t_exec_info *info)
 		return (builtin_unset(cargs, info));
 	else if (ft_strncmp(info->cmd, "env", 3) == 0)
 		return (builtin_env(cargs, info));
+	else if (ft_strncmp(info->cmd, "exit", 4) == 0)
+		return (builtin_exit(cargs, info));
 	else
 		return (EXEC_FAILURE);
 }

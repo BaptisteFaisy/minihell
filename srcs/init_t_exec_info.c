@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 10:42:21 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/06 19:05:45 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/06 23:11:30 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_exec_info	*init_t_exec_info(void)
 	var->paths = NULL;
 	var->in_fd = -1;
 	var->out_fd = -1;
+	var->oldsint = NULL;
+	var->oldsquit = NULL;
 	return (var);
 }
 

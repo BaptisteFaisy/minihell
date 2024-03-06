@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:30:42 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/06 19:12:20 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/06 23:28:52 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static int
 
 	info->in_fd = get_input_fd(info, prevfd);
 	info->out_fd = get_output_fd(info, curfd);
+	activate_sig_process(info);
 	if (is_builtin(cargs->cmd) == true)
 	{
 		info->cmd = ft_strdup(cargs->cmd);
@@ -32,12 +33,13 @@ static int
 		{
 			if (!cargs->cmd)
 				return (close_two_fds(info), EXEC_SUCCESS);
-			return (close_two_fds(info),
+			return (deactivate_sig_process(info), close_two_fds(info),
 				basherr(cargs->cmd, ERR_CMD_NOT_FOUND), EXEC_CMD_NFD);
 		}
-		exit_code = handle_execve(info, transform_envp(cargs->envp),
+		exit_code = handle_execve(cargs, info, transform_envp(cargs->envp),
 				list_to_args(cargs->cmd, cargs->args));
 	}
+	deactivate_sig_process(info);
 	return (close_two_fds(info), exit_code);
 }
 

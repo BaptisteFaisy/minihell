@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 19:11:43 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/06 19:34:23 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/06 21:55:45 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	handle_execve_dup(t_exec_info *info)
 		dup2(info->out_fd, STDOUT_FILENO);
 }
 
-int	handle_execve(t_exec_info *info, char **envp_tmp,
+int	handle_execve(t_cmd_args *cargs, t_exec_info *info, char **envp_tmp,
 		char **args_tmp)
 {
 	pid_t	pid;
@@ -39,7 +39,7 @@ int	handle_execve(t_exec_info *info, char **envp_tmp,
 		else
 			exit(EXEC_SUCCESS);
 		if (errno)
-			return (basherr(info->cmd, NULL),
+			return (basherr(cargs->cmd, NULL),
 				exit(EXEC_FAILURE), 0);
 	}
 	free(envp_tmp);

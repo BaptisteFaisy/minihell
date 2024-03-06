@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 16:42:44 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/04 16:36:10 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/06 21:06:37 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	builtin_cd(t_cmd_args *cargs, t_exec_info *info)
 	(void)info;
 	if (ft_lstsize(cargs->args) >= 2)
 	{
-		print_error(ERR_CD_TOO_MANY_ARGS, NULL);
+		print_error(ERR_TOO_MANY_ARGS, NULL);
 		return (1);
 	}
 	path = cargs->args->content;

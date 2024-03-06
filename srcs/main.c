@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 14:45:12 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/05 22:08:33 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/06 21:00:23 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,17 @@ int	main(int ac, char **av, char **ev)
 	char	*str;
 	t_list	*envp;
 
+	signals();
 	envp = get_list_envp(ev);
 	(void)av;
 	if (ac != 1)
 		return (EXIT_FAILURE);
 	while (true)
 	{
-		str = readline("$> ");
+		str = readline_str("$> ");
 		if (!str)
 			return (EXIT_FAILURE);
-		if (str && *str)
+		if (isatty(STDIN_FILENO) && str && *str)
 			add_history(str);
 		if (parsing(str, envp) == 0)
 			continue ;
