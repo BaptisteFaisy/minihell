@@ -62,12 +62,12 @@
 
 extern int	g_status;
 
-int				redirect(char *str, int i, t_red *redirect, t_cmd_args *head);
+int				redirect(char *str, int i, t_red *redirect, t_cmd_args *head, bool *cond);
 void			create_firstnode_and_put(t_list **head, char *data);
 int				create_node_and_put(t_list **head, char *data);
 int				parsing(char *str, t_list *ev);
 t_cmd_args		*create_node_cmd(t_cmd_args **head, t_list *ev);
-t_string_and_i	data_after(char *str, int i, t_cmd_args *head);
+t_string_and_i	data_after(char *str, int i, t_cmd_args *head, bool *cond);
 int				find_next_pipe(char *str, int i);
 char			*transform_str(char *str);
 void			freered(t_red redirect);
@@ -77,10 +77,10 @@ void			create_redirect_node_main(t_cmd_args *head);
 void			create_redirect_node(t_red *head);
 t_red			*get_last_redirect_node(t_red *head);
 t_cmd_args		*create_next_node_head(t_cmd_args *head, t_list *ev);
-int				check_test(char *str);
+int				check_test(char *str, bool *cond);
 int				skipspace(char *str, int i);
-t_string_and_i	data_after2(char *str, int i, t_cmd_args *head);
-char			*transform_str_env(char *str, t_list *ev, t_cmd_args *head);
+t_string_and_i	data_after2(char *str, int i, t_cmd_args *head, bool *cond);
+char			*transform_str_env(char *str, t_list *ev, t_cmd_args *head, bool *cond);
 
 // Execution part
 int				execution(t_cmd_args *cmd_args);

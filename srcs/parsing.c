@@ -6,39 +6,44 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:53:57 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/06 02:05:55 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/06 17:04:42 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "def.h"
 
 t_cmd_args	*parsingv2(t_cmd_args *tmpargs, t_cmd_args *head,
-				char *str, t_list *ev);
-int			parsingv3(char *str, int i, t_cmd_args *tmpargs);
-int			parsingv4(char *str, int i, t_cmd_args **tmpargs);
+				char *str, t_list *ev, bool *cond);
+int			parsingv3(char *str, int i, t_cmd_args *tmpargs, bool *cond);
+int			parsingv4(char *str, int i, t_cmd_args **tmpargs, bool *cond);
 
 int	parsing(char *str, t_list *ev)
 {
 	t_cmd_args		*head;
 	t_cmd_args		*tmpargs;
+	bool			cond;
 
+	cond = true;
 	head = NULL;
-	g_status = 0;
-	if (check_test(str) == 1)
+	if (check_test(str, &cond) == 1)
 		return (0);
-	str = transform_str_env(str, ev, head);
+	// printf("gstatus%d\n", g_status);
+	str = transform_str_env(str, ev, head, &cond);
 	// printf("%s\n", str);
 	str = transform_str(str);
 	tmpargs = create_node_cmd(&head, ev);
-	head = parsingv2(tmpargs, head, str, ev);
-	execution(head);
+	head = parsingv2(tmpargs, head, str, ev, &cond);
+			// printf("gstatus%d\n", g_status);
+	// g_status = 127;
+	if (cond == true)
+		g_status = execution(head);
 	free(str);
 	freeheadcmd(head);
 	return (1);
 }
 
 t_cmd_args	*parsingv2(t_cmd_args *tmpargs, t_cmd_args *head,
-	char *str, t_list *ev)
+	char *str, t_list *ev, bool *cond)
 {
 	int				return_value;
 	int				i;
@@ -54,24 +59,24 @@ t_cmd_args	*parsingv2(t_cmd_args *tmpargs, t_cmd_args *head,
 		{
 			create_redirect_node_main(tmpargs);
 			tmp = get_last_redirect_node(tmpargs->redirect);
-			return_value = redirect(str, i, tmp, tmpargs);
+			return_value = redirect(str, i, tmp, tmpargs, cond);
 			if (return_value == -1)
 				return (0);
 			i = return_value;
 		}
 		else if (tmpargs->cmd == NULL && str[i])
-			i = parsingv4(str, i, &tmpargs);
+			i = parsingv4(str, i, &tmpargs, cond);
 		else if (str[i])
-			i = parsingv3(str, i, tmpargs);
+			i = parsingv3(str, i, tmpargs, cond);
 	}
 	return (head);
 }
 
-int	parsingv3(char *str, int i, t_cmd_args *tmpargs)
+int	parsingv3(char *str, int i, t_cmd_args *tmpargs, bool *cond)
 {
 	t_string_and_i	storage;
 
-	storage = data_after(str, i, tmpargs);
+	storage = data_after(str, i, tmpargs, cond);
 	if (!tmpargs->args)
 		create_firstnode_and_put(&tmpargs->args, storage.str);
 	else
@@ -79,11 +84,11 @@ int	parsingv3(char *str, int i, t_cmd_args *tmpargs)
 	return (storage.i);
 }
 
-int	parsingv4(char *str, int i, t_cmd_args **tmpargs)
+int	parsingv4(char *str, int i, t_cmd_args **tmpargs, bool *cond)
 {
 	t_string_and_i	storage;
 
-	storage = data_after(str, i, *tmpargs);
+	storage = data_after(str, i, *tmpargs, cond);
 	(*tmpargs)->cmd = storage.str;
 	return (storage.i);
 }

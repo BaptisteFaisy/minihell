@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:38:41 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/04 18:06:16 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/06 16:46:13 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char			*concatenation(char *str, char c);
 void			data_afterv2(t_string_and_i *data, t_cmd_args **head);
 t_string_and_i	data_afterv3(t_string_and_i	data, t_cmd_args *head, char *str);
 
-t_string_and_i	data_after(char *str, int i, t_cmd_args *head)
+t_string_and_i	data_after(char *str, int i, t_cmd_args *head, bool *cond)
 {
 	t_string_and_i	data;
 
@@ -36,7 +36,7 @@ t_string_and_i	data_after(char *str, int i, t_cmd_args *head)
 		else if (str[data.i] == '|')
 			return (ft_putstr_fd
 				("bash: syntax error near\nunexpected token `|'\n", 2),
-				data.i = -100, g_status = 2, data);
+				data.i = -100, g_status = 2, *cond = false, data);
 		else
 			data.str = concatenation(data.str, str[data.i]);
 		data.i++;

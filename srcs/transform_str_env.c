@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:59:33 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/06 02:21:16 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/06 17:04:23 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char		*rmstr(t_string_and_i	stock, char *str);
 int			compare(char *strev, char *str2, int i);
-static char	*replacestr(char *strev, char *str);
+static char	*replacestr(char *strev, char *str, int cond);
 
-char	*transform_str_env(char *str, t_list *ev, t_cmd_args *head)
+char	*transform_str_env(char *str, t_list *ev, t_cmd_args *head, bool *cond2)
 {
 	int				i;
 	t_list			*tmp;
@@ -31,13 +31,20 @@ char	*transform_str_env(char *str, t_list *ev, t_cmd_args *head)
 		{
 			i++;
 			tmp = ev;
-			stock = data_after2(str, i, head);
+			stock = data_after2(str, i, head, cond2);
 			// printf("%s\n", stock.str);
 			while (tmp)
 			{
+				if (stock.str[0] == '?')
+				{
+					str = replacestr((char *)tmp->content, str, 1);
+					// printf("%s\n", str);
+					cond = 1;
+					break ;
+				}
 				if (compare((char *)tmp->content, stock.str, i) == 1)
 				{
-					str = replacestr((char *)tmp->content, str);
+					str = replacestr((char *)tmp->content, str, 0);
 					cond = 1;
 					break ;
 				}
@@ -90,12 +97,13 @@ int	compare(char *strev, char *str2, int i)
 	return (0);
 }
 
-static char	*replacestr(char *strev, char *str)
+static char	*replacestr(char *strev, char *str, int cond)
 {
 	int		i;
 	int		j;
 	char	*newstr;
 	int		k;
+	char	*tmp;
 
 	j = 0;
 	i = 0;
@@ -110,17 +118,33 @@ static char	*replacestr(char *strev, char *str)
 		k++;
 	}
 	i++;
-	while (str[i] == strev[j])
+	if (cond == 0)
 	{
-		i++;
+		while (str[i] == strev[j])
+		{
+			i++;
+			j++;
+		}
 		j++;
+		while (strev[j])
+		{
+			newstr[k] = strev[j];
+			j++;
+			k++;
+		}
 	}
-	j++;
-	while (strev[j])
+	else
 	{
-		newstr[k] = strev[j];
-		j++;
-		k++;
+			// printf("gstatus%d\n", g_status);
+		j = 0;
+		tmp = ft_itoa(g_status);
+		while ((size_t)j != ft_strlen(tmp))
+		{
+			newstr[k] = tmp[j];
+			j++;
+			k++;
+		}
+		i++;
 	}
 	while (str[i])
 	{
@@ -129,5 +153,6 @@ static char	*replacestr(char *strev, char *str)
 		i++;
 	}
 	newstr[k] = '\0';
+	
 	return (newstr);
 }
