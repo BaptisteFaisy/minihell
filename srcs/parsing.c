@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:53:57 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/06 17:04:42 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/06 18:18:38 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int	parsing(char *str, t_list *ev)
 	str = transform_str(str);
 	tmpargs = create_node_cmd(&head, ev);
 	head = parsingv2(tmpargs, head, str, ev, &cond);
-			// printf("gstatus%d\n", g_status);
-	// g_status = 127;
 	if (cond == true)
 		g_status = execution(head);
 	free(str);

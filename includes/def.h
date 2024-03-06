@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/06 17:14:21 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/06 18:07:44 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define ERR_GETCWD "Cannot get current working directory"
 # define ERR_FORK "Fork error"
 # define ERR_CD_TOO_MANY_ARGS "too many arguments"
+# define ERR_CMD_NOT_FOUND "command not found"
 
 // Defs : Exit codes
 # define EXEC_SUCCESS 0
@@ -62,7 +63,8 @@
 
 extern int	g_status;
 
-int				redirect(char *str, int i, t_red *redirect, t_cmd_args *head, bool *cond);
+int				redirect(char *str, int i, t_red *redirect,
+					t_cmd_args *head, bool *cond);
 void			create_firstnode_and_put(t_list **head, char *data);
 int				create_node_and_put(t_list **head, char *data);
 int				parsing(char *str, t_list *ev);
@@ -80,7 +82,8 @@ t_cmd_args		*create_next_node_head(t_cmd_args *head, t_list *ev);
 int				check_test(char *str, bool *cond);
 int				skipspace(char *str, int i);
 t_string_and_i	data_after2(char *str, int i, t_cmd_args *head, bool *cond);
-char			*transform_str_env(char *str, t_list *ev, t_cmd_args *head, bool *cond);
+char			*transform_str_env(char *str, t_list *ev,
+					t_cmd_args *head, bool *cond);
 
 // Execution part
 int				execution(t_cmd_args *cmd_args);
@@ -115,5 +118,7 @@ void			closefd(int *fd);
 int				get_input_fd(t_exec_info *info, int prevfd[2]);
 int				get_output_fd(t_exec_info *info, int curfd[2]);
 void			free_exec_info(t_exec_info *info);
+void			close_two_fds(t_exec_info *info);
+void			basherr(char *name, char *err);
 
 #endif

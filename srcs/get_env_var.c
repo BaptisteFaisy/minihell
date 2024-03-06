@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 12:50:20 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/28 16:15:14 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/06 18:12:55 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ char	*get_env_var(t_list *envp, char *varname)
 		envp = envp->next;
 	if (!envp)
 		return (NULL);
-	return ((char *)envp->content + ft_strlen(varname));
+	return ((char *)envp->content + ft_strlen(varname) + 1);
 }
