@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 19:21:19 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/05 18:57:26 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/06 18:37:24 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char	*transform_str(char *str)
 		new_str[j] = '\0';
 		j++;
 	}
+	free(str);
 	return (new_str);
 }
 

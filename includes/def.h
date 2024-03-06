@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   def.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/06 17:14:21 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/06 18:37:15 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ t_cmd_args		*create_next_node_head(t_cmd_args *head, t_list *ev);
 int				check_test(char *str, bool *cond);
 int				skipspace(char *str, int i);
 t_string_and_i	data_after2(char *str, int i, t_cmd_args *head, bool *cond);
-char			*transform_str_env(char *str, t_list *ev, t_cmd_args *head, bool *cond);
+char			*transform_str_env(char *str, t_list *ev, t_cmd_args *head, bool *cond, bool *cond2);
+char			*transform_str_quote(char *str, bool cond2);
 
 // Execution part
 int				execution(t_cmd_args *cmd_args);

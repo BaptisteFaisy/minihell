@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:53:57 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/06 17:04:42 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/06 18:35:34 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,21 @@ int	parsing(char *str, t_list *ev)
 	t_cmd_args		*head;
 	t_cmd_args		*tmpargs;
 	bool			cond;
+	bool			cond2;
 
 	cond = true;
+	cond2 = false;
 	head = NULL;
 	if (check_test(str, &cond) == 1)
 		return (0);
 	// printf("gstatus%d\n", g_status);
-	str = transform_str_env(str, ev, head, &cond);
+	str = transform_str_env(str, ev, head, &cond, &cond2);
 	// printf("%s\n", str);
+	str = transform_str_quote(str, cond2);
 	str = transform_str(str);
 	tmpargs = create_node_cmd(&head, ev);
 	head = parsingv2(tmpargs, head, str, ev, &cond);
 			// printf("gstatus%d\n", g_status);
-	// g_status = 127;
 	if (cond == true)
 		g_status = execution(head);
 	free(str);

@@ -34,8 +34,7 @@ SIGQUIT (Ctrl + \)
 SIGQUIT (Ctrl + D)
 SIGINT (Ctrl + C)
 
-valgrind --leak-check=full --track-fds=yes --show-leak-kinds=all --suppressions=readline.supp ./minishell
-
+valgrind --leak-check=full --track-fds=yes --show-leak-kinds=all --suppressions=readline.supp --track-origins=yes ./minishell
 todo:
 global variables
 guillemets

@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:59:33 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/06 17:04:23 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/06 18:39:20 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char		*rmstr(t_string_and_i	stock, char *str);
 int			compare(char *strev, char *str2, int i);
 static char	*replacestr(char *strev, char *str, int cond);
 
-char	*transform_str_env(char *str, t_list *ev, t_cmd_args *head, bool *cond2)
+char	*transform_str_env(char *str, t_list *ev, t_cmd_args *head, bool *cond2, bool *cond3)
 {
 	int				i;
 	t_list			*tmp;
@@ -32,13 +32,12 @@ char	*transform_str_env(char *str, t_list *ev, t_cmd_args *head, bool *cond2)
 			i++;
 			tmp = ev;
 			stock = data_after2(str, i, head, cond2);
-			// printf("%s\n", stock.str);
 			while (tmp)
 			{
 				if (stock.str[0] == '?')
 				{
 					str = replacestr((char *)tmp->content, str, 1);
-					// printf("%s\n", str);
+					*cond3 = true;
 					cond = 1;
 					break ;
 				}
@@ -46,10 +45,12 @@ char	*transform_str_env(char *str, t_list *ev, t_cmd_args *head, bool *cond2)
 				{
 					str = replacestr((char *)tmp->content, str, 0);
 					cond = 1;
+					*cond3 = true;
 					break ;
 				}
 				tmp = tmp->next;
 			}
+			free(stock.str);
 			if (cond == 0)
 				str = rmstr(stock, str);
 		}
@@ -108,7 +109,8 @@ static char	*replacestr(char *strev, char *str, int cond)
 	j = 0;
 	i = 0;
 	k = 0;
-	newstr = malloc(sizeof(char) * (ft_strlen(strev) + ft_strlen(str) + 1));
+	newstr = (char *)ft_calloc(sizeof(char),
+			ft_strlen(strev) + ft_strlen(str) + 1);
 	if (!newstr)
 		exit (1);
 	while (str[i] != '$')
@@ -135,7 +137,6 @@ static char	*replacestr(char *strev, char *str, int cond)
 	}
 	else
 	{
-			// printf("gstatus%d\n", g_status);
 		j = 0;
 		tmp = ft_itoa(g_status);
 		while ((size_t)j != ft_strlen(tmp))
@@ -145,6 +146,7 @@ static char	*replacestr(char *strev, char *str, int cond)
 			k++;
 		}
 		i++;
+		free(tmp);
 	}
 	while (str[i])
 	{
@@ -153,6 +155,5 @@ static char	*replacestr(char *strev, char *str, int cond)
 		i++;
 	}
 	newstr[k] = '\0';
-	
 	return (newstr);
 }
