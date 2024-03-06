@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:13:37 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/05 22:08:14 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/06 02:04:04 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,6 @@ void	free_redirect_fd_except_last(t_list *lst)
 		free(lst);
 		lst = tmp;
 	}
-	// if (lst)
-	// {
-	// 	free(lst->content);
-	// 	free(lst);
-	// }
 }
 
 void	closefd(int *fd)

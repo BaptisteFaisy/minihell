@@ -12,6 +12,17 @@
 
 #include "minishell.h"
 
+static void	print_error(char *name)
+{
+	char	*str;
+
+	str = ft_strjoin_many(3, SHELL_NAME, ": ", name);
+	if (!str)
+		ft_putstr_fd(ERR_MALLOC, 2);
+	perror(str);
+	free(str);
+}
+
 static int	handle_execve(t_exec_info *info, char **envp_tmp,
 		char **args_tmp, int *fds[2])
 {
@@ -32,10 +43,12 @@ static int	handle_execve(t_exec_info *info, char **envp_tmp,
 			execve(info->cmd, args_tmp, envp_tmp);
 		else
 			exit(EXEC_SUCCESS);
+		if (errno)
+			return (print_error(info->cmd), exit(1), 0);
 	}
 	free(envp_tmp);
 	free(args_tmp);
-	if (waitpid(-1, &status, 0) == -1)
+	if (waitpid(pid, &status, 0) == -1)
 		return (EXEC_FAILURE);
 	return (status);
 }
