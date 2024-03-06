@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/06 23:10:10 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/06 19:12:46 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@
 # define ERR_FORK "Fork error"
 # define ERR_CD_TOO_MANY_ARGS "too many arguments"
 # define ERR_CMD_NOT_FOUND "command not found"
+# define ERR_IS_DIR "Is a directory"
 
 // Defs : Exit codes
 # define EXEC_SUCCESS 0
 # define EXEC_FAILURE 1
+# define EXEC_IS_DIR 126
 # define EXEC_CMD_NFD 127
 
 // Defs : redirect type
@@ -96,7 +98,7 @@ char			*replacestr4(char *newstr, char *str, t_indice *indi);
 
 // Execution part
 int				execution(t_cmd_args *cmd_args);
-bool			init_redirect_files(t_cmd_args *cargs, t_exec_info *info);
+int				init_redirect_files(t_cmd_args *cargs, t_exec_info *info);
 t_exec_info		*init_t_exec_info(void);
 char			**resolve_path(t_list *envp);
 int				redirect_open(char *path, int access_flag, int open_flag);
@@ -106,7 +108,7 @@ int				get_file_by_prompt_delim(char *delim);
 int				iter_exec(t_cmd_args *cargs, char **paths);
 char			*get_env_var(t_list *envp, char *varname);
 t_red_info		convert_red_info(t_red *raw);
-bool			set_exec_info(
+int				set_exec_info(
 					t_exec_info **info, char *cmd,
 					t_cmd_args *cargs, char **paths);
 void			print_final_output(int ifd);
@@ -129,5 +131,8 @@ int				get_output_fd(t_exec_info *info, int curfd[2]);
 void			free_exec_info(t_exec_info *info);
 void			close_two_fds(t_exec_info *info);
 void			basherr(char *name, char *err);
+bool			is_directory(char *path);
+int				handle_execve(t_exec_info *info, char **envp_tmp,
+					char **args_tmp);
 
 #endif

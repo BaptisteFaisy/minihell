@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 10:42:21 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/06 18:17:40 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/06 19:05:45 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,18 @@ t_exec_info	*init_t_exec_info(void)
 	return (var);
 }
 
-bool	set_exec_info(
+int	set_exec_info(
 		t_exec_info **info, char *cmd, t_cmd_args *cargs, char **paths)
 {
+	int	ret;
+
 	*info = init_t_exec_info();
 	if (!*info)
-		return (false);
+		return (EXEC_FAILURE);
 	(*info)->cmd = cmd;
 	(*info)->paths = paths;
-	if (init_redirect_files(cargs, *info) == false)
-		return (free(*info), false);
-	return (true);
+	ret = init_redirect_files(cargs, *info);
+	if (ret != 0)
+		return (free(*info), ret);
+	return (EXEC_SUCCESS);
 }
