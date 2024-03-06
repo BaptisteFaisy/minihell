@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:30:42 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/06 02:29:44 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/05 18:10:40 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,5 @@ int	iter_exec(t_cmd_args *cargs, char **paths)
 		free_exec_info(exec_info);
 	}
 	print_final_output(prevfd[0]);
-	closefd(&prevfd[0]);
 	return (exit_code);
 }

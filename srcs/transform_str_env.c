@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:59:33 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/06 01:56:06 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/06 02:21:16 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	*transform_str_env(char *str, t_list *ev, t_cmd_args *head)
 			i++;
 			tmp = ev;
 			stock = data_after2(str, i, head);
+			// printf("%s\n", stock.str);
 			while (tmp)
 			{
 				if (compare((char *)tmp->content, stock.str, i) == 1)
@@ -83,7 +84,7 @@ int	compare(char *strev, char *str2, int i)
 	{
 		j++;
 		i++;
-		if (strev[j] == '=')
+		if (strev[j] == '=' && str2[j] == '\0')
 			return (1);
 	}
 	return (0);
@@ -99,7 +100,6 @@ static char	*replacestr(char *strev, char *str)
 	j = 0;
 	i = 0;
 	k = 0;
-			// printf("wer%s\n", strev);
 	newstr = malloc(sizeof(char) * (ft_strlen(strev) + ft_strlen(str) + 1));
 	if (!newstr)
 		exit (1);
@@ -115,9 +115,6 @@ static char	*replacestr(char *strev, char *str)
 		i++;
 		j++;
 	}
-	j = 0;
-	while (strev[j] != '=')
-		j++;
 	j++;
 	while (strev[j])
 	{
