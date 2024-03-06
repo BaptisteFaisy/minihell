@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:38:23 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/04 18:19:48 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/06 17:17:36 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*get_cmd(t_cmd_args *cargs, t_exec_info *info)
 			return (c);
 		return (free(c), NULL);
 	}
-	if (access(cargs->cmd, 0) == 0)
+	if (ft_strncmp(cargs->cmd, "/", 1) == 0 && access(cargs->cmd, 0) == 0)
 		return (ft_strdup(cargs->cmd));
 	while (*paths)
 	{

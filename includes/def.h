@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   def.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/04 18:26:43 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/06 17:14:21 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # define PIPE 5
 # define TRUE 1
 # define FALSE 0
-# define EXEC_SUCCESS 0
-# define EXEC_FAILURE 1
 # define SHELL_NAME "bash"
 # define F_SKIP_NUL 64
 
@@ -30,6 +28,11 @@
 # define ERR_GETCWD "Cannot get current working directory"
 # define ERR_FORK "Fork error"
 # define ERR_CD_TOO_MANY_ARGS "too many arguments"
+
+// Defs : Exit codes
+# define EXEC_SUCCESS 0
+# define EXEC_FAILURE 1
+# define EXEC_CMD_NFD 127
 
 // Defs : redirect type
 # define RED_IN 0

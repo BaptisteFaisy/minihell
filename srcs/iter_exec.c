@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:30:42 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/05 18:10:40 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/06 17:18:49 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ static int
 	else
 	{
 		info->cmd = get_cmd(cargs, info);
+		if (!info->cmd)
+			return (closefd(&info->in_fd), closefd(&info->out_fd),
+				EXEC_CMD_NFD);
 		exit_code = handle_execve(info, transform_envp(cargs->envp),
 				list_to_args(cargs->cmd, cargs->args),
 				(int *[2]){prevfd, curfd});
