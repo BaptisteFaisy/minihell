@@ -6,22 +6,13 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:06:04 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/05 21:54:40 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/06 19:00:11 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	print_error(char *err)
-{
-	char	*s;
-
-	s = ft_strjoin_many(3, SHELL_NAME, ": ", err);
-	perror(s);
-	free(s);
-}
-
-static bool	iter_redirect_input(t_list *details, t_list **infos)
+static int	iter_redirect_input(t_list *details, t_list **infos)
 {
 	int		fd;
 	int		*pfd;
@@ -36,18 +27,19 @@ static bool	iter_redirect_input(t_list *details, t_list **infos)
 			fd = redirect_open(((t_red_details *)details->content)->file,
 					R_OK, O_RDONLY);
 		if (fd < 0)
-			return (ft_lstclear(infos, free), false);
+			return (ft_lstclear(infos, free), -fd);
 		pfd = (int *)malloc(sizeof(int));
 		if (!pfd)
-			return (ft_lstclear(infos, free), print_error(ERR_MALLOC), false);
+			return (ft_lstclear(infos, free),
+				basherr(NULL, ERR_MALLOC), EXEC_FAILURE);
 		*pfd = fd;
 		ft_lstadd_back(infos, ft_lstnew(pfd));
 		details = details->next;
 	}
-	return (true);
+	return (0);
 }
 
-static bool	iter_redirect_output(t_list *details, t_list **infos)
+static int	iter_redirect_output(t_list *details, t_list **infos)
 {
 	int	fd;
 	int	*pfd;
@@ -64,15 +56,16 @@ static bool	iter_redirect_output(t_list *details, t_list **infos)
 			fd = redirect_open(((t_red_details *)details->content)->file,
 					W_OK | F_SKIP_NUL, O_WRONLY | O_CREAT | O_TRUNC);
 		if (fd < 0)
-			return (ft_lstclear(infos, free), false);
+			return (ft_lstclear(infos, free), -fd);
 		pfd = (int *)malloc(sizeof(int));
 		if (!pfd)
-			return (ft_lstclear(infos, free), print_error(ERR_MALLOC), false);
+			return (ft_lstclear(infos, free),
+				basherr(NULL, ERR_MALLOC), EXEC_FAILURE);
 		*pfd = fd;
 		ft_lstadd_back(infos, ft_lstnew(pfd));
 		details = details->next;
 	}
-	return (true);
+	return (0);
 }
 
 static void	free_redirect(void *content)
@@ -82,18 +75,19 @@ static void	free_redirect(void *content)
 	free(content);
 }
 
-bool	init_redirect_files(t_cmd_args *cargs, t_exec_info *info)
+int	init_redirect_files(t_cmd_args *cargs, t_exec_info *info)
 {
 	t_red_info	red_info;
+	int			ret;
 
 	red_info = convert_red_info(cargs->redirect);
-	if (iter_redirect_input(red_info.red_in, &info->redirect.red_in)
-		== false)
-		return (ft_lstclear(&red_info.red_in, free), false);
+	ret = iter_redirect_input(red_info.red_in, &info->redirect.red_in);
+	if (ret != 0)
+		return (ft_lstclear(&red_info.red_in, free), ret);
 	ft_lstclear(&red_info.red_in, free);
-	if (iter_redirect_output(red_info.red_out, &info->redirect.red_out)
-		== false)
+	ret = iter_redirect_output(red_info.red_out, &info->redirect.red_out);
+	if (ret != 0)
 		return (ft_lstclear(&info->redirect.red_in, free_redirect),
-			ft_lstclear(&red_info.red_out, free), false);
-	return (ft_lstclear(&red_info.red_out, free), true);
+			ft_lstclear(&red_info.red_out, free), ret);
+	return (ft_lstclear(&red_info.red_out, free), 0);
 }

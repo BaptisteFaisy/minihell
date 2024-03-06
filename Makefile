@@ -39,7 +39,9 @@ SRCS_RAW =	main.c \
 			free_exec_info.c \
 			data_afterv2.c \
 			transform_str_env.c \
-			print_bash_error.c
+			print_bash_error.c \
+			is_directory.c \
+			handle_execve.c 
 SRCS = $(addprefix $(DIR)/,$(SRCS_RAW)) \
 
 OBJS = $(SRCS:c=o)

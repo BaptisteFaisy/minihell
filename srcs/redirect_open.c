@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:27:50 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/01 16:40:48 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/06 18:57:26 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,18 @@ static void	print_error(char *path, char *err)
 }
 
 // TODO : Verify all existing errors
-static bool	access_file(char *path, int type)
+static int	access_file(char *path, int type)
 {
 	int	access_result;
 
 	access_result = access(path, type & (F_OK | R_OK | W_OK | X_OK));
 	if (access_result == 0)
-		return (true);
+		return (0);
 	if (errno == ENOENT && (type & F_SKIP_NUL) == F_SKIP_NUL)
-		return (true);
-	print_error(path, strerror(errno));
-	return (false);
+		return (0);
+	if (is_directory(path))
+		return (basherr(path, ERR_IS_DIR), EXEC_IS_DIR);
+	return (basherr(path, NULL), EXEC_FAILURE);
 }
 
 /**
@@ -54,11 +55,12 @@ int	redirect_open(char *path, int access_flag, int open_flag)
 {
 	int	fd;
 
-	if (!access_file(path, access_flag))
-		return (-1);
+	fd = access_file(path, access_flag);
+	if (fd != 0)
+		return (-fd);
 	fd = open(path, open_flag, S_IRWXU);
 	if (fd < 0)
-		return (print_error(path, ERR_OPEN), -1);
+		return (basherr(path, ERR_OPEN), -EXEC_FAILURE);
 	return (fd);
 }
 
@@ -77,9 +79,11 @@ int	get_file_by_prompt_delim(char *delim)
 	ft_putstr_fd("> ", 1);
 	buf = get_next_line(0);
 	if (buf == NULL)
-		return (free(delim_modif), print_error(NULL, ERR_MALLOC), -1);
+		return (free(delim_modif),
+			print_error(NULL, ERR_MALLOC), -EXEC_FAILURE);
 	if (pipe(fd) == -1)
-		return (free(delim_modif), free(buf), print_error(NULL, ERR_PIPE), -1);
+		return (free(delim_modif), free(buf),
+			print_error(NULL, ERR_PIPE), -EXEC_FAILURE);
 	while (buf != NULL && ft_strncmp(buf, delim_modif, ft_strlen(delim_modif)))
 	{
 		ft_putstr_fd(buf, fd[1]);

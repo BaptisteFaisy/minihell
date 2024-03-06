@@ -42,4 +42,4 @@ guillemets
 
 bugfix
 / -> command not found
-test -> command not found
+test -> chelou
