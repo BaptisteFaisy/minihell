@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/04 18:26:43 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/05 21:34:48 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ bool			set_exec_info(
 					t_cmd_args *cargs, char **paths);
 void			print_final_output(int ifd);
 void			set_fd(int fdcontainer[2], int first, int next);
-void			free_redirect_fd(void *content);
 char			*search_env_var(t_list *envp, char *var);
+void			free_redirect_fd_except_last(t_list *lst);
 char			**transform_envp(t_list *envp);
 t_list			*get_list_envp(char **envp);
 int				builtin_echo(t_cmd_args *cargs, t_exec_info *info);

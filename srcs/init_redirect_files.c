@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_redirect_files.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:06:04 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/27 16:58:03 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/05 21:54:40 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static void	print_error(char *err)
 
 static bool	iter_redirect_input(t_list *details, t_list **infos)
 {
-	int	fd;
-	int	*pfd;
+	int		fd;
+	int		*pfd;
 
 	*infos = NULL;
 	while (details)
@@ -89,9 +89,11 @@ bool	init_redirect_files(t_cmd_args *cargs, t_exec_info *info)
 	red_info = convert_red_info(cargs->redirect);
 	if (iter_redirect_input(red_info.red_in, &info->redirect.red_in)
 		== false)
-		return (false);
+		return (ft_lstclear(&red_info.red_in, free), false);
+	ft_lstclear(&red_info.red_in, free);
 	if (iter_redirect_output(red_info.red_out, &info->redirect.red_out)
 		== false)
-		return (ft_lstclear(&info->redirect.red_in, free_redirect), false);
-	return (true);
+		return (ft_lstclear(&info->redirect.red_in, free_redirect),
+			ft_lstclear(&red_info.red_out, free), false);
+	return (ft_lstclear(&red_info.red_out, free), true);
 }

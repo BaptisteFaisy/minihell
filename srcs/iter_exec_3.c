@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:02:14 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/05 20:02:17 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/05 21:36:57 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,12 @@ int	get_input_fd(t_exec_info *info, int prevfd[2])
 	{
 		closefd(&prevfd[0]);
 		fd = *(int *)ft_lstlast(info->redirect.red_in)->content;
-		ft_lstclear(&info->redirect.red_in, free_redirect_fd);
+		free_redirect_fd_except_last(info->redirect.red_in);
 	}
 	else if (prevfd[0] != -1)
 	{
 		fd = prevfd[0];
 	}
-	ft_putstr_fd(ft_itoa(fd), 2);
-	print_final_output(fd);
 	return (fd);
 }
 
@@ -39,9 +37,9 @@ int	get_output_fd(t_exec_info *info, int curfd[2])
 	fd = STDOUT_FILENO;
 	if (info->redirect.red_out)
 	{
-		closefd(&curfd[1]);
 		fd = *(int *)ft_lstlast(info->redirect.red_out)->content;
-		ft_lstclear(&info->redirect.red_out, free_redirect_fd);
+		free_redirect_fd_except_last(info->redirect.red_out);
+		closefd(&curfd[1]);
 	}
 	else if (curfd[1] != -1)
 	{

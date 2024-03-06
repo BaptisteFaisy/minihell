@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:13:37 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/02/27 22:41:45 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/05 22:08:14 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,31 @@ void	set_fd(int fdcontainer[2], int first, int next)
 	fdcontainer[1] = next;
 }
 
-void	free_redirect_fd(void *content)
+void	free_redirect_fd_except_last(t_list *lst)
 {
-	int	fd;
+	int		fd;
+	t_list	*tmp;
 
-	fd = *(int *)content;
-	if (fd != -1)
-		close(*(int *)content);
-	free(content);
+	while (lst)
+	{
+		fd = *(int *)lst->content;
+		if (fd != -1 && lst->next != NULL)
+			close(*(int *)lst->content);
+		free(lst->content);
+		tmp = lst->next;
+		free(lst);
+		lst = tmp;
+	}
+	// if (lst)
+	// {
+	// 	free(lst->content);
+	// 	free(lst);
+	// }
 }
 
 void	closefd(int *fd)
 {
-	if (*fd != -1)
+	if (*fd != -1 && *fd != 0 && *fd != 1)
 	{
 		close(*fd);
 		*fd = -1;

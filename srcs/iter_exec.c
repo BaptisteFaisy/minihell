@@ -6,53 +6,11 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:30:42 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/05 20:07:42 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/05 21:40:09 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/**
- * @details Priority (for example cat)
- * 1. argument provided directly to command (ex. cat file.txt)
- * 2. redirection (ex. cat < file.txt) - last redirection will be used
- * 3. pipe (ex. echo "hello" | cat)
-*/
-static bool	input_redirect(t_exec_info *info, int prevfd[2])
-{
-	if (info->redirect.red_in)
-	{
-		closefd(&prevfd[0]);
-		if (dup2(*(int *)ft_lstlast(info->redirect.red_in)->content, 0) == -1)
-		{
-			return (false);
-		}
-		ft_lstclear(&info->redirect.red_in, free_redirect_fd);
-	}
-	else if (prevfd[0] != -1)
-	{
-		if (dup2(prevfd[0], 0) == -1)
-			return (false);
-	}
-	return (true);
-}
-
-static bool	output_redirect(t_exec_info *info, int curfd[2])
-{
-	if (info->redirect.red_out)
-	{
-		closefd(&curfd[1]);
-		if (dup2(*(int *)ft_lstlast(info->redirect.red_out)->content, 1) == -1)
-			return (false);
-		ft_lstclear(&info->redirect.red_out, free_redirect_fd);
-	}
-	else if (curfd[1] != -1)
-	{
-		if (dup2(curfd[1], 1) == -1)
-			return (false);
-	}
-	return (true);
-}
 
 static int	handle_execve(t_exec_info *info, char **envp_tmp,
 		char **args_tmp, int *fds[2])
@@ -65,13 +23,7 @@ static int	handle_execve(t_exec_info *info, char **envp_tmp,
 	pid = fork();
 	if (pid == 0)
 	{
-		// if (!input_redirect(info, fds[0])
-		// 	|| !output_redirect(info, fds[1]))
-		// 	exit(EXEC_FAILURE);
 		(void)fds;
-		(void)input_redirect;
-		(void)output_redirect;
-		ft_putstr_fd(ft_itoa(info->in_fd), 2);
 		if (info->in_fd != -1 && info->in_fd != 0)
 			dup2(info->in_fd, STDIN_FILENO);
 		if (info->out_fd != -1 && info->out_fd != 1)
@@ -97,16 +49,12 @@ static int
 {
 	int		exit_code;
 
-	if (!init_redirect_files(cargs, info))
-		return (EXEC_FAILURE); // TODO : free exec_info
 	info->in_fd = get_input_fd(info, prevfd);
 	info->out_fd = get_output_fd(info, curfd);
 	if (is_builtin(cargs->cmd) == true)
 	{
 		info->cmd = ft_strdup(cargs->cmd);
 		exit_code = exec_builtin(cargs, info);
-		closefd(&info->out_fd);
-		// closefd(&curfd[1]);
 	}
 	else
 	{
@@ -114,9 +62,10 @@ static int
 		exit_code = handle_execve(info, transform_envp(cargs->envp),
 				list_to_args(cargs->cmd, cargs->args),
 				(int *[2]){prevfd, curfd});
-		closefd(&info->out_fd);
 	}
-	return (exit_code); // TODO : free exec_info
+	closefd(&info->in_fd);
+	closefd(&info->out_fd);
+	return (exit_code);
 }
 
 int	iter_exec(t_cmd_args *cargs, char **paths)
@@ -142,5 +91,6 @@ int	iter_exec(t_cmd_args *cargs, char **paths)
 		free_exec_info(exec_info);
 	}
 	print_final_output(prevfd[0]);
+	closefd(&prevfd[0]);
 	return (exit_code);
 }
