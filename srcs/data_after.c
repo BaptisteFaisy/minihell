@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:38:41 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/06 16:46:13 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/07 16:02:08 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ t_string_and_i	data_after(char *str, int i, t_cmd_args *head, bool *cond)
 		return (data);
 	while (str[data.i])
 	{
+		if (str[data.i] == '\'' || str[data.i] == '"')
+			return (data_custom());
 		if (str[data.i] == ' ')
 			return (data_afterv3(data, head, str));
 		else if (str[data.i] == '|' && data.str != NULL)
@@ -58,6 +60,7 @@ t_string_and_i	data_afterv3(t_string_and_i	data, t_cmd_args *head, char *str)
 		if (str[data.i] == '|')
 			return (data_afterv2(&data, &head), data);
 	}
+	data.str = transform_str_quote(storage.str, storage.cond2)
 	return (data);
 }
 

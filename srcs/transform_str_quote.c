@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:54:17 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/06 23:29:10 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/07 15:53:45 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*transform_str_quote2(char *str, char *newstr, t_indice stock);
 char	*transform_str_quote3(t_indice *stock, char *str, char *newstr);
 char	*transform_str_quote4(t_indice *stock, char *str, char *newstr);
 
-char	*transform_str_quote(char *str, bool cond2)
+char	*transform_str_quote(char *str)
 {
 	char		*newstr;
 	t_indice	stock;
@@ -29,8 +29,8 @@ char	*transform_str_quote(char *str, bool cond2)
 	if (!newstr)
 		exit (1);
 	newstr = transform_str_quote2(str, newstr, stock);
-	if (cond2 == true)
-		free(str);
+	// if (cond2 == true)
+	// 	free(str);
 	return (newstr);
 }
 
@@ -38,6 +38,8 @@ char	*transform_str_quote2(char *str, char *newstr, t_indice stock)
 {
 	while (str[stock.i])
 	{
+		while (str[stock.i] == ' ')
+			stock.i++;
 		if (str[stock.i] == '\'' && stock.cond_simple != true)
 		{
 			stock.cond_simple = true;

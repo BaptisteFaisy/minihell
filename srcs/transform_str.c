@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 19:21:19 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/06 18:37:24 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/07 15:01:31 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*transform_str(char *str)
 
 	i = 0;
 	j = 0;
-	new_str = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	new_str = (char *)ft_calloc(sizeof(char), (ft_strlen(str) + 1));
 	if (!new_str)
 		exit (1);
 	j = transform_str2(str, i, j, &new_str);

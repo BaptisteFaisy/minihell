@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:53:57 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/06 21:28:53 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/07 15:41:22 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,22 @@ int	parsing(char *str, t_list *ev)
 	t_cmd_args		*head;
 	t_cmd_args		*tmpargs;
 	t_storage		storage;
+	bool			cond_space;
 
 	storage.cond = true;
 	storage.cond2 = false;
+	cond_space = false;
 	head = NULL;
 	if (check_test(str, &storage.cond) == 1)
 		return (0);
 	storage.str = transform_str_env(str, ev,
 			&storage);
-	storage.str = transform_str_quote(storage.str, storage.cond2);
-	storage.str = transform_str(storage.str);
+	// printf("%s\n", storage.str);
+	// storage.str = transform_str(storage.str); // atm c'est de la grosse merde
+	printf("%s\n", storage.str);
 	tmpargs = create_node_cmd(&head, ev);
 	head = parsingv2(tmpargs, head, ev, &storage);
+	// storage.str = transform_str_quote(storage.str, storage.cond2);
 	if (storage.cond == true)
 		g_status = execution(head);
 	free(storage.str);
