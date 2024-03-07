@@ -47,7 +47,10 @@ SRCS_RAW =	main.c \
 			signals.c \
 			readline_str.c \
 			builtin_exit.c \
-			iter_exec_4.c
+			iter_exec_4.c \
+			data_aftercustom.c \
+			quote.c
+
 SRCS = $(addprefix $(DIR)/,$(SRCS_RAW)) \
 
 OBJS = $(SRCS:c=o)

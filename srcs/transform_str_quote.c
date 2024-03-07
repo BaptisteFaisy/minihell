@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:54:17 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/07 15:53:45 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/07 17:38:08 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ char	*transform_str_quote2(char *str, char *newstr, t_indice stock)
 {
 	while (str[stock.i])
 	{
-		while (str[stock.i] == ' ')
-			stock.i++;
 		if (str[stock.i] == '\'' && stock.cond_simple != true)
 		{
 			stock.cond_simple = true;

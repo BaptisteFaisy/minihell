@@ -1,41 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   insert.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/06 20:46:48 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/07 17:39:13 by bfaisy           ###   ########.fr       */
+/*   Created: 2024/03/07 18:14:41 by bfaisy            #+#    #+#             */
+/*   Updated: 2024/03/07 18:16:11 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	sigint_handler_process(int sig)
+char	*insert()
 {
-	(void)sig;
-	ft_putstr_fd("\n", 1);
-	g_status = 130;
-}
-
-void	sigquit_handler_process(int sig)
-{
-	printf("Quit: %d\n", sig);
-}
-
-static void	sigint_handler(int sig)
-{
-	(void)sig;
-	g_status = 130;
-	ft_putstr_fd("\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
-
-void	signals(void)
-{
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, SIG_IGN);
+	
 }
