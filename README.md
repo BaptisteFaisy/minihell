@@ -44,3 +44,8 @@ bugfix
 test -> chelou
 
 echo test | cat > test2 -> baptiste
+
+FUCKING BUGS
+
+- ^C deconne de temps en temps..
+- free pas quand command exit

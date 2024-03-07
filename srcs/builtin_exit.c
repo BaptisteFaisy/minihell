@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 21:01:07 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/06 21:33:11 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/07 17:42:05 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@ bool	verify_numeric(char *str)
 		str++;
 	}
 	return (true);
+}
+
+static int	handle_null_behavior(int exit_code, t_cmd_args *cargs)
+{
+	*cargs->exit_code = -1;
+	if (exit_code == 0)
+		return (g_status);
+	else
+		return (exit_code);
 }
 
 int	builtin_exit(t_cmd_args *cargs, t_exec_info *info)
@@ -44,5 +53,8 @@ int	builtin_exit(t_cmd_args *cargs, t_exec_info *info)
 	}
 	else
 		exit_code = 0;
-	exit(exit_code);
+	if (cargs->head->next != NULL)
+		return (handle_null_behavior(exit_code, cargs));
+	*cargs->exit_code = exit_code;
+	return (EXEC_SUCCESS);
 }

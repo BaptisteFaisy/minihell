@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:53:57 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/06 21:28:53 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/07 17:43:14 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	parsing(char *str, t_list *ev)
 	t_cmd_args		*head;
 	t_cmd_args		*tmpargs;
 	t_storage		storage;
+	int				exit_code;
 
 	storage.cond = true;
 	storage.cond2 = false;
@@ -34,10 +35,13 @@ int	parsing(char *str, t_list *ev)
 	storage.str = transform_str(storage.str);
 	tmpargs = create_node_cmd(&head, ev);
 	head = parsingv2(tmpargs, head, ev, &storage);
+	free(storage.str);
 	if (storage.cond == true)
 		g_status = execution(head);
-	free(storage.str);
+	exit_code = *head->exit_code;
 	freeheadcmd(head);
+	if (exit_code != -1)
+		return ((exit_code << 2) + 3);
 	return (1);
 }
 
@@ -91,42 +95,6 @@ int	parsingv4(char *str, int i, t_cmd_args **tmpargs, bool *cond)
 	(*tmpargs)->cmd = storage.str;
 	return (storage.i);
 }
-	// while (head)
-	// {
-	// 	while (head->redirect)
-	// 	{
-	// 		printf("redirect_in %s\n", head->redirect->red_in);
-	// 		head->redirect = head->redirect->next;
-	// 	}
-	// 	head = head->next;
-	// 	// printf("a\n");
-	// }
-	// printf("cmd : %s\n", head->cmd);
-	// while (head->args)
-	// {
-	// 	printf("args %s \n", (char *)head->args->content);
-	// 	head->args = head->args->next;
-	// }
-	// while (head->redirect)
-	// {
-	// 	printf("redirect_in %s\n", head->redirect->red_in);
-	// 	head->redirect = head->redirect->next;
-	// }
-	// while (head->redirect)
-	// {
-	// 	printf("redirect_out %s\n", head->redirect->red_out);
-	// 	head->redirect = head->redirect->next;
-	// }
-	// while (head->redirect)
-	// {
-	// 	printf("redirect_out_delim %s\n", head->redirect->red_out_delim);
-	// 	head->redirect = head->redirect->next;
-	// }
-	// while (head->redirect)
-	// {
-	// 	printf("redirect_in_delim %s\n", head->redirect->red_in_delim);
-	// 	head->redirect = head->redirect->next;
-	// }
 
 t_cmd_args	*create_next_node_head(t_cmd_args *head, t_list *ev)
 {
@@ -134,13 +102,10 @@ t_cmd_args	*create_next_node_head(t_cmd_args *head, t_list *ev)
 
 	tmp = malloc(sizeof(t_cmd_args));
 	if (!tmp)
-	{
-		perror("Malloc fail");
-		exit (1);
-	}
+		return (basherr(NULL, ERR_MALLOC), exit(EXEC_FAILURE), NULL);
 	tmp->redirect = malloc(sizeof(t_red));
 	if (!tmp->redirect)
-		exit(1);
+		return (free(tmp), exit(1), NULL);
 	head->next = tmp;
 	tmp->redirect->red_out = NULL;
 	tmp->redirect->red_in = NULL;
@@ -153,5 +118,7 @@ t_cmd_args	*create_next_node_head(t_cmd_args *head, t_list *ev)
 	tmp->is_pipe = 0;
 	tmp->envp = ev;
 	tmp->next = NULL;
+	tmp->exit_code = head->exit_code;
+	tmp->head = head;
 	return (tmp);
 }
