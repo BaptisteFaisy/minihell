@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:37:30 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/07 16:07:17 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/07 17:22:08 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	redirect(int i, t_red *redirect, t_cmd_args *head, t_storage *stock)
 			return (-1);
 		else
 		{
-			storage = data_after(stock->str, i, head, &stock->cond);
+			storage = data_after(stock, i, head);
 			i = storage.i;
 			redirect->red_in = storage.str;
 			if (storage.i == -100)
@@ -62,7 +62,7 @@ static	int	redirect_droite(int i,
 	}
 	else
 	{
-		storage = data_after(stock->str, i, head, &stock->cond);
+		storage = data_after(stock, i, head);
 		i = storage.i;
 		redirect->red_out = storage.str;
 		if (storage.i == -100)
@@ -109,7 +109,7 @@ static	int	double_gauche(int i, t_red *redirect,
 	{
 		return (-1);
 	}
-	storage = data_after(stock->str, i, head, &stock->cond);
+	storage = data_after(stock, i, head);
 	i = storage.i;
 	redirect->red_in_delim = storage.str;
 	if (storage.i == -100)
@@ -133,7 +133,7 @@ static	int	double_droite(int i, t_red *redirect, t_cmd_args *head,
 	{
 		return (-1);
 	}
-	storage = data_after(stock->str, i, head, &stock->cond);
+	storage = data_after(stock, i, head);
 	i = storage.i;
 	redirect->red_out_delim = storage.str;
 	if (storage.i == -100)

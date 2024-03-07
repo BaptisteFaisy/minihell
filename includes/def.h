@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/06 23:28:07 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/07 19:57:54 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void			create_firstnode_and_put(t_list **head, char *data);
 int				create_node_and_put(t_list **head, char *data);
 int				parsing(char *str, t_list *ev);
 t_cmd_args		*create_node_cmd(t_cmd_args **head, t_list *ev);
-t_string_and_i	data_after(char *str, int i, t_cmd_args *head, bool *cond);
+t_string_and_i	data_after(t_storage *stock, int i, t_cmd_args *head);
 int				find_next_pipe(char *str, int i);
 char			*transform_str(char *str);
 void			freered(t_red redirect);
@@ -88,7 +88,7 @@ int				skipspace(char *str, int i);
 t_string_and_i	data_after2(char *str, int i);
 char			*transform_str_env(char *str, t_list *ev,
 					t_storage *stock);
-char			*transform_str_quote(char *str, bool cond2);
+char			*transform_str_quote(char *str);
 char			*transform_str_env2(char *str, t_list *ev,
 					t_storage *storage, t_string_and_i stock);
 char			*replacestr(char *strev, char *str, int cond);
@@ -98,6 +98,13 @@ char			*replacestr3(char *str, char *strev, char *newstr,
 					t_indice *indi);
 char			*replacestr4(char *newstr, char *str, t_indice *indi);
 char			*readline_str(char *prompt);
+char			*concatenation(char *str, char c);
+void			data_afterv2(t_string_and_i *data, t_cmd_args **head);
+t_string_and_i	data_afterv3(t_string_and_i	data, t_cmd_args *head,
+					char *str, bool cond_add);
+t_string_and_i	data_custom(t_storage *stock, t_cmd_args *head,
+					t_string_and_i data);
+char			*fuck_les_quotes(char *str);
 
 // Execution part
 int				execution(t_cmd_args *cmd_args);

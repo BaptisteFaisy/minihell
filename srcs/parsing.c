@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:53:57 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/07 17:43:14 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/07 19:54:04 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_cmd_args	*parsingv2(t_cmd_args *tmpargs, t_cmd_args *head,
 				t_list *ev, t_storage *storage);
-int			parsingv3(char *str, int i, t_cmd_args *tmpargs, bool *cond);
-int			parsingv4(char *str, int i, t_cmd_args **tmpargs, bool *cond);
+int			parsingv3(t_storage *storage, int i, t_cmd_args *tmpargs);
+int			parsingv4(t_storage *stock, int i, t_cmd_args **tmpargs);
 
 int	parsing(char *str, t_list *ev)
 {
@@ -26,13 +26,16 @@ int	parsing(char *str, t_list *ev)
 
 	storage.cond = true;
 	storage.cond2 = false;
+	cond_space = false;
 	head = NULL;
 	if (check_test(str, &storage.cond) == 1)
 		return (0);
 	storage.str = transform_str_env(str, ev,
 			&storage);
-	storage.str = transform_str_quote(storage.str, storage.cond2);
-	storage.str = transform_str(storage.str);
+	// storage.str = fuck_les_quotes(storage.str);
+	// printf("%s\n", storage.str);
+	// storage.str = transform_str(storage.str); // atm c'est de la grosse merde
+	// printf("%s\n", storage.str);
 	tmpargs = create_node_cmd(&head, ev);
 	head = parsingv2(tmpargs, head, ev, &storage);
 	free(storage.str);
@@ -51,6 +54,7 @@ t_cmd_args	*parsingv2(t_cmd_args *tmpargs, t_cmd_args *head,
 	int				return_value;
 	int				i;
 	t_red			*tmp;
+	// t_string_and_i	bank;
 
 	i = 0;
 	while (storage->str[i])
@@ -68,18 +72,22 @@ t_cmd_args	*parsingv2(t_cmd_args *tmpargs, t_cmd_args *head,
 			i = return_value;
 		}
 		else if (tmpargs->cmd == NULL && storage->str[i])
-			i = parsingv4(storage->str, i, &tmpargs, &storage->cond);
+			i = parsingv4(storage, i, &tmpargs);
 		else if (storage->str[i])
-			i = parsingv3(storage->str, i, tmpargs, &storage->cond);
+			i = parsingv3(storage, i, tmpargs);
 	}
 	return (head);
 }
 
-int	parsingv3(char *str, int i, t_cmd_args *tmpargs, bool *cond)
+int	parsingv3(t_storage *stock, int i, t_cmd_args *tmpargs)
 {
 	t_string_and_i	storage;
 
-	storage = data_after(str, i, tmpargs, cond);
+	storage = data_after(stock, i, tmpargs);
+	if (storage.str == NULL)
+		return (i +2);
+	// printf("%s\n", storage.str);
+
 	if (!tmpargs->args)
 		create_firstnode_and_put(&tmpargs->args, storage.str);
 	else
@@ -87,11 +95,13 @@ int	parsingv3(char *str, int i, t_cmd_args *tmpargs, bool *cond)
 	return (storage.i);
 }
 
-int	parsingv4(char *str, int i, t_cmd_args **tmpargs, bool *cond)
+int	parsingv4(t_storage *stock, int i, t_cmd_args **tmpargs)
 {
 	t_string_and_i	storage;
 
-	storage = data_after(str, i, *tmpargs, cond);
+	storage = data_after(stock, i, *tmpargs);
+	if (storage.str == NULL)
+		return (i +2);
 	(*tmpargs)->cmd = storage.str;
 	return (storage.i);
 }

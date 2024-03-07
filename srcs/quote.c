@@ -1,42 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   quote.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/06 20:46:48 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/07 18:27:19 by lhojoon          ###   ########.fr       */
+/*   Created: 2024/03/07 18:03:50 by bfaisy            #+#    #+#             */
+/*   Updated: 2024/03/07 18:31:48 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	sigint_handler_process(int sig)
+char	*fuck_les_quotes(char *str)
 {
-	(void)sig;
-	ft_putstr_fd("\n", 1);
-	g_status = 130;
-}
+	int		i;
+	char	*newstr;
+	int		j;
 
-void	sigquit_handler_process(int sig)
-{
-	printf("Quit: %d\n", sig);
-}
-
-static void	sigint_handler(int sig)
-{
-	(void)sig;
-	g_status = 130;
-	ft_putstr_fd("\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
-
-void	signals(void)
-{
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
+	i = 0;
+	j = 0;
+	newstr = malloc(sizeof(char) * ft_strlen(str));
+	if (!newstr)
+		exit (1);
+	while (str[i])
+	{
+		if ((str[i] == '\'' && str[i + 1] == '\'')
+			|| (str[i] == '"' && str[i + 1] == '"'))
+		{
+			i += 2;
+			continue ;
+		}
+		newstr[j] = str[i];
+		i++;
+		j++;
+	}
+	// free(str);
+	return (newstr);
 }
