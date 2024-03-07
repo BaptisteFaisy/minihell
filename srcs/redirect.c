@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:37:30 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/06 19:32:28 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/07 16:07:17 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static	int	redirect_droite(int i, t_red *redirect,
 				t_cmd_args *head, t_storage *storage);
-static	int	test_error_newline(char *str, int i, bool *cond);
+static	int	test_error_newline(char *str, int i, bool *cond, int cond2);
 static	int	double_gauche(int i, t_red *redirect,
 				t_cmd_args *head, t_storage *storage);
 static	int	double_droite(int i, t_red *redirect,
@@ -28,7 +28,7 @@ int	redirect(int i, t_red *redirect, t_cmd_args *head, t_storage *stock)
 	{
 		if (stock->str[i + 1] == '<')
 			return (double_gauche(i, redirect, head, stock));
-		if (test_error_newline(stock->str, i, &stock->cond) == 1)
+		if (test_error_newline(stock->str, i, &stock->cond, 0) == 1)
 			return (-1);
 		else
 		{
@@ -56,7 +56,7 @@ static	int	redirect_droite(int i,
 
 	if (stock->str[i + 1] == '>')
 		return (double_droite(i, redirect, head, stock));
-	if (test_error_newline(stock->str, i, &stock->cond) == 1)
+	if (test_error_newline(stock->str, i, &stock->cond, 0) == 1)
 	{
 		return (-1);
 	}
@@ -75,9 +75,12 @@ static	int	redirect_droite(int i,
 	return (0);
 }
 
-static	int	test_error_newline(char *str, int i, bool *cond)
+static	int	test_error_newline(char *str, int i, bool *cond, int cond2)
 {
-	i += 2;
+	if (cond2 == 1)
+		i += 2;
+	else
+		i++;
 	while (str[i] == ' ')
 		i++;
 	if (str[i] == '>')
@@ -102,7 +105,7 @@ static	int	double_gauche(int i, t_red *redirect,
 {
 	t_string_and_i	storage;
 
-	if (test_error_newline(stock->str, i, &stock->cond) == 1)
+	if (test_error_newline(stock->str, i, &stock->cond, 1) == 1)
 	{
 		return (-1);
 	}
@@ -126,7 +129,7 @@ static	int	double_droite(int i, t_red *redirect, t_cmd_args *head,
 {
 	t_string_and_i	storage;
 
-	if (test_error_newline(stock->str, i, &stock->cond) == 1)
+	if (test_error_newline(stock->str, i, &stock->cond, 1) == 1)
 	{
 		return (-1);
 	}
