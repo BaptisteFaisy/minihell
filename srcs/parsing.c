@@ -41,6 +41,7 @@ int	parsing(char *str, t_list *ev)
 	// storage.str = transform_str_quote(storage.str, storage.cond2);
 	if (storage.cond == true)
 		g_status = execution(head);
+	// printf("a\n");
 	free(storage.str);
 	freeheadcmd(head);
 	return (1);
