@@ -49,5 +49,3 @@ FUCKING BUGS
 
 - ^C deconne de temps en temps.. -> jsp
 - O free pas quand command exit
-
-echo test | cat > test2 -> baptiste

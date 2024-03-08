@@ -50,7 +50,8 @@ SRCS_RAW =	main.c \
 			parsing_2.c \
 			iter_exec_4.c \
 			data_aftercustom.c \
-			quote.c
+			quote.c \
+			rm.c
 
 SRCS = $(addprefix $(DIR)/,$(SRCS_RAW)) \
 

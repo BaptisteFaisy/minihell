@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:59:33 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/07 20:05:49 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/09 00:21:18 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@ char	*transform_str_env(char *str, t_list *ev,
 		if (str[i] == '$')
 		{
 			i++;
+			if (str[i] == ' ' || str[i] == '\0')
+				continue ;
+			if (ft_isalpha(str[i]) == 0 && (str[i] != '"' || str[i] != '\''))
+			{
+				str = rm_is_not_digit(str);
+				i++;
+				storage->cond_is_alpha_dollar = true;
+				continue ;
+			}
 			tmp = ev;
 			stock = data_after2(str, i);
 			storage->i = i;
@@ -36,6 +45,7 @@ char	*transform_str_env(char *str, t_list *ev,
 			if (storage->cond3 == 0)
 				str = rmstr(stock, str, storage);
 			free(stock.str);
+			storage->cond_env = 1;
 		}
 		i++;
 	}
@@ -46,24 +56,44 @@ char	*rmstr(t_string_and_i	stock, char *str, t_storage *storage)
 {
 	char	*newstr;
 	int		i;
+	int		j;
+	int		k;
 
 	i = 0;
+	j = 0;
+	k = 0;
 	newstr = ft_calloc(sizeof(char), ft_strlen(str) + 1);
 	if (!newstr)
 		exit (1);
+	// printf("%s  %s\n", str, stock.str);
 	while (str[i])
 	{
 		if (str[i] == '$')
 		{
 			i++;
-			while (str[i] && stock.str[i] && str[i] == stock.str[i])
+			while (str[i] == stock.str[j])
+			{
 				i++;
+				j++;
+				if (str[i] == '\0')
+				{
+					newstr[k] = '\0';
+					storage->cond2 = true;
+					return (newstr);
+				}
+				// printf("%c \n", str[i]);
+			}
+			// printf("%c \n", str[i]);
 		}
-		newstr[i] = str[i];
+	
+		newstr[k] = str[i];
 		i++;
+		k++;
+
 	}
-	newstr[i] = '\0';
+	newstr[k] = '\0';
 	storage->cond2 = true;
+	// free(str);
 	return (newstr);
 }
 

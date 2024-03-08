@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:53:57 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/08 20:50:52 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/09 00:30:52 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@ int	parsing(char *str, t_list *ev)
 	t_cmd_args		*tmpargs;
 	t_storage		storage;
 	int				exit_code;
-	
+
 	storage.cond = true;
 	storage.cond2 = false;
+	storage.cond_env = 0;
+	storage.cond_is_alpha_dollar = false;
 	head = NULL;
 	if (check_test(str, &storage.cond) == 1)
 		return (0);
@@ -39,6 +41,8 @@ int	parsing(char *str, t_list *ev)
 	head = parsingv2(tmpargs, head, ev, &storage);
 	if (storage.cond == true)
 		g_status = execution(head);
+	if (storage.cond_env == 1)
+		free(storage.str);
 	exit_code = *head->exit_code;
 	freeheadcmd(head);
 	if (exit_code != -1)
@@ -84,6 +88,11 @@ int	parsingv3(t_storage *stock, int i, t_cmd_args *tmpargs)
 	t_string_and_i	storage;
 
 	storage = data_after(stock, i, tmpargs);
+	if (stock->cond_is_alpha_dollar == true)
+	{
+		stock->cond_is_alpha_dollar = false;
+		free(stock->str);
+	}
 	if (storage.str == NULL)
 		return (i +2);
 	// printf("%s\n", storage.str);
@@ -100,6 +109,11 @@ int	parsingv4(t_storage *stock, int i, t_cmd_args **tmpargs)
 	t_string_and_i	storage;
 
 	storage = data_after(stock, i, *tmpargs);
+	if (stock->cond_is_alpha_dollar == true)
+	{
+		stock->cond_is_alpha_dollar = false;
+		free(stock->str);
+	}
 	if (storage.str == NULL)
 		return (i +2);
 	(*tmpargs)->cmd = storage.str;

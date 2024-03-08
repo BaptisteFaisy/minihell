@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:12:03 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/08 21:01:15 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/09 00:18:37 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_string_and_i	data_after2(char *str, int i)
 		return (data);
 	while (str[data.i])
 	{
-		if (str[data.i] == ' ' || str[data.i] == '"')
+		if (ft_isalnum(str[data.i]) == 0)
 			return (data);
 		else
 			data.str = concatenation2(data.str, str[data.i], str);
@@ -62,7 +62,7 @@ char	*concatenation2(char *str, char c, char *str2)
 		new_str = ft_calloc(sizeof(char), ft_strlen(str) + 2);
 		if (!new_str)
 			exit (1);
-		ft_strlcpy(new_str, str, ft_strlen(str) + 1);
+		ft_strlcpy(new_str, str, ft_strlen(str) + 2);
 		while (str[i])
 			i++;
 		new_str[i] = c;

@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:38:41 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/08 20:50:42 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/09 00:26:55 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,13 @@ t_string_and_i	data_after(t_storage *stock, int i, t_cmd_args *head)
 		else if (stock->str[data.i] == '|' && data.str != NULL)
 			return (data_afterv2(&data, &head), data);
 		else if (stock->str[data.i] == '|')
+		{
+			if (stock->cond_is_alpha_dollar == true)
+				free(stock->str);
 			return (ft_putstr_fd
 				("bash: syntax error near\nunexpected token `|'\n", 2),
 				data.i = -100, g_status = 2, stock->cond = false, data);
+		}
 		else
 			data.str = concatenation(data.str, stock->str[data.i]);
 		data.i++;

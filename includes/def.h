@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/07 19:57:54 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/09 00:18:18 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_string_and_i	data_afterv3(t_string_and_i	data, t_cmd_args *head,
 t_string_and_i	data_custom(t_storage *stock, t_cmd_args *head,
 					t_string_and_i data);
 char			*fuck_les_quotes(char *str);
-
+char			*rm_is_not_digit(char *str);
 // Execution part
 int				execution(t_cmd_args *cmd_args);
 int				init_redirect_files(t_cmd_args *cargs, t_exec_info *info);
