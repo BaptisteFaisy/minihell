@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 16:52:52 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/07 20:01:30 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/07 20:33:09 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_string_and_i	data_custom(t_storage *stock, t_cmd_args *head,
 		else
 		{
 			data.str = concatenation(data.str, stock->str[data.i]);
+			// printf("%s\n", data.str);
 			cond_add = true;
 		}
 		// printf("q\n");

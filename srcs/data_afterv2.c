@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:12:03 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/06 22:49:49 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/08 21:01:15 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ char	*concatenation2(char *str, char c, char *str2)
 	i = 0;
 	if (str)
 	{
-		new_str = ft_calloc(sizeof(char), ft_strlen(str) + 10);
+		new_str = ft_calloc(sizeof(char), ft_strlen(str) + 2);
 		if (!new_str)
 			exit (1);
-		ft_strlcpy(new_str, str, ft_strlen(str) + 10);
+		ft_strlcpy(new_str, str, ft_strlen(str) + 1);
 		while (str[i])
 			i++;
 		new_str[i] = c;
@@ -71,7 +71,7 @@ char	*concatenation2(char *str, char c, char *str2)
 	}
 	else
 	{
-		new_str = ft_calloc(sizeof(char), ft_strlen(str2) + 10);
+		new_str = ft_calloc(sizeof(char), ft_strlen(str2) + 1);
 		if (!new_str)
 			exit(1);
 		new_str[0] = c;

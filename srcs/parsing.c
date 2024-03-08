@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:53:57 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/07 19:54:04 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/08 20:50:52 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@ int	parsing(char *str, t_list *ev)
 	t_cmd_args		*tmpargs;
 	t_storage		storage;
 	int				exit_code;
-
+	
 	storage.cond = true;
 	storage.cond2 = false;
-	cond_space = false;
 	head = NULL;
 	if (check_test(str, &storage.cond) == 1)
 		return (0);
@@ -38,7 +37,6 @@ int	parsing(char *str, t_list *ev)
 	// printf("%s\n", storage.str);
 	tmpargs = create_node_cmd(&head, ev);
 	head = parsingv2(tmpargs, head, ev, &storage);
-	free(storage.str);
 	if (storage.cond == true)
 		g_status = execution(head);
 	exit_code = *head->exit_code;
@@ -59,6 +57,7 @@ t_cmd_args	*parsingv2(t_cmd_args *tmpargs, t_cmd_args *head,
 	i = 0;
 	while (storage->str[i])
 	{
+		// printf("%c       %d\n", storage->str[i], i);
 		if (tmpargs->is_pipe == 1)
 			tmpargs = create_next_node_head(tmpargs, ev);
 		i = skipspace(storage->str, i);
@@ -75,6 +74,7 @@ t_cmd_args	*parsingv2(t_cmd_args *tmpargs, t_cmd_args *head,
 			i = parsingv4(storage, i, &tmpargs);
 		else if (storage->str[i])
 			i = parsingv3(storage, i, tmpargs);
+		// printf("deconne %d\n", i);
 	}
 	return (head);
 }

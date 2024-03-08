@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:38:41 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/07 19:58:09 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/08 20:50:42 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ t_string_and_i	data_after(t_storage *stock, int i, t_cmd_args *head)
 	while (stock->str[data.i] == ' ' || stock->str[data.i] == '<'
 		|| stock->str[data.i] == '>' || stock->str[data.i] == '!')
 		data.i++;
-	if (stock->str[data.i] == '\n')
-		return (data);
 	while (stock->str[data.i])
 	{
 		if (stock->str[data.i] == '\'' || stock->str[data.i] == '"')
-			return (data_custom(stock, head, data));
-		if (stock->str[data.i] == ' ')
+		{
+			data = data_custom(stock, head, data);
+						// printf("%d\n", data.i);
+		}
+		else if (stock->str[data.i] == ' ')
 			return (data_afterv3(data, head, stock->str, false));
 		else if (stock->str[data.i] == '|' && data.str != NULL)
 			return (data_afterv2(&data, &head), data);
@@ -56,10 +57,17 @@ t_string_and_i	data_afterv3(t_string_and_i	data, t_cmd_args *head, char *str, bo
 		if (str[data.i] == '|')
 			return (data_afterv2(&data, &head), data);
 	}
-	if (cond_add == false)
-		data.i--;
-		// printf("%sf\n", data.str);
+	// printf("%sf\n", data.str);
+		// printf("%cf\n", str[data.i]);
+		// printf("%sdsf\n", data.str);
 
+	// if (cond_add == false)
+	// {
+	// 	data.i--;
+	// }
+	(void)cond_add;
+	// if (cond_add == true)
+	// 	data.i++;
 	// data.str = transform_str_quote(data.str); // a faire
 	// printf("%sf\n", data.str);
 	return (data);
