@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   def.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/09 00:18:18 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/09 08:50:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,5 +150,6 @@ void			sigquit_handler_process(int sig);
 void			sigint_handler_process(int sig);
 void			activate_sig_process(t_exec_info *info);
 void			deactivate_sig_process(t_exec_info *info);
+int				print_env_export(t_cmd_args *cargs, t_exec_info *info);
 
 #endif

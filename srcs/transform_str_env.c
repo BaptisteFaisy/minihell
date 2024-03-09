@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transform_str_env.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:59:33 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/09 00:21:18 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/09 07:40:23 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char	*transform_str_env(char *str, t_list *ev,
 	t_list			*tmp;
 	t_string_and_i	stock;
 
+	(void)tmp;
 	i = 0;
 	while (str[i])
 	{
