@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:33:54 by marvin            #+#    #+#             */
-/*   Updated: 2024/03/04 16:38:18 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/09 09:11:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	builtin_env(t_cmd_args *cargs, t_exec_info *info)
 	lst = cargs->envp;
 	while (lst)
 	{
-		ft_putendl_fd((char *)lst->content, info->out_fd);
+		if (ft_strchr((char *)lst->content, '=') != NULL)
+			ft_putendl_fd((char *)lst->content, info->out_fd);
 		lst = lst->next;
 	}
 	return (EXEC_SUCCESS);
