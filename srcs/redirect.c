@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:37:30 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/09 00:29:45 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/10 17:57:10 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,10 @@ int	redirect(int i, t_red *redirect, t_cmd_args *head, t_storage *stock)
 		if (stock->str[i + 1] == '<')
 			return (double_gauche(i, redirect, head, stock));
 		if (test_error_newline(stock->str, i, &stock->cond, 0) == 1)
-		{
-			if (stock->cond_is_alpha_dollar == true)
-			{
-				stock->cond_is_alpha_dollar = false;
-				free(stock->str);
-			}
 			return (-1);
-		}
 		else
 		{
 			storage = data_after(stock, i, head);
-			if (stock->cond_is_alpha_dollar == true)
-			{
-				stock->cond_is_alpha_dollar = false;
-				free(stock->str);
-			}
 			i = storage.i;
 			redirect->red_in = storage.str;
 			if (storage.i == -100)
@@ -69,22 +57,10 @@ static	int	redirect_droite(int i,
 	if (stock->str[i + 1] == '>')
 		return (double_droite(i, redirect, head, stock));
 	if (test_error_newline(stock->str, i, &stock->cond, 0) == 1)
-	{
-		if (stock->cond_is_alpha_dollar == true)
-		{
-			stock->cond_is_alpha_dollar = false;
-			free(stock->str);
-		}
 		return (-1);
-	}
 	else
 	{
 		storage = data_after(stock, i, head);
-		if (stock->cond_is_alpha_dollar == true)
-		{
-			stock->cond_is_alpha_dollar = false;
-			free(stock->str);
-		}
 		i = storage.i;
 		redirect->red_out = storage.str;
 		if (storage.i == -100)
@@ -128,20 +104,8 @@ static	int	double_gauche(int i, t_red *redirect,
 	t_string_and_i	storage;
 
 	if (test_error_newline(stock->str, i, &stock->cond, 1) == 1)
-	{
-		if (stock->cond_is_alpha_dollar == true)
-		{
-			stock->cond_is_alpha_dollar = false;
-			free(stock->str);
-		}
 		return (-1);
-	}
 	storage = data_after(stock, i, head);
-	if (stock->cond_is_alpha_dollar == true)
-	{
-		stock->cond_is_alpha_dollar = false;
-		free(stock->str);
-	}
 	i = storage.i;
 	redirect->red_in_delim = storage.str;
 	if (storage.i == -100)
@@ -162,20 +126,8 @@ static	int	double_droite(int i, t_red *redirect, t_cmd_args *head,
 	t_string_and_i	storage;
 
 	if (test_error_newline(stock->str, i, &stock->cond, 1) == 1)
-	{
-		if (stock->cond_is_alpha_dollar == true)
-		{
-			stock->cond_is_alpha_dollar = false;
-			free(stock->str);
-		}
 		return (-1);
-	}
 	storage = data_after(stock, i, head);
-	if (stock->cond_is_alpha_dollar == true)
-	{
-		stock->cond_is_alpha_dollar = false;
-		free(stock->str);
-	}
 	i = storage.i;
 	redirect->red_out_delim = storage.str;
 	if (storage.i == -100)

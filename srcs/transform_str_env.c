@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:59:33 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/09 00:21:18 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/10 18:12:52 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,17 @@ char	*transform_str_env(char *str, t_list *ev,
 			}
 			tmp = ev;
 			stock = data_after2(str, i);
+			// printf("%s\n", stock.str);
 			storage->i = i;
 			str = transform_str_env2(str, ev, storage, stock);
 			if (storage->cond3 == 0)
 				str = rmstr(stock, str, storage);
 			free(stock.str);
 			storage->cond_env = 1;
+			i -= 2;
 		}
 		i++;
+		// printf("%c\n", str[i]);
 	}
 	return (str);
 }
@@ -85,15 +88,14 @@ char	*rmstr(t_string_and_i	stock, char *str, t_storage *storage)
 			}
 			// printf("%c \n", str[i]);
 		}
-	
 		newstr[k] = str[i];
 		i++;
 		k++;
-
 	}
 	newstr[k] = '\0';
 	storage->cond2 = true;
-	// free(str);
+	if (storage->cond2 == true)
+		free(str);
 	return (newstr);
 }
 
