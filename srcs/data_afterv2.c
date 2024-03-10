@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:12:03 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/09 00:18:37 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/10 18:31:38 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_string_and_i	data_after2(char *str, int i)
 		return (data);
 	while (str[data.i])
 	{
-		if (ft_isalnum(str[data.i]) == 0)
+		if (ft_isalnum(str[data.i]) == 0 && str[data.i] != '?')
 			return (data);
 		else
 			data.str = concatenation2(data.str, str[data.i], str);

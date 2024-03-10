@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   def.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/09 08:50:42 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/10 21:36:36 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char			*transform_str_env(char *str, t_list *ev,
 char			*transform_str_quote(char *str);
 char			*transform_str_env2(char *str, t_list *ev,
 					t_storage *storage, t_string_and_i stock);
-char			*replacestr(char *strev, char *str, int cond);
+char			*replacestr(char *strev, char *str, int cond, t_storage *storage);
 int				compare(char *strev, char *str2, int i);
 char			*replacestr2(char *newstr, int *k, int *i);
 char			*replacestr3(char *str, char *strev, char *newstr,
@@ -105,7 +105,7 @@ t_string_and_i	data_afterv3(t_string_and_i	data, t_cmd_args *head,
 t_string_and_i	data_custom(t_storage *stock, t_cmd_args *head,
 					t_string_and_i data);
 char			*fuck_les_quotes(char *str);
-char			*rm_is_not_digit(char *str);
+char			*rm_is_not_digit(char *oldstr, t_storage *storage, char *str);
 // Execution part
 int				execution(t_cmd_args *cmd_args);
 int				init_redirect_files(t_cmd_args *cargs, t_exec_info *info);

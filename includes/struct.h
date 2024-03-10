@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/09 00:21:03 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/10 19:36:50 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ typedef struct s_storage
 	int		i;
 	int		cond_env;
 	bool	cond_is_alpha_dollar;
+	bool	deja_malloc_boucle;
+	bool	pipe2;
 }t_storage;
 
 typedef struct s_indice

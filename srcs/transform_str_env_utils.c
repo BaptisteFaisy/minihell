@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 21:30:36 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/06 23:09:40 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/10 18:55:05 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ char	*transform_str_env2(char *str, t_list *ev,
 	{
 		if (stock.str[0] == '?')
 		{
-			str = replacestr((char *)tmp->content, str, 1);
+			str = replacestr((char *)tmp->content, str, 1, storage);
 			storage->cond2 = true;
 			storage->cond3 = 1;
 			break ;
 		}
 		if (compare((char *)tmp->content, stock.str, storage->i) == 1)
 		{
-			str = replacestr((char *)tmp->content, str, 0);
+			str = replacestr((char *)tmp->content, str, 0, storage);
 			storage->cond3 = 1;
 			storage->cond2 = true;
 			break ;

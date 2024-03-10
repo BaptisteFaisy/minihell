@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transform_str_env.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:59:33 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/10 18:12:52 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/10 21:40:27 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,30 @@ char	*transform_str_env(char *str, t_list *ev,
 	int				i;
 	t_list			*tmp;
 	t_string_and_i	stock;
+	char			*newstr;
 
 	(void)tmp;
 	i = 0;
+	storage->deja_malloc_boucle = false;
+	newstr = str;
 	while (str[i])
 	{
 		storage->cond3 = 0;
 		if (str[i] == '$')
 		{
 			i++;
-			if (str[i] == ' ' || str[i] == '\0')
+			if (str[i] == ' ' || str[i] == '\0' || str[i] == ':')
 				continue ;
-			if (ft_isalpha(str[i]) == 0 && (str[i] != '"' || str[i] != '\''))
+			if (ft_isalpha(str[i]) == 0 && (str[i] != '"' || str[i] != '\'')
+				&& str[i] != '?')
 			{
-				str = rm_is_not_digit(str);
-				i++;
+				str = rm_is_not_digit(newstr, storage, str);
+				// i++;
 				storage->cond_is_alpha_dollar = true;
+				// printf("%d\n", i);
 				continue ;
 			}
+			// printf("%c\n", str[i]);
 			tmp = ev;
 			stock = data_after2(str, i);
 			// printf("%s\n", stock.str);
@@ -49,10 +55,12 @@ char	*transform_str_env(char *str, t_list *ev,
 			free(stock.str);
 			storage->cond_env = 1;
 			i -= 2;
+			// printf("%d\n", i);
 		}
 		i++;
-		// printf("%c\n", str[i]);
+		// printf("%d\n", i);
 	}
+	// printf("%s\n", str);
 	return (str);
 }
 
@@ -95,8 +103,12 @@ char	*rmstr(t_string_and_i	stock, char *str, t_storage *storage)
 	}
 	newstr[k] = '\0';
 	storage->cond2 = true;
-	if (storage->cond2 == true)
+	if (storage->deja_malloc_boucle == true)
+	{
 		free(str);
+		storage->deja_malloc_boucle = false;
+	}
+	storage->deja_malloc_boucle = true;
 	return (newstr);
 }
 
@@ -115,7 +127,7 @@ int	compare(char *strev, char *str2, int i)
 	return (0);
 }
 
-char	*replacestr(char *strev, char *str, int cond)
+char	*replacestr(char *strev, char *str, int cond, t_storage *storage)
 {
 	char		*newstr;
 	t_indice	indi;
@@ -140,5 +152,10 @@ char	*replacestr(char *strev, char *str, int cond)
 	while (str[indi.i])
 		newstr = replacestr4(newstr, str, &indi);
 	newstr[indi.k] = '\0';
+	if (storage->deja_malloc_boucle == true)
+	{
+		free(str);
+		storage->deja_malloc_boucle = false;
+	}
 	return (newstr);
 }

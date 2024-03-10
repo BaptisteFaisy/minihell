@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:53:57 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/10 17:57:34 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/10 19:49:54 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ t_cmd_args	*parsingv2(t_cmd_args *tmpargs, t_cmd_args *head,
 			i = parsingv4(storage, i, &tmpargs);
 		else if (storage->str[i])
 			i = parsingv3(storage, i, tmpargs);
-		// printf("deconne %d\n", i);
 	}
 	if (storage->cond_is_alpha_dollar == true)
 	{
@@ -92,11 +91,11 @@ int	parsingv3(t_storage *stock, int i, t_cmd_args *tmpargs)
 {
 	t_string_and_i	storage;
 
+	// printf("da\n");
 	storage = data_after(stock, i, tmpargs);
 	if (storage.str == NULL)
 		return (i +2);
 	// printf("%s\n", storage.str);
-
 	if (!tmpargs->args)
 		create_firstnode_and_put(&tmpargs->args, storage.str);
 	else
@@ -109,7 +108,9 @@ int	parsingv4(t_storage *stock, int i, t_cmd_args **tmpargs)
 	t_string_and_i	storage;
 
 	storage = data_after(stock, i, *tmpargs);
-	if (storage.str == NULL)
+	if (storage.i == -100)
+		return (i + 1);
+	else if (storage.str == NULL && storage.i != -100)
 		return (i +2);
 	(*tmpargs)->cmd = storage.str;
 	return (storage.i);
