@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   data_aftercustom.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 16:52:52 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/11 16:51:49 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/11 17:52:35 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	data_custom_init(bool *cond_add, bool *cond_quote,
+		t_string_and_i *data, t_storage *stock)
+{
+	*cond_add = false;
+	if (stock->str[data->i] == '\'')
+		*cond_quote = true;
+	else if (stock->str[data->i] == '"')
+		*cond_quote = false;
+	data->i++;
+}
 
 t_string_and_i	data_custom(t_storage *stock, t_cmd_args *head,
 			t_string_and_i data)
@@ -18,12 +29,7 @@ t_string_and_i	data_custom(t_storage *stock, t_cmd_args *head,
 	bool	cond_quote;
 	bool	cond_add;
 
-	cond_add = false;
-	if (stock->str[data.i] == '\'')
-		cond_quote = true;
-	else if (stock->str[data.i] == '"')
-		cond_quote = false;
-	data.i++;
+	data_custom_init(&cond_add, &cond_quote, &data, stock);
 	while (stock->str[data.i])
 	{
 		if (stock->str[data.i] == '\'' && cond_quote == true)
