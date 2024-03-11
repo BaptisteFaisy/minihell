@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 16:52:52 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/07 20:33:09 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/11 16:07:21 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_string_and_i	data_custom(t_storage *stock, t_cmd_args *head,
 		else if (stock->str[data.i] == '"' && cond_quote == false)
 			return (data_afterv3(data, head, stock->str, cond_add));
 		else if (stock->str[data.i] == '|' && data.str != NULL)
-			return (data_afterv2(&data, &head), data);
+			return (data_afterv2(&data, &head, stock->str), data);
 		else if (stock->str[data.i] == '|')
 			return (ft_putstr_fd
 				("bash: syntax error near\nunexpected token `|'\n", 2),
