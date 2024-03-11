@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:59:33 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/11 17:41:53 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/11 18:42:56 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@ char	*transform_str_env(char *str, t_list *ev,
 	while (pack.str[i])
 	{
 		storage->cond3 = 0;
+		if (pack.str[i] == '\'')
+		{
+			i++;
+			while (pack.str[i] != '\'' && pack.str[i] != '\0')
+				i++;
+		}
+		if (pack.str[i] == '"')
+		{
+			i++;
+			while (pack.str[i] != '"' && pack.str[i] != '\0')
+				i++;
+		}
 		if (pack.str[i] == '$')
 		{
 			i++;
@@ -38,7 +50,8 @@ char	*transform_str_env(char *str, t_list *ev,
 				storage->cond_is_alpha_dollar = true;
 				continue ;
 			}
-			i = transform_env_suite(i, &pack, ev, storage);
+			i = transform_env_suite(i, &pack, ev, &storage);
+			continue ;
 		}
 		i++;
 	}

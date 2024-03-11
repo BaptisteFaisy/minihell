@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/11 17:42:30 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/11 18:02:54 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void			printall(t_cmd_args *head);
 void			parsing_init(t_cmd_args **head, t_storage *storage);
 void			freestrboucle(t_storage *storage, char *str);
 int				transform_env_suite(int i, t_str_pack *pack, t_list *ev,
-					t_storage *storage);
+					t_storage **storage);
 void			transform_env_initial(t_storage *storage, t_str_pack *pack,
 					char *str);
 bool			rmstr_suite(int *i, int *j, char *str, t_string_and_i stock);
