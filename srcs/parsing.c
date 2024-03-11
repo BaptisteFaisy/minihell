@@ -33,10 +33,6 @@ int	parsing(char *str, t_list *ev)
 		return (0);
 	storage.str = transform_str_env(str, ev,
 			&storage);
-	// storage.str = fuck_les_quotes(storage.str);
-	// printf("%s\n", storage.str);
-	// storage.str = transform_str(storage.str); // atm c'est de la grosse merde
-	// printf("%s\n", storage.str);
 	tmpargs = create_node_cmd(&head, ev);
 	head = parsingv2(tmpargs, head, ev, &storage);
 	// printall(head); // sert a print toutes les datas de la head pour savoir si c'est moi ou joon qui a faux
