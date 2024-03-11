@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   def.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/11 15:03:55 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/11 16:48:09 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ t_string_and_i	data_custom(t_storage *stock, t_cmd_args *head,
 					t_string_and_i data);
 char			*fuck_les_quotes(char *str);
 char			*rm_is_not_digit(char *oldstr, t_storage *storage, char *str);
-void printall(t_cmd_args *head);
+void			printall(t_cmd_args *head);
+void			parsing_init(t_cmd_args **head, t_storage *storage);
 
 // Execution part
 int				execution(t_cmd_args *cmd_args);

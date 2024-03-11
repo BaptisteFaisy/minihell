@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:53:57 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/11 16:25:58 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/11 16:48:34 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,7 @@ int	parsing(char *str, t_list *ev)
 	t_storage		storage;
 	int				exit_code;
 
-	storage.cond = true;
-	storage.cond2 = false;
-	storage.cond_env = 0;
-	storage.cond_is_alpha_dollar = false;
-	head = NULL;
+	parsing_init(&head, &storage);
 	exit_code = -1;
 	if (check_test(str, &storage.cond) == 1)
 		return (0);
@@ -36,7 +32,6 @@ int	parsing(char *str, t_list *ev)
 			&storage);
 	tmpargs = create_node_cmd(&head, ev);
 	head = parsingv2(tmpargs, head, ev, &storage);
-	// printall(head); // sert a print toutes les datas de la head pour savoir si c'est moi ou joon qui a faux
 	if (storage.cond == true)
 	{
 		g_status = execution(head);
