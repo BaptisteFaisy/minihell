@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/10 21:36:36 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/11 15:03:55 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,15 @@ char			*replacestr3(char *str, char *strev, char *newstr,
 char			*replacestr4(char *newstr, char *str, t_indice *indi);
 char			*readline_str(char *prompt);
 char			*concatenation(char *str, char c);
-void			data_afterv2(t_string_and_i *data, t_cmd_args **head);
+void			data_afterv2(t_string_and_i *data, t_cmd_args **head, char *str);
 t_string_and_i	data_afterv3(t_string_and_i	data, t_cmd_args *head,
 					char *str, bool cond_add);
 t_string_and_i	data_custom(t_storage *stock, t_cmd_args *head,
 					t_string_and_i data);
 char			*fuck_les_quotes(char *str);
 char			*rm_is_not_digit(char *oldstr, t_storage *storage, char *str);
+void printall(t_cmd_args *head);
+
 // Execution part
 int				execution(t_cmd_args *cmd_args);
 int				init_redirect_files(t_cmd_args *cargs, t_exec_info *info);

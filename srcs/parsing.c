@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:53:57 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/10 19:49:54 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/11 15:11:17 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	parsing(char *str, t_list *ev)
 	// printf("%s\n", storage.str);
 	tmpargs = create_node_cmd(&head, ev);
 	head = parsingv2(tmpargs, head, ev, &storage);
+	// printall(head); // sert a print toutes les datas de la head pour savoir si c'est moi ou joon qui a faux
 	if (storage.cond == true)
 		g_status = execution(head);
 	if (storage.cond_env == 1)
@@ -93,8 +94,7 @@ int	parsingv3(t_storage *stock, int i, t_cmd_args *tmpargs)
 
 	// printf("da\n");
 	storage = data_after(stock, i, tmpargs);
-	if (storage.str == NULL)
-		return (i +2);
+	// printf("%d\n", storage.i);
 	// printf("%s\n", storage.str);
 	if (!tmpargs->args)
 		create_firstnode_and_put(&tmpargs->args, storage.str);
@@ -108,10 +108,7 @@ int	parsingv4(t_storage *stock, int i, t_cmd_args **tmpargs)
 	t_string_and_i	storage;
 
 	storage = data_after(stock, i, *tmpargs);
-	if (storage.i == -100)
-		return (i + 1);
-	else if (storage.str == NULL && storage.i != -100)
-		return (i +2);
+	// printf("%da\n", storage.i);
 	(*tmpargs)->cmd = storage.str;
 	return (storage.i);
 }

@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:38:41 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/10 21:37:12 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/11 15:06:30 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,17 @@ t_string_and_i	data_after(t_storage *stock, int i, t_cmd_args *head)
 		if (stock->str[data.i] == '\'' || stock->str[data.i] == '"')
 		{
 			data = data_custom(stock, head, data);
-						// printf("%d\n", data.i);
 		}
 		else if (stock->str[data.i] == ' ')
 			return (data_afterv3(data, head, stock->str, false));
-		else if (stock->str[data.i] == '|' && data.str != NULL)
-			return (data_afterv2(&data, &head), data);
 		else if (stock->str[data.i] == '|')
+		{
+			// printf("%sdsdsd\n", data.str);
+			return (data_afterv2(&data, &head, stock->str), data);
+		}
+		else if (stock->str[data.i] == '|' && head->cmd == NULL)
 			return (ft_putstr_fd
-				("bash: syntax error near\nunexpected token `|'\n", 2),
+				("bash: syntax error near\nunexpected token '|'\n", 2),
 				data.i = -100, g_status = 2, stock->cond = false, data);
 		else
 			data.str = concatenation(data.str, stock->str[data.i]);
@@ -45,20 +47,20 @@ t_string_and_i	data_after(t_storage *stock, int i, t_cmd_args *head)
 	return (data);
 }
 
-void	data_afterv2(t_string_and_i *data, t_cmd_args **head)
+void	data_afterv2(t_string_and_i *data, t_cmd_args **head, char *str)
 {
-	(*data).i++;
+	// printf("%c\n", str[data->i]);
+	data->i++;
+	// printf("%c\n", str[data->i]);
+	while (str[data->i] == ' ')
+		data->i++;
 	(*head)->is_pipe = 1;
 }
 
 t_string_and_i	data_afterv3(t_string_and_i	data, t_cmd_args *head, char *str, bool cond_add)
 {
 	while (str[data.i] == ' ')
-	{
 		data.i++;
-		if (str[data.i] == '|')
-			return (data_afterv2(&data, &head), data);
-	}
 	// printf("%sf\n", data.str);
 		// printf("%cf\n", str[data.i]);
 		// printf("%sdsf\n", data.str);
@@ -67,11 +69,8 @@ t_string_and_i	data_afterv3(t_string_and_i	data, t_cmd_args *head, char *str, bo
 	// {
 	// 	data.i--;
 	// }
+	(void)head;
 	(void)cond_add;
-	// if (cond_add == true)
-	// 	data.i++;
-	// data.str = transform_str_quote(data.str); // a faire
-	// printf("%sf\n", data.str);
 	return (data);
 }
 
