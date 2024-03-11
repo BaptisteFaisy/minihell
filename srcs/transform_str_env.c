@@ -6,62 +6,43 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:59:33 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/10 21:40:27 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/11 17:41:53 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char		*rmstr(t_string_and_i	stock, char *str, t_storage *storage);
 int			compare(char *strev, char *str2, int i);
+void		freestrboucle(t_storage *storage, char *str);
 
 char	*transform_str_env(char *str, t_list *ev,
 	t_storage *storage)
 {
 	int				i;
-	t_list			*tmp;
-	t_string_and_i	stock;
-	char			*newstr;
+	t_str_pack		pack;
 
-	(void)tmp;
 	i = 0;
-	storage->deja_malloc_boucle = false;
-	newstr = str;
-	while (str[i])
+	transform_env_initial(storage, &pack, str);
+	while (pack.str[i])
 	{
 		storage->cond3 = 0;
-		if (str[i] == '$')
+		if (pack.str[i] == '$')
 		{
 			i++;
-			if (str[i] == ' ' || str[i] == '\0' || str[i] == ':')
+			if (pack.str[i] == ' ' || pack.str[i] == '\0' || pack.str[i] == ':')
 				continue ;
-			if (ft_isalpha(str[i]) == 0 && (str[i] != '"' || str[i] != '\'')
-				&& str[i] != '?')
+			if (ft_isalpha(pack.str[i]) == 0 && (pack.str[i] != '"'
+					|| pack.str[i] != '\'') && pack.str[i] != '?')
 			{
-				str = rm_is_not_digit(newstr, storage, str);
-				// i++;
+				pack.str = rm_is_not_digit(pack.newstr, storage, pack.str);
 				storage->cond_is_alpha_dollar = true;
-				// printf("%d\n", i);
 				continue ;
 			}
-			// printf("%c\n", str[i]);
-			tmp = ev;
-			stock = data_after2(str, i);
-			// printf("%s\n", stock.str);
-			storage->i = i;
-			str = transform_str_env2(str, ev, storage, stock);
-			if (storage->cond3 == 0)
-				str = rmstr(stock, str, storage);
-			free(stock.str);
-			storage->cond_env = 1;
-			i -= 2;
-			// printf("%d\n", i);
+			i = transform_env_suite(i, &pack, ev, storage);
 		}
 		i++;
-		// printf("%d\n", i);
 	}
-	// printf("%s\n", str);
-	return (str);
+	return (pack.str);
 }
 
 char	*rmstr(t_string_and_i	stock, char *str, t_storage *storage)
@@ -77,39 +58,17 @@ char	*rmstr(t_string_and_i	stock, char *str, t_storage *storage)
 	newstr = ft_calloc(sizeof(char), ft_strlen(str) + 1);
 	if (!newstr)
 		exit (1);
-	// printf("%s  %s\n", str, stock.str);
 	while (str[i])
 	{
 		if (str[i] == '$')
 		{
-			i++;
-			while (str[i] == stock.str[j])
-			{
-				i++;
-				j++;
-				if (str[i] == '\0')
-				{
-					newstr[k] = '\0';
-					storage->cond2 = true;
-					return (newstr);
-				}
-				// printf("%c \n", str[i]);
-			}
-			// printf("%c \n", str[i]);
+			if (rmstr_suite(&i, &j, str, stock) == false)
+				return (newstr);
 		}
-		newstr[k] = str[i];
-		i++;
-		k++;
+		newstr[k++] = str[i++];
 	}
-	newstr[k] = '\0';
-	storage->cond2 = true;
-	if (storage->deja_malloc_boucle == true)
-	{
-		free(str);
-		storage->deja_malloc_boucle = false;
-	}
-	storage->deja_malloc_boucle = true;
-	return (newstr);
+	return (freestrboucle(storage, str), storage->deja_malloc_boucle = true,
+		storage->cond2 = true, newstr[k] = '\0', newstr);
 }
 
 int	compare(char *strev, char *str2, int i)
@@ -152,10 +111,15 @@ char	*replacestr(char *strev, char *str, int cond, t_storage *storage)
 	while (str[indi.i])
 		newstr = replacestr4(newstr, str, &indi);
 	newstr[indi.k] = '\0';
+	freestrboucle(storage, str);
+	return (newstr);
+}
+
+void	freestrboucle(t_storage *storage, char *str)
+{
 	if (storage->deja_malloc_boucle == true)
 	{
 		free(str);
 		storage->deja_malloc_boucle = false;
 	}
-	return (newstr);
 }

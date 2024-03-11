@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:53:57 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/11 16:48:34 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/11 17:01:52 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,10 @@ t_cmd_args	*parsingv2(t_cmd_args *tmpargs, t_cmd_args *head,
 	int				return_value;
 	int				i;
 	t_red			*tmp;
-	// t_string_and_i	bank;
 
 	i = 0;
 	while (storage->str[i])
 	{
-		// printf("%c       %d\n", storage->str[i], i);
 		if (tmpargs->is_pipe == 1)
 			tmpargs = create_next_node_head(tmpargs, ev);
 		i = skipspace(storage->str, i);
@@ -74,22 +72,14 @@ t_cmd_args	*parsingv2(t_cmd_args *tmpargs, t_cmd_args *head,
 		else if (storage->str[i])
 			i = parsingv3(storage, i, tmpargs);
 	}
-	if (storage->cond_is_alpha_dollar == true)
-	{
-		storage->cond_is_alpha_dollar = false;
-		free(storage->str);
-	}
-	return (head);
+	return (freestrboucle(storage, storage->str), head);
 }
 
 int	parsingv3(t_storage *stock, int i, t_cmd_args *tmpargs)
 {
 	t_string_and_i	storage;
 
-	// printf("da\n");
 	storage = data_after(stock, i, tmpargs);
-	// printf("%d\n", storage.i);
-	// printf("%s\n", storage.str);
 	if (!tmpargs->args)
 		create_firstnode_and_put(&tmpargs->args, storage.str);
 	else
@@ -102,7 +92,6 @@ int	parsingv4(t_storage *stock, int i, t_cmd_args **tmpargs)
 	t_string_and_i	storage;
 
 	storage = data_after(stock, i, *tmpargs);
-	// printf("%da\n", storage.i);
 	(*tmpargs)->cmd = storage.str;
 	return (storage.i);
 }

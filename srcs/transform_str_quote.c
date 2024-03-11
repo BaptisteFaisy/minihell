@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:54:17 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/07 17:38:08 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/11 16:55:28 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ char	*transform_str_quote(char *str)
 	if (!newstr)
 		exit (1);
 	newstr = transform_str_quote2(str, newstr, stock);
-	// if (cond2 == true)
-	// 	free(str);
 	return (newstr);
 }
 

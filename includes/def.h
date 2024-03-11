@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   def.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/11 17:36:15 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/11 17:42:30 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ char			*transform_str_env(char *str, t_list *ev,
 char			*transform_str_quote(char *str);
 char			*transform_str_env2(char *str, t_list *ev,
 					t_storage *storage, t_string_and_i stock);
-char			*replacestr(char *strev, char *str,
-					int cond, t_storage *storage);
+char			*replacestr(char *strev, char *str, int cond,
+					t_storage *storage);
 int				compare(char *strev, char *str2, int i);
 char			*replacestr2(char *newstr, int *k, int *i);
 char			*replacestr3(char *str, char *strev, char *newstr,
@@ -101,8 +101,8 @@ char			*replacestr3(char *str, char *strev, char *newstr,
 char			*replacestr4(char *newstr, char *str, t_indice *indi);
 char			*readline_str(char *prompt);
 char			*concatenation(char *str, char c);
-void			data_afterv2(t_string_and_i *data,
-					t_cmd_args **head, char *str);
+void			data_afterv2(t_string_and_i *data, t_cmd_args **head,
+					char *str);
 t_string_and_i	data_afterv3(t_string_and_i	data, t_cmd_args *head,
 					char *str, bool cond_add);
 t_string_and_i	data_custom(t_storage *stock, t_cmd_args *head,
@@ -111,6 +111,13 @@ char			*fuck_les_quotes(char *str);
 char			*rm_is_not_digit(char *oldstr, t_storage *storage, char *str);
 void			printall(t_cmd_args *head);
 void			parsing_init(t_cmd_args **head, t_storage *storage);
+void			freestrboucle(t_storage *storage, char *str);
+int				transform_env_suite(int i, t_str_pack *pack, t_list *ev,
+					t_storage *storage);
+void			transform_env_initial(t_storage *storage, t_str_pack *pack,
+					char *str);
+bool			rmstr_suite(int *i, int *j, char *str, t_string_and_i stock);
+char			*rmstr(t_string_and_i	stock, char *str, t_storage *storage);
 void			freeheadcmd_init(t_cmd_args *head);
 
 // Execution part

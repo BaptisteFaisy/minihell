@@ -52,7 +52,7 @@ SRCS_RAW =	main.c \
 			quote.c \
 			rm.c \
 			builtin_export_2.c \
-			printall.c \
+			transform_str_env2.c \
 			node_2.c
 SRCS = $(addprefix $(DIR)/,$(SRCS_RAW)) \
 

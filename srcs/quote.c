@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 18:03:50 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/11 17:36:28 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/11 17:45:27 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,5 @@ char	*fuck_les_quotes(char *str)
 		i++;
 		j++;
 	}
-	// free(str);
 	return (newstr);
 }

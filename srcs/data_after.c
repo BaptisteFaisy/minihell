@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:38:41 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/11 15:42:44 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/11 17:45:38 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ t_string_and_i	data_after(t_storage *stock, int i, t_cmd_args *head)
 	while (stock->str[data.i])
 	{
 		if (stock->str[data.i] == '\'' || stock->str[data.i] == '"')
-		{
 			data = data_custom(stock, head, data);
-		}
 		else if (stock->str[data.i] == ' ')
 			return (data_afterv3(data, head, stock->str, false));
 		else if (stock->str[data.i] == '|' && head->cmd == NULL)
@@ -34,13 +32,9 @@ t_string_and_i	data_after(t_storage *stock, int i, t_cmd_args *head)
 				("bash: syntax error near\nunexpected token '|'\n", 2),
 				data.i += 1, g_status = 2, stock->cond = false, data);
 		else if (stock->str[data.i] == '|')
-		{
 			return (data_afterv2(&data, &head, stock->str), data);
-		}
 		else
 			data.str = concatenation(data.str, stock->str[data.i]);
-		// printf("%s\n", data.str);
-		// printf("%d\n", data.i);
 		data.i++;
 	}
 	return (data);
@@ -48,26 +42,17 @@ t_string_and_i	data_after(t_storage *stock, int i, t_cmd_args *head)
 
 void	data_afterv2(t_string_and_i *data, t_cmd_args **head, char *str)
 {
-	// printf("%c\n", str[data->i]);
 	data->i++;
-	// printf("%c\n", str[data->i]);
 	while (str[data->i] == ' ')
 		data->i++;
 	(*head)->is_pipe = 1;
 }
 
-t_string_and_i	data_afterv3(t_string_and_i	data, t_cmd_args *head, char *str, bool cond_add)
+t_string_and_i	data_afterv3(t_string_and_i	data, t_cmd_args *head, char *str,
+			bool cond_add)
 {
 	while (str[data.i] == ' ')
 		data.i++;
-	// printf("%sf\n", data.str);
-		// printf("%cf\n", str[data.i]);
-		// printf("%sdsf\n", data.str);
-
-	// if (cond_add == false)
-	// {
-	// 	data.i--;
-	// }
 	(void)head;
 	(void)cond_add;
 	return (data);
@@ -108,7 +93,6 @@ char	*concatenation(char *str, char c)
 	}
 	else
 	{
-		// printf("a\n");
 		new_str = malloc(sizeof(char) * 2);
 		if (!new_str)
 			exit(1);

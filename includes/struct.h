@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/11 17:35:53 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/11 17:15:11 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,11 @@ typedef struct s_indice
 	bool	cond_simple;
 	bool	cond_double;
 }t_indice;
+
+typedef struct s_str_pack
+{
+	char	*str;
+	char	*newstr;
+}t_str_pack;
 
 #endif
