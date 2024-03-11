@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/10 19:36:50 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/11 17:35:53 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_red
  * @param redirect redirections
  * @param envp environment variables (from main)
  * @param next next command pack, NULLABLE
- * @param exit_code exit code of exit command, if -1 do nothing, else exit with code
+ * @param exit_code exit code of exit cmd, if -1 do nothing, else exit with code
  */
 typedef struct s_cmd_args
 {
