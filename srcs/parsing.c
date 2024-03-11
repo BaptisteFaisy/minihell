@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:53:57 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/11 17:01:52 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/11 18:59:33 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	parsingv3(t_storage *stock, int i, t_cmd_args *tmpargs)
 	storage = data_after(stock, i, tmpargs);
 	if (!tmpargs->args)
 		create_firstnode_and_put(&tmpargs->args, storage.str);
-	else
+	else if (storage.str != NULL)
 		create_node_and_put(&tmpargs->args, storage.str);
 	return (storage.i);
 }
