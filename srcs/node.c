@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:43:01 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/07 17:59:31 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/11 16:11:16 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	freeheadcmd(t_cmd_args *head)
 	t_cmd_args	*tmp;
 	t_red		*tmpred;
 
-	free(head->exit_code);
+	if (head)
+		free(head->exit_code);
 	while (head)
 	{
 		tmp = head;
