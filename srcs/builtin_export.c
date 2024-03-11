@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 01:08:56 by marvin            #+#    #+#             */
-/*   Updated: 2024/03/09 09:07:25 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/11 17:02:48 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,19 @@ int	builtin_export(t_cmd_args *cargs, t_exec_info *info)
 	t_list	*args;
 	t_list	*envp;
 	bool	exist;
+	char	*s;
 
 	if (cargs->args == NULL)
 		return (print_env_export(cargs, info));
 	args = cargs->args;
 	while (args)
 	{
+		if (!is_valid_env_name((char *)args->content))
+		{
+			s = ft_strjoin_many(3, "export: '", (char *)args->content, "'");
+			return (basherr(s, ERR_VALID_IDENTIFIER), free(s),
+				EXEC_FAILURE);
+		}
 		exist = false;
 		envp = cargs->envp;
 		replace_envp(args, info, envp, &exist);
@@ -80,5 +87,5 @@ int	builtin_export(t_cmd_args *cargs, t_exec_info *info)
 				ft_lstnew(get_string_value((char *)args->content)));
 		args = args->next;
 	}
-	return (EXIT_SUCCESS);
+	return (EXEC_SUCCESS);
 }

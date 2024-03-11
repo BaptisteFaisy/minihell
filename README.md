@@ -47,7 +47,4 @@ echo test | cat > test2 -> baptiste
 
 FUCKING BUGS
 
-- ^C deconne de temps en temps.. -> jsp
-- O free pas quand command exit
-
-HEREDOC
+- HEREDOC signaux

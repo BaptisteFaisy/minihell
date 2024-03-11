@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:43:01 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/11 16:11:16 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/11 17:32:27 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ void	freeheadcmd(t_cmd_args *head)
 	t_cmd_args	*tmp;
 	t_red		*tmpred;
 
-	if (head)
-		free(head->exit_code);
+	freeheadcmd_init(head);
 	while (head)
 	{
 		tmp = head;
@@ -99,4 +98,3 @@ int	create_node_and_put(t_list **head, char *data)
 	(tmp)->next = t2;
 	return (0);
 }
-

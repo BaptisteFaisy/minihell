@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 08:41:56 by marvin            #+#    #+#             */
-/*   Updated: 2024/03/09 09:07:49 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/11 16:57:10 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,19 @@ int	print_env_export(t_cmd_args *cargs, t_exec_info *info)
 		lst = lst->next;
 	}
 	return (EXEC_SUCCESS);
+}
+
+bool	is_valid_env_name(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!ft_isalpha(*str) && *str != '_')
+		return (false);
+	while (str[++i] && str[i] != '=')
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return (false);
+	}
+	return (true);
 }

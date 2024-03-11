@@ -53,7 +53,8 @@ SRCS_RAW =	main.c \
 			quote.c \
 			rm.c \
 			builtin_export_2.c \
-			printall.c
+			printall.c \
+			node_2.c
 SRCS = $(addprefix $(DIR)/,$(SRCS_RAW)) \
 
 OBJS = $(SRCS:c=o)

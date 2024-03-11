@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/11 16:48:09 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/11 17:32:15 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define ERR_CMD_NOT_FOUND "command not found"
 # define ERR_IS_DIR "Is a directory"
 # define ERR_NUMERIC_REQUIRED "numeric argument required"
+# define ERR_VALID_IDENTIFIER "not a valid identifier"
 
 // Defs : Exit codes
 # define EXEC_SUCCESS 0
@@ -108,6 +109,7 @@ char			*fuck_les_quotes(char *str);
 char			*rm_is_not_digit(char *oldstr, t_storage *storage, char *str);
 void			printall(t_cmd_args *head);
 void			parsing_init(t_cmd_args **head, t_storage *storage);
+void			freeheadcmd_init(t_cmd_args *head);
 
 // Execution part
 int				execution(t_cmd_args *cmd_args);
@@ -154,5 +156,6 @@ void			sigint_handler_process(int sig);
 void			activate_sig_process(t_exec_info *info);
 void			deactivate_sig_process(t_exec_info *info);
 int				print_env_export(t_cmd_args *cargs, t_exec_info *info);
+bool			is_valid_env_name(char *str);
 
 #endif
