@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:47:55 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/11 17:15:11 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/13 18:14:25 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ typedef struct s_str_pack
 {
 	char	*str;
 	char	*newstr;
+	int		i;
 }t_str_pack;
 
 #endif

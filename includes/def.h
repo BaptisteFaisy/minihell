@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/11 18:02:54 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/13 18:05:27 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ void			transform_env_initial(t_storage *storage, t_str_pack *pack,
 bool			rmstr_suite(int *i, int *j, char *str, t_string_and_i stock);
 char			*rmstr(t_string_and_i	stock, char *str, t_storage *storage);
 void			freeheadcmd_init(t_cmd_args *head);
+int				transform_env_skip_i(int i, t_str_pack pack,
+					t_storage **storage);
 
 // Execution part
 int				execution(t_cmd_args *cmd_args);

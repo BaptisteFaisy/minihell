@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 23:54:10 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/10 21:36:20 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/13 18:15:48 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ char	*rm_is_not_digit(char *oldstr, t_storage *storage, char *str)
 		free(str);
 		storage->deja_malloc_boucle = false;
 	}
+	storage->cond_is_alpha_dollar = true;
 	return (newstr);
 }

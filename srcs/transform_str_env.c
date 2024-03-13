@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:59:33 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/11 18:42:56 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/13 18:16:09 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,7 @@ char	*transform_str_env(char *str, t_list *ev,
 	transform_env_initial(storage, &pack, str);
 	while (pack.str[i])
 	{
-		storage->cond3 = 0;
-		if (pack.str[i] == '\'')
-		{
-			i++;
-			while (pack.str[i] != '\'' && pack.str[i] != '\0')
-				i++;
-		}
-		if (pack.str[i] == '"')
-		{
-			i++;
-			while (pack.str[i] != '"' && pack.str[i] != '\0')
-				i++;
-		}
+		i = transform_env_skip_i(i, pack, &storage);
 		if (pack.str[i] == '$')
 		{
 			i++;
@@ -47,7 +35,6 @@ char	*transform_str_env(char *str, t_list *ev,
 					|| pack.str[i] != '\'') && pack.str[i] != '?')
 			{
 				pack.str = rm_is_not_digit(pack.newstr, storage, pack.str);
-				storage->cond_is_alpha_dollar = true;
 				continue ;
 			}
 			i = transform_env_suite(i, &pack, ev, &storage);

@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:08:50 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/11 18:43:02 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/13 18:14:38 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	transform_env_initial(t_storage *storage, t_str_pack *pack,
 	storage->deja_malloc_boucle = false;
 	pack->str = str;
 	pack->newstr = str;
+	pack->i = 0;
 }
 
 bool	rmstr_suite(int *i, int *j, char *str, t_string_and_i stock)
@@ -47,4 +48,22 @@ bool	rmstr_suite(int *i, int *j, char *str, t_string_and_i stock)
 			return (false);
 	}
 	return (true);
+}
+
+int	transform_env_skip_i(int i, t_str_pack pack, t_storage **storage)
+{
+	(*storage)->cond3 = 0;
+	if (pack.str[i] == '\'')
+	{
+		i++;
+		while (pack.str[i] != '\'' && pack.str[i] != '\0')
+			i++;
+	}
+	if (pack.str[i] == '"')
+	{
+		i++;
+		while (pack.str[i] != '"' && pack.str[i] != '\0')
+			i++;
+	}
+	return (i);
 }
