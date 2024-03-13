@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 20:46:48 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/11 17:34:47 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/13 20:38:25 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	sigquit_handler_process(int sig)
 	printf("Quit: %d\n", sig);
 }
 
-static void	sigint_handler(int sig)
+void	sigint_handler(int sig)
 {
 	(void)sig;
-	g_status = 130;
+	g_status = EXEC_SIGINT;
 	ft_putstr_fd("\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
