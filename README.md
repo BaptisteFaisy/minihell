@@ -14,3 +14,6 @@ valgrind --leak-check=full --track-fds=yes --show-leak-kinds=all --suppressions=
 ### Todo
 
 - Pass evaluations to validate the project
+
+### Justifications
+- https://stackoverflow.com/questions/66898092/how-do-i-make-readline-exit-on-ctrlc
