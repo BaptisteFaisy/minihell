@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:27:50 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/06 18:57:26 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/16 15:20:43 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,31 @@ int	redirect_open(char *path, int access_flag, int open_flag)
 	return (fd);
 }
 
+static void	gnl_prompt_handle(char **buf)
+{
+	__sighandler_t	sig[2];
+
+	sig[0] = signal(SIGINT, sigint_handler_heredoc);
+	sig[1] = signal(SIGQUIT, sigquit_handler_heredoc);
+	*buf = readline("> ");
+	signal(SIGINT, sig[0]);
+	signal(SIGQUIT, sig[1]);
+}
+
+static int	handle_buf_null(char *delim_modif, int *fd)
+{
+	free(delim_modif);
+	if (fd)
+	{
+		close(fd[0]);
+		close(fd[1]);
+	}
+	if (g_status == -1)
+		return (-EXEC_SIGINT);
+	else
+		return (basherr(NULL, WARN_HEREDOC_DELIM), 0);
+}
+
 /**
  * @brief Get file descriptor by entering prompt
  * @param delim delimiter
@@ -76,11 +101,9 @@ int	get_file_by_prompt_delim(char *delim)
 	char	*buf;
 
 	delim_modif = ft_strjoin(delim, "\n");
-	ft_putstr_fd("> ", 1);
-	buf = get_next_line(0);
+	gnl_prompt_handle(&buf);
 	if (buf == NULL)
-		return (free(delim_modif),
-			print_error(NULL, ERR_MALLOC), -EXEC_FAILURE);
+		return (handle_buf_null(delim_modif, NULL));
 	if (pipe(fd) == -1)
 		return (free(delim_modif), free(buf),
 			print_error(NULL, ERR_PIPE), -EXEC_FAILURE);
@@ -88,11 +111,10 @@ int	get_file_by_prompt_delim(char *delim)
 	{
 		ft_putstr_fd(buf, fd[1]);
 		free(buf);
-		ft_putstr_fd("> ", 1);
-		buf = get_next_line(0);
+		gnl_prompt_handle(&buf);
 	}
-	if (!buf)
-		print_error(NULL, ERR_UNKNOWN);
+	if (buf == NULL)
+		return (handle_buf_null(delim_modif, fd));
 	close(fd[1]);
-	return (free(buf), fd[0]);
+	return (free(delim_modif), free(buf), fd[0]);
 }

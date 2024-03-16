@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   def.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/13 18:05:27 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/16 15:20:16 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define ERR_IS_DIR "Is a directory"
 # define ERR_NUMERIC_REQUIRED "numeric argument required"
 # define ERR_VALID_IDENTIFIER "not a valid identifier"
+# define WARN_HEREDOC_DELIM "warning: here-document delimited by end-of-file"
 
 // Defs : Exit codes
 # define EXEC_SUCCESS 0
@@ -39,6 +40,7 @@
 # define EXEC_INVLD_USAGE 2
 # define EXEC_IS_DIR 126
 # define EXEC_CMD_NFD 127
+# define EXEC_SIGINT 130
 
 // Defs : redirect type
 # define RED_IN 0
@@ -66,7 +68,7 @@
 # include <readline/history.h>
 # include "struct.h"
 
-extern int	g_status;
+extern volatile int	g_status;
 
 int				redirect(int i, t_red *redirect,
 					t_cmd_args *head, t_storage *stock);
@@ -168,5 +170,8 @@ void			activate_sig_process(t_exec_info *info);
 void			deactivate_sig_process(t_exec_info *info);
 int				print_env_export(t_cmd_args *cargs, t_exec_info *info);
 bool			is_valid_env_name(char *str);
+void			sigint_handler(int sig);
+void			sigquit_handler_heredoc(int sig);
+void			sigint_handler_heredoc(int sig);
 
 #endif

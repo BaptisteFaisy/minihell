@@ -53,7 +53,8 @@ SRCS_RAW =	main.c \
 			rm.c \
 			builtin_export_2.c \
 			transform_str_env2.c \
-			node_2.c
+			node_2.c \
+			signals_2.c
 SRCS = $(addprefix $(DIR)/,$(SRCS_RAW)) \
 
 OBJS = $(SRCS:c=o)

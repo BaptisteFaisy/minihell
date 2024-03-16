@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_bash_error.c                                 :+:      :+:    :+:   */
+/*   signals_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/06 18:05:18 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/13 18:27:37 by lhojoon          ###   ########.fr       */
+/*   Created: 2024/03/13 18:33:04 by lhojoon           #+#    #+#             */
+/*   Updated: 2024/03/16 15:21:34 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	basherr(char *name, char *err)
+void	sigint_handler_heredoc(int sig)
 {
-	char	*str;
+	(void)sig;
+	g_status = -1;
+}
 
-	if (err && name)
-		str = ft_strjoin_many(5, SHELL_NAME, ": ", name, ": ", err);
-	else if (name)
-		str = ft_strjoin_many(3, SHELL_NAME, ": ", name);
-	else if (err)
-		str = ft_strjoin_many(3, SHELL_NAME, ": ", err);
-	else
-		return ;
-	if (!str)
-		ft_putendl_fd(ERR_MALLOC, 2);
-	if (err)
-		ft_putendl_fd(str, 2);
-	else
-		perror(str);
-	free(str);
+void	sigquit_handler_heredoc(int sig)
+{
+	(void)sig;
+	g_status = 0;
+	basherr(NULL, WARN_HEREDOC_DELIM);
 }

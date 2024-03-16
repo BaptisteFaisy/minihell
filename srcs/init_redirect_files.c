@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:06:04 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/06 19:00:11 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/13 21:03:36 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	iter_redirect_input(t_list *details, t_list **infos)
 		else
 			fd = redirect_open(((t_red_details *)details->content)->file,
 					R_OK, O_RDONLY);
-		if (fd < 0)
+		if (fd < 1)
 			return (ft_lstclear(infos, free), -fd);
 		pfd = (int *)malloc(sizeof(int));
 		if (!pfd)
@@ -55,7 +55,7 @@ static int	iter_redirect_output(t_list *details, t_list **infos)
 		else
 			fd = redirect_open(((t_red_details *)details->content)->file,
 					W_OK | F_SKIP_NUL, O_WRONLY | O_CREAT | O_TRUNC);
-		if (fd < 0)
+		if (fd < 1)
 			return (ft_lstclear(infos, free), -fd);
 		pfd = (int *)malloc(sizeof(int));
 		if (!pfd)
@@ -77,8 +77,8 @@ static void	free_redirect(void *content)
 
 int	init_redirect_files(t_cmd_args *cargs, t_exec_info *info)
 {
-	t_red_info	red_info;
-	int			ret;
+	t_red_info		red_info;
+	int				ret;
 
 	red_info = convert_red_info(cargs->redirect);
 	ret = iter_redirect_input(red_info.red_in, &info->redirect.red_in);

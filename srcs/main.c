@@ -6,13 +6,13 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 14:45:12 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/11 16:24:08 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/16 15:22:46 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_status = 0;
+volatile int	g_status = 0;
 
 int	main(int ac, char **av, char **ev)
 {
@@ -20,9 +20,9 @@ int	main(int ac, char **av, char **ev)
 	t_list	*envp;
 	int		exit_code;
 
-	signals();
-	envp = get_list_envp(ev);
 	(void)av;
+	rl_getc_function = getc;
+	envp = get_list_envp(ev);
 	if (ac != 1)
 		return (EXIT_FAILURE);
 	while (true)
