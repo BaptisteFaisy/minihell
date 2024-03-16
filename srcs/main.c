@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 14:45:12 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/13 21:07:55 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/16 15:22:46 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int	main(int ac, char **av, char **ev)
 	t_list	*envp;
 	int		exit_code;
 
-	envp = get_list_envp(ev);
 	(void)av;
+	rl_getc_function = getc;
+	envp = get_list_envp(ev);
 	if (ac != 1)
 		return (EXIT_FAILURE);
 	while (true)
 	{
-		signals();
 		str = readline_str("$> ");
 		if (!str)
 			return (ft_putendl_fd("exit", 1),

@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 20:59:19 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/06 21:00:49 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/16 15:19:04 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	*readline_str(char *prompt)
 {
 	char	*str;
 
+	signals();
 	if (isatty(STDIN_FILENO))
 		str = readline(prompt);
 	else
