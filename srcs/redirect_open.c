@@ -6,28 +6,11 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:27:50 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/16 15:20:43 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/17 23:51:15 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	print_error(char *path, char *err)
-{
-	char	*s;
-
-	if (path == NULL)
-		s = ft_strjoin_many(3, SHELL_NAME, ": ", err);
-	else
-		s = ft_strjoin_many(5, SHELL_NAME, ": ", path, ": ", err);
-	if (!s)
-	{
-		perror(ERR_UNKNOWN);
-		return ;
-	}
-	perror(s);
-	free(s);
-}
 
 // TODO : Verify all existing errors
 static int	access_file(char *path, int type)
@@ -68,16 +51,17 @@ static void	gnl_prompt_handle(char **buf)
 {
 	__sighandler_t	sig[2];
 
+	rl_getc_function = getc;
 	sig[0] = signal(SIGINT, sigint_handler_heredoc);
 	sig[1] = signal(SIGQUIT, sigquit_handler_heredoc);
 	*buf = readline("> ");
 	signal(SIGINT, sig[0]);
 	signal(SIGQUIT, sig[1]);
+	rl_getc_function = rl_getc;
 }
 
-static int	handle_buf_null(char *delim_modif, int *fd)
+static int	handle_buf_null(int *fd)
 {
-	free(delim_modif);
 	if (fd)
 	{
 		close(fd[0]);
@@ -97,24 +81,23 @@ static int	handle_buf_null(char *delim_modif, int *fd)
 int	get_file_by_prompt_delim(char *delim)
 {
 	int		fd[2];
-	char	*delim_modif;
 	char	*buf;
 
-	delim_modif = ft_strjoin(delim, "\n");
+	if (pipe(fd) == -1)
+		return (basherr(NULL, ERR_PIPE), -EXEC_FAILURE);
 	gnl_prompt_handle(&buf);
 	if (buf == NULL)
-		return (handle_buf_null(delim_modif, NULL));
-	if (pipe(fd) == -1)
-		return (free(delim_modif), free(buf),
-			print_error(NULL, ERR_PIPE), -EXEC_FAILURE);
-	while (buf != NULL && ft_strncmp(buf, delim_modif, ft_strlen(delim_modif)))
+		return (handle_buf_null(NULL));
+	while (buf != NULL
+		&& ft_strncmp(buf, delim, ft_strlen(delim)) != 0)
 	{
 		ft_putstr_fd(buf, fd[1]);
+		ft_putchar_fd('\n', fd[1]);
 		free(buf);
 		gnl_prompt_handle(&buf);
 	}
 	if (buf == NULL)
-		return (handle_buf_null(delim_modif, fd));
+		return (handle_buf_null(fd));
 	close(fd[1]);
-	return (free(delim_modif), free(buf), fd[0]);
+	return (free(buf), fd[0]);
 }

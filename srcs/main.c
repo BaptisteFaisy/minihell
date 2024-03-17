@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 14:45:12 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/16 15:22:46 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/17 23:24:09 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	main(int ac, char **av, char **ev)
 	int		exit_code;
 
 	(void)av;
-	rl_getc_function = getc;
 	envp = get_list_envp(ev);
 	if (ac != 1)
 		return (EXIT_FAILURE);
