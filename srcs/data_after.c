@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:38:41 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/11 18:56:05 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/17 19:33:39 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ t_string_and_i	data_after(t_storage *stock, int i, t_cmd_args *head)
 	{
 		if (stock->str[data.i] == '\'' || stock->str[data.i] == '"')
 			data = data_custom(stock, head, data);
-		else if (stock->str[data.i] == ' ')
+		else if (stock->str[data.i] == ' '
+			|| stock->str[data.i] == '>' || stock->str[data.i] == '<')
 			return (data_afterv3(data, head, stock->str, false));
 		else if (stock->str[data.i] == '|' && head->cmd == NULL)
 			return (ft_putstr_fd
