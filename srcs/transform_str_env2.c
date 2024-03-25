@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:08:50 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/13 18:14:38 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/25 16:57:33 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	transform_env_suite(int i, t_str_pack *pack, t_list *ev,
 		pack->str = rmstr(stock, pack->str, *storage);
 	free(stock.str);
 	(*storage)->cond_env = 1;
-	(*storage)->i -= 2;
+	if (i != 1)
+		(*storage)->i -= 2;
 	return ((*storage)->i);
 }
 
