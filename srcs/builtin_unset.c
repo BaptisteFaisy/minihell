@@ -6,39 +6,35 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:33:04 by marvin            #+#    #+#             */
-/*   Updated: 2024/02/27 14:13:37 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/25 17:29:17 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	remove_one_element_from_envp(t_list **envp, char *var)
+static void	remove_one_element_from_envp(t_list **envp, char *var)
 {
 	t_list	*prev;
+	t_list	*curr;
+	t_list	*tmp;
 
-	prev = *envp;
-	while (envp)
+	prev = NULL;
+	curr = *envp;
+	while (curr)
 	{
 		if (ft_strncmp((char *)(*envp)->content, var, ft_strlen(var)) == 0)
 		{
-			if (prev == *envp)
-			{
-				prev = (*envp)->next;
-				free((*envp)->content);
-				free(envp);
-				*envp = prev;
-			}
-			else
-			{
-				prev->next = (*envp)->next;
-				free((*envp)->content);
-			}
-			return (true);
+			tmp = curr->next;
+			free(curr->content);
+			free(curr);
+			curr = tmp;
+			if (prev != NULL)
+				prev->next = curr;
+			return ;
 		}
-		prev = *envp;
-		(*envp) = (*envp)->next;
+		prev = curr;
+		curr = curr->next;
 	}
-	return (true);
 }
 
 int	builtin_unset(t_cmd_args *cargs, t_exec_info *info)
