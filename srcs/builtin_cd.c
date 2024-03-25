@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 16:42:44 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/06 21:06:37 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/25 20:29:21 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ int	builtin_cd(t_cmd_args *cargs, t_exec_info *info)
 		print_error(ERR_TOO_MANY_ARGS, NULL);
 		return (1);
 	}
-	path = cargs->args->content;
+	if (cargs->args == NULL)
+		path = get_env_var(cargs->envp, "HOME");
+	else
+		path = cargs->args->content;
 	if (chdir(path) == -1)
 	{
 		print_error(strerror(errno), path);
