@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:06:04 by lhojoon           #+#    #+#             */
-/*   Updated: 2024/03/13 21:03:36 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/28 13:35:58 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ int	init_redirect_files(t_cmd_args *cargs, t_exec_info *info)
 
 	red_info = convert_red_info(cargs->redirect);
 	ret = iter_redirect_input(red_info.red_in, &info->redirect.red_in);
-	if (ret != 0)
-		return (ft_lstclear(&red_info.red_in, free), ret);
 	ft_lstclear(&red_info.red_in, free);
+	if (ret != 0)
+		return (ft_lstclear(&red_info.red_out, free), ret);
 	ret = iter_redirect_output(red_info.red_out, &info->redirect.red_out);
 	if (ret != 0)
 		return (ft_lstclear(&info->redirect.red_in, free_redirect),
