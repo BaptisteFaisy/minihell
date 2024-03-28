@@ -6,7 +6,7 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:33:04 by marvin            #+#    #+#             */
-/*   Updated: 2024/03/25 17:29:17 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/28 15:06:43 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	remove_one_element_from_envp(t_list **envp, char *var)
 	curr = *envp;
 	while (curr)
 	{
-		if (ft_strncmp((char *)(*envp)->content, var, ft_strlen(var)) == 0)
+		if (ft_strncmp((char *)(curr)->content, var, ft_strlen(var)) == 0)
 		{
 			tmp = curr->next;
 			free(curr->content);
