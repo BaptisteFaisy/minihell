@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   def.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:16:39 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/16 15:20:16 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/28 13:08:08 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ char			*rmstr(t_string_and_i	stock, char *str, t_storage *storage);
 void			freeheadcmd_init(t_cmd_args *head);
 int				transform_env_skip_i(int i, t_str_pack pack,
 					t_storage **storage);
+void			free_replace_str(char *str, t_storage *storage);
 
 // Execution part
 int				execution(t_cmd_args *cmd_args);

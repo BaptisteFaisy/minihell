@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 21:30:36 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/10 18:55:05 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/28 13:07:42 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,14 @@ char	*replacestr4(char *newstr, char *str, t_indice *indi)
 	indi->k++;
 	indi->i++;
 	return (newstr);
+}
+
+void	free_replace_str(char *str, t_storage *storage)
+{
+	if (storage->deja_malloc_boucle == true)
+	{
+		free(str);
+		storage->deja_malloc_boucle = false;
+	}
+	storage->deja_malloc_boucle = true;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:53:57 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/13 21:05:45 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/03/28 13:05:57 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ int	parsing(char *str, t_list *ev)
 		g_status = execution(head);
 		exit_code = *head->exit_code;
 	}
-	if (storage.cond_env == 1)
-		free(storage.str);
 	freeheadcmd(head);
 	if (exit_code != -1)
 		return ((exit_code << 2) + 3);

@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:12:03 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/11 16:45:47 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/28 12:59:51 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_string_and_i	data_after2(char *str, int i)
 		return (data);
 	while (str[data.i])
 	{
+		if (str[data.i] == '$')
+			return (data);
 		if (str[data.i] == ' ' && str[data.i] != '?')
 			return (data);
 		else

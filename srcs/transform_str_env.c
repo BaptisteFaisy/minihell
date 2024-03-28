@@ -6,7 +6,7 @@
 /*   By: bfaisy <bfaisy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:59:33 by bfaisy            #+#    #+#             */
-/*   Updated: 2024/03/25 16:57:54 by bfaisy           ###   ########.fr       */
+/*   Updated: 2024/03/28 13:08:51 by bfaisy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char	*replacestr(char *strev, char *str, int cond, t_storage *storage)
 		newstr = replacestr4(newstr, str, &indi);
 	newstr[indi.k] = '\0';
 	freestrboucle(storage, str);
-	return (newstr);
+	return (free_replace_str(str, storage), newstr);
 }
 
 void	freestrboucle(t_storage *storage, char *str)
