@@ -6,11 +6,22 @@
 /*   By: lhojoon <lhojoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:33:04 by marvin            #+#    #+#             */
-/*   Updated: 2024/03/28 15:06:43 by lhojoon          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:49:40 by lhojoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	do_first_element(t_list **envp)
+{
+	t_list	*tmp;
+
+	free((*envp)->content);
+	(*envp)->content = (*envp)->next->content;
+	tmp = (*envp)->next;
+	(*envp)->next = (*envp)->next->next;
+	free(tmp);
+}
 
 static void	remove_one_element_from_envp(t_list **envp, char *var)
 {
@@ -24,12 +35,13 @@ static void	remove_one_element_from_envp(t_list **envp, char *var)
 	{
 		if (ft_strncmp((char *)(curr)->content, var, ft_strlen(var)) == 0)
 		{
+			if (prev == NULL)
+				return (do_first_element(envp));
 			tmp = curr->next;
 			free(curr->content);
 			free(curr);
 			curr = tmp;
-			if (prev != NULL)
-				prev->next = curr;
+			prev->next = curr;
 			return ;
 		}
 		prev = curr;
